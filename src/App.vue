@@ -3,15 +3,7 @@
     <nav>
       <TheNav />
     </nav>
-    <v-content>
-      <v-container>
-        <v-row>
-          <v-col cols="12" sm="12" md="10" lg="8"
-            ><router-view :key="$route.fullPath"></router-view
-          ></v-col>
-        </v-row>
-      </v-container>
-    </v-content>
+    <v-content> <router-view :key="$route.fullPath"></router-view> </v-content>
     <footer>
       <TheFooter />
     </footer>

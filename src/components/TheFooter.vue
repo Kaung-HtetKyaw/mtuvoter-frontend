@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="white--text footer deep-purple">
+  <v-container fluid class="white--text footer deep-purple darken-2">
     <v-row>
       <v-container>
         <v-row class="flex-column-reverse flex-md-row">

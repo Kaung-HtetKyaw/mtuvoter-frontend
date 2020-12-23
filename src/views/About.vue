@@ -1,5 +1,18 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <div class="d-flex flex-column justify-center align-center">
+      <Hero />
+    </div>
   </div>
 </template>
+<script>
+import Hero from "@/components/UI/Hero.vue";
+export default {
+  name: "About",
+  components: {
+    Hero,
+  },
+};
+</script>
+
+<style lang="scss" scoped></style>
