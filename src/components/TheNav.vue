@@ -19,7 +19,7 @@
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" temporary fixed app>
+    <v-navigation-drawer v-model="drawer" temporary fixed app >
       <v-list nav dense>
         <v-list-item-group
           v-model="group"
