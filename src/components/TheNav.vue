@@ -1,6 +1,13 @@
 <template>
   <div>
-    <v-app-bar app color="white" flat fixed class="nav-bar">
+    <v-app-bar
+      app
+      hide-on-scroll
+      color="white"
+      flat
+      fixed
+      class="nav-bar px-0 px-md-16 "
+    >
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
         class="d-flex d-md-none"
@@ -8,13 +15,14 @@
 
       <v-img
         class="d-none d-md-flex"
-        src="/img/logo.png"
-        max-width="80px"
+        src="/img/mtuvoter.png"
+        max-width="150px"
       ></v-img>
-      <v-toolbar-title class="pl-3 pl-md-0">Mtuvoter</v-toolbar-title>
+      <!-- <v-toolbar-title class="pl-3 pl-md-0  ">Mtuvoter</v-toolbar-title> -->
       <v-spacer></v-spacer>
 
-      <div>
+      <div class="d-flex flex-row align-center justify-center">
+        <BaseAvatar />
         <BaseSearch />
       </div>
     </v-app-bar>
@@ -47,10 +55,12 @@
 </template>
 <script>
 import BaseSearch from "@/components/BaseSearch.vue";
+import BaseAvatar from "@/components/Base/BaseUserAvatar.vue";
 export default {
   name: "TheNav",
   components: {
     BaseSearch,
+    BaseAvatar,
   },
   data: () => ({
     drawer: false,
@@ -65,4 +75,7 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.logo
+  font-size: 30px
+</style>
