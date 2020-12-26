@@ -11,14 +11,28 @@
         src="/img/mtuvoter.png"
         max-width="150px"
       ></v-img>
-      <!-- <v-toolbar-title class="pl-3 pl-md-0  ">Mtuvoter</v-toolbar-title> -->
-      <v-spacer></v-spacer>
-      <div class="d-flex flex-row align-center justify-center">
+      <div class="d-flex flex-row align-center justify-center ml-12">
         <div class="d-none d-md-flex justify-centeer align-center">
-          <a class="navbar-item--text mx-2 font-weight-medium">Sign in</a>
+          <a class="navbar-item--text mx-2 font-weight-medium">Newsletter</a>
+          <a class="navbar-item--text mx-2 font-weight-medium">Elections</a>
+          <a class="navbar-item--text mx-2 font-weight-medium">FAQ</a>
+        </div>
+
+        <!-- <BaseSearch /> -->
+      </div>
+      <!-- <v-toolbar-title class="pl-3 pl-md-0  ">Mtuvoter</v-toolbar-title> -->
+      <v-spacer class=""></v-spacer>
+      <div class="d-flex flex-row align-center justify-center">
+        <div class="d-flex flex-row justify-centeer align-center">
+          <BaseUserAvatar />
+
+          <a
+            class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+            >Sign in</a
+          >
           <v-btn
             elevation="0"
-            class="deep-purple darken-2 white--text text-capitalize mx-2 font-weight-medium"
+            class="d-none d-md-flex  deep-purple darken-2 white--text text-capitalize mx-2 font-weight-medium"
             >Create account</v-btn
           >
         </div>
@@ -27,38 +41,26 @@
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" temporary fixed app>
-      <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text darken-2 text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
+    <v-navigation-drawer bottom v-model="drawer" temporary fixed app>
+      <v-list>
+        <UserDrawer />
+        <BaseNavigationDrawer />
       </v-list>
     </v-navigation-drawer>
   </div>
 </template>
 <script>
 // import BaseSearch from "@/components/BaseSearch.vue";
+import BaseUserAvatar from "@/components/Base/BaseUserAvatar.vue";
+import BaseNavigationDrawer from "@/components/Base/BaseNavigationDrawer.vue";
+import UserDrawer from "@/components/User/UserDrawer.vue";
 export default {
   name: "TheNav",
   components: {
     // BaseSearch,
+    BaseUserAvatar,
+    BaseNavigationDrawer,
+    UserDrawer,
   },
   data: () => ({
     drawer: false,
@@ -77,18 +79,22 @@ export default {
 .navbar {
   &-item {
     &--text {
+      font-size: 17px;
       position: relative;
       padding: 4px 0px;
+      transition: all 0.2s ease-in;
       &::before {
         content: "";
         width: 50%;
-        height: 2px;
+        height: 3px;
         position: absolute;
         bottom: 0;
         left: 0;
         background-color: #5545a7;
-        transform: all 0.3s;
-        &:hover {
+        transition: all 0.2s ease-in;
+      }
+      &:hover {
+        &::before {
           width: 100%;
         }
       }

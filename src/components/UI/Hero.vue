@@ -63,7 +63,7 @@ $deep-purple: #6a4db7;
 .hero {
   &-wrapper {
     width: 100%;
-    height: 400px;
+    height: 80vh;
     //  background-color:#6a4db7 ;
   }
   &-title {
