@@ -13,9 +13,17 @@
       ></v-img>
       <!-- <v-toolbar-title class="pl-3 pl-md-0  ">Mtuvoter</v-toolbar-title> -->
       <v-spacer></v-spacer>
-
       <div class="d-flex flex-row align-center justify-center">
-        <BaseSearch />
+        <div class="d-none d-md-flex justify-centeer align-center">
+          <a class="navbar-item--text mx-2 font-weight-medium">Sign in</a>
+          <v-btn
+            elevation="0"
+            class="deep-purple darken-2 white--text text-capitalize mx-2 font-weight-medium"
+            >Create account</v-btn
+          >
+        </div>
+
+        <!-- <BaseSearch /> -->
       </div>
     </v-app-bar>
 
@@ -46,11 +54,11 @@
   </div>
 </template>
 <script>
-import BaseSearch from "@/components/BaseSearch.vue";
+// import BaseSearch from "@/components/BaseSearch.vue";
 export default {
   name: "TheNav",
   components: {
-    BaseSearch,
+    // BaseSearch,
   },
   data: () => ({
     drawer: false,
@@ -65,7 +73,26 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.logo
-  font-size: 30px
+<style lang="scss" scoped>
+.navbar {
+  &-item {
+    &--text {
+      position: relative;
+      padding: 4px 0px;
+      &::before {
+        content: "";
+        width: 50%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: #5545a7;
+        transform: all 0.3s;
+        &:hover {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
 </style>

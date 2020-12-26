@@ -1,8 +1,10 @@
 <template>
-  <v-container class="elections-overview">
+  <v-container class="elections-overview py-4">
     <v-row>
       <v-col cols="12" sm="12" class="px-3 px-md-0 d-flex justify-center">
-        <h2 class="text-h5 elections-overview--title workssan d-inline-block">
+        <h2
+          class="text-h5 elections-overview--title workssan d-inline-block font-weight-medium"
+        >
           Elections
         </h2>
       </v-col>

@@ -11,7 +11,10 @@
             >MTU Student Union 2020</v-card-title
           >
           <v-timeline align-top dense>
-            <v-timeline-item color="#5545A8" small>
+            <v-timeline-item color="#54AF51" small>
+              <template v-slot:opposite>
+                <span>Starts</span>
+              </template>
               <div>
                 <div class="font-weight-normal">
                   8 Aug 2020 10:00AM
@@ -19,7 +22,7 @@
               </div>
             </v-timeline-item>
 
-            <v-timeline-item color="#5545A8" small>
+            <v-timeline-item color="#E53935" small>
               <div>
                 <div class="font-weight-normal">
                   8 Aug 2020 10:00AM
@@ -27,8 +30,9 @@
               </div>
             </v-timeline-item>
           </v-timeline>
+
           <v-divider></v-divider>
-          <v-card-actions class="px-4 my-3  d-flex justify-center">
+          <v-card-actions class="px-4 py-3 d-flex justify-center">
             <v-btn
               class="text-capitalize election-btn deep-purple darken-2 white--text font-weight-light"
               :ripple="false"

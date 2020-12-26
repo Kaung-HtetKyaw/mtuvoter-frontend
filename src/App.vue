@@ -1,24 +1,14 @@
 <template>
-  <v-app>
-    <nav>
-      <TheNav />
-    </nav>
-    <v-content> <router-view :key="$route.fullPath"></router-view> </v-content>
-    <footer>
-      <TheFooter />
-    </footer>
-  </v-app>
+  <Layout> <router-view :key="$route.fullPath"></router-view></Layout>
 </template>
 
 <script>
-import TheNav from "@/components/TheNav";
-import TheFooter from "@/components/TheFooter";
+import Layout from "@/layouts/AppLayout.vue";
 
 export default {
   name: "App",
   components: {
-    TheNav,
-    TheFooter,
+    Layout,
   },
 
   data: () => ({
