@@ -1,5 +1,5 @@
 <template>
-  <v-container class="elections-overview py-4">
+  <v-container class="elections-overview py-10">
     <v-row>
       <v-col cols="12" sm="12" class="px-3 px-md-0 d-flex justify-center">
         <h2
@@ -14,7 +14,7 @@
         <ElectionCard />
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="my-6">
       <v-col cols="12" sm="12">
         <div class="d-flex justify-center">
           <button class="learn-more workssan">

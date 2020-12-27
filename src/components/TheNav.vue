@@ -18,18 +18,20 @@
           <a class="navbar-item--text mx-2 font-weight-medium">FAQ</a>
         </div>
 
-        <!-- <BaseSearch /> -->
+        <slot />
       </div>
       <!-- <v-toolbar-title class="pl-3 pl-md-0  ">Mtuvoter</v-toolbar-title> -->
       <v-spacer class=""></v-spacer>
       <div class="d-flex flex-row align-center justify-center">
         <div class="d-flex flex-row justify-centeer align-center">
           <BaseUserAvatar />
-
-          <a
-            class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
-            >Sign in</a
+          <router-link :to="{ name: 'Login' }">
+            <a
+              class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+              >Sign in</a
+            ></router-link
           >
+
           <v-btn
             elevation="0"
             class="d-none d-md-flex  deep-purple darken-2 white--text text-capitalize mx-2 font-weight-medium"

@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="about">
+    <div class="d-flex flex-column justify-center align-center">
+      <Hero />
+    </div>
+    <div class="deep-purple darken-2 white--text">
+      <ElectionOverview />
+    </div>
+    <div class="deep-purple--text darken-2">
+      <NewsOverview />
+    </div>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import Hero from "@/components/UI/Hero.vue";
+import ElectionOverview from "@/components/UI/ElectionOverview.vue";
+import NewsOverview from "@/components/UI/NewsOverview.vue";
 export default {
-  name: "Home",
+  name: "About",
   components: {
-    HelloWorld
-  }
+    Hero,
+    ElectionOverview,
+    NewsOverview,
+  },
 };
 </script>
+
+<style lang="scss" scoped></style>

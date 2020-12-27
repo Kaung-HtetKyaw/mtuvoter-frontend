@@ -31,7 +31,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  // props:{
+  //   news:{
+  //     type:Object,
+  //     required:true
+  //   }
+  // }
+};
 </script>
 
 <style lang="scss" scoped>
