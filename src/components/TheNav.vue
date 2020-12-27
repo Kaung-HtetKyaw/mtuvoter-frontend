@@ -5,20 +5,20 @@
         @click.stop="drawer = !drawer"
         class="d-flex d-md-none"
       ></v-app-bar-nav-icon>
+      <router-link to="/">
+        <v-img
+          class="d-none d-md-flex"
+          src="/img/mtuvoter.png"
+          max-width="150px"
+        ></v-img
+      ></router-link>
 
-      <v-img
-        class="d-none d-md-flex"
-        src="/img/mtuvoter.png"
-        max-width="150px"
-      ></v-img>
       <div class="d-flex flex-row align-center justify-center ml-12">
         <div class="d-none d-md-flex justify-centeer align-center">
           <a class="navbar-item--text mx-2 font-weight-medium">Newsletter</a>
           <a class="navbar-item--text mx-2 font-weight-medium">Elections</a>
           <a class="navbar-item--text mx-2 font-weight-medium">FAQ</a>
         </div>
-
-        <slot />
       </div>
       <!-- <v-toolbar-title class="pl-3 pl-md-0  ">Mtuvoter</v-toolbar-title> -->
       <v-spacer class=""></v-spacer>
@@ -37,6 +37,7 @@
             class="d-none d-md-flex  deep-purple darken-2 white--text text-capitalize mx-2 font-weight-medium"
             >Create account</v-btn
           >
+          <slot name="search"></slot>
         </div>
 
         <!-- <BaseSearch /> -->

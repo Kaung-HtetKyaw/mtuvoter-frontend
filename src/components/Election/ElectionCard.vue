@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="#F9F9F9" :rounded="true" class="workssan">
+    <v-card color="#F9F9F9" :rounded="true" class="workssan" elevation="1">
       <div>
         <div>
           <v-chip small class="ma-2" color="deep-purple darken-2 white--text">
@@ -32,7 +32,7 @@
           </v-timeline>
 
           <v-divider></v-divider>
-          <v-card-actions class="px-4 py-3 d-flex justify-center">
+          <v-card-actions class="px-4 py-4 d-flex justify-center">
             <v-btn
               class="text-capitalize election-btn deep-purple darken-2 white--text font-weight-light"
               :ripple="false"

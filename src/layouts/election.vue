@@ -2,7 +2,9 @@
   <v-app>
     <nav>
       <TheNav>
-        <BaseSearch />
+        <template #search>
+          <BaseSearch />
+        </template>
       </TheNav>
     </nav>
     <v-main> <slot /></v-main>

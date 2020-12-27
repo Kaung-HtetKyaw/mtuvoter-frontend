@@ -21,7 +21,9 @@
             <span class="circle" aria-hidden="true">
               <span class="icon arrow"></span>
             </span>
-            <span class="button-text">View All</span>
+            <router-link :to="{ name: 'Elections' }">
+              <span class="button-text">View All</span></router-link
+            >
           </button>
         </div>
       </v-col>

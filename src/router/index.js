@@ -2,6 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from "nprogress";
 
+// routes
+import electionRoutes from "./election";
+
 const options = {
   latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
 };
@@ -38,6 +41,7 @@ const routes = [
       layout: "error",
     },
   },
+  ...electionRoutes,
   {
     path: "*",
     redirect: { name: "404" },
