@@ -21,17 +21,24 @@
         <ElectionCard />
       </v-col>
     </v-row>
+    <v-row class="my-6">
+      <v-col cols="12" sm="12" class="d-flex justify-center align-center">
+        <BaseLoader />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import ElectionCard from "@/components/Election/ElectionCard.vue";
 import ElectionQuote from "@/components/UI/BlockquoteElection.vue";
+import BaseLoader from "@/components/Base/BaseLoader.vue";
 export default {
   name: "Elections",
   components: {
     ElectionCard,
     ElectionQuote,
+    BaseLoader,
   },
 };
 </script>

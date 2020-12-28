@@ -34,7 +34,7 @@
           <v-divider></v-divider>
           <v-card-actions class="px-4 py-4 d-flex justify-center">
             <v-btn
-              class="text-capitalize election-btn deep-purple darken-2 white--text font-weight-light"
+              class="text-capitalize election-btn deep-purple darken-2 white--text font-weight-medium"
               :ripple="false"
               elevation="0"
               >See Results</v-btn

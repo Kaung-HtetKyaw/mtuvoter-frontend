@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <h1>ALo This is error page</h1>
     <slot />
   </v-app>
 </template>

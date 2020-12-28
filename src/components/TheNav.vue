@@ -16,7 +16,12 @@
       <div class="d-flex flex-row align-center justify-center ml-12">
         <div class="d-none d-md-flex justify-centeer align-center">
           <a class="navbar-item--text mx-2 font-weight-medium">Newsletter</a>
-          <a class="navbar-item--text mx-2 font-weight-medium">Elections</a>
+          <router-link :to="{ name: 'Elections' }">
+            <a class="navbar-item--text mx-2 font-weight-medium"
+              >Elections</a
+            ></router-link
+          >
+
           <a class="navbar-item--text mx-2 font-weight-medium">FAQ</a>
         </div>
       </div>
