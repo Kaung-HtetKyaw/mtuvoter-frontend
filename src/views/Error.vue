@@ -5,6 +5,7 @@
       color="white"
       class="deep-purple--text darken-2 text-capitalize"
       depressed
+      to="/"
       >Back to home</v-btn
     >
   </div>

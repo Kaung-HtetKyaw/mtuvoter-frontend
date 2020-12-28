@@ -24,7 +24,6 @@ export default {
     group: null,
     searchClosed: true,
   }),
-
   watch: {
     group() {
       this.drawer = false;

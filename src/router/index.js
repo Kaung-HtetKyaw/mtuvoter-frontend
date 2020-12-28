@@ -2,8 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from "nprogress";
 
+import NotFound from "@/views/Error.vue";
+
 // routes
 import electionRoutes from "./election";
+import newsRoutes from "./news";
 
 const options = {
   latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
@@ -32,16 +35,21 @@ const routes = [
       layout: "about",
     },
   },
+  ...electionRoutes,
+  ...newsRoutes,
+  {
+    path: "/faq",
+    name: "FAQ",
+    component: () => import(/* webpackChunkName: "faq" */ "../views/FAQ.vue"),
+  },
   {
     path: "/error",
     name: "404",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Error.vue"),
+    component: NotFound,
     meta: {
       layout: "error",
     },
   },
-  ...electionRoutes,
   {
     path: "*",
     redirect: { name: "404" },
