@@ -8,4 +8,10 @@ export default [
       layout: "election",
     },
   },
+  {
+    path: "/elections/:id",
+    name: "Election",
+    component: () =>
+      import(/* webpackChunkName: "election" */ "../views/Election.vue"),
+  },
 ];
