@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <v-container class="election py-0">
     <v-row class="flex-column-reverse flex-md-row">
@@ -44,21 +45,24 @@
           class="my-6 text-body-2 text-md-subtitle-1 text-center text-md-left"
         >
           <div>
-            <h3 class="election__link py-2 deep-purple--text darken-2">
-              အရည်အချင်းသတ်မှတ်ချက်
+            <h3
+              class="election__link py-2 deep-purple--text darken-2"
+              @click="$vuetify.goTo('#position-1')"
+            >
+              ဥက္ကဌ ရွေးချယ်ခံ
             </h3>
             <v-divider class="my-2"></v-divider>
           </div>
 
           <div>
             <h3 class="election__link py-2 deep-purple--text darken-2">
-              အရည်အချင်းသတ်မှတ်ချက်
+              အတွင်းရေးမှူး ရွေးချယ်ခံ
             </h3>
             <v-divider class="my-2"></v-divider>
           </div>
           <div>
             <h3 class="election__link py-2 deep-purple--text darken-2">
-              အရည်အချင်းသတ်မှတ်ချက်
+              မဲရလဒ်များ
             </h3>
             <v-divider class="my-2"></v-divider>
           </div>
@@ -66,19 +70,66 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="12"> </v-col>
+      <v-col
+        cols="12"
+        sm="12"
+        md="9"
+        class="d-flex flex-column justify-center align-start"
+        id="position-1"
+      >
+        <div class="election__title--wrapper py-3">
+          <h1
+            class="deep-purple--text darken-2 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
+          >
+            ဥက္ကဌ ရွေးချယ်ခံ
+          </h1>
+        </div>
+        <div class=" election__content font-weight-medium my-4">
+          <div class="position__description">
+            <p>
+              ဥက္ကဌသည် အခြေခံမူပါ မူဝါဒ/ရည်ရွယ်ချက်/မျှော်မှန်းချက်များကို
+              အကောင်အထည်ဖော်ရန် အဓိကတာဝန်ဖြစ်သည် <br />
+              ကျောင်းသားထုတစ်ရပ်လုံး၏ ပြောရေးဆိုခွင့်ရှိသူဖြစ်ပြီး
+              ကျောင်းသားထု​၏ အခွင့်အရေးများကို ကာကွယ်ပေးရမည့်သူဖြစ်သည် <br />
+              ပြင်ပဆက်ဆံရေးကိစ္စရပ်များကို ခွင့်ပြုစိစစ်ကာ
+              ကျောင်းသားကျောင်းသူများ​၏ အခက်အခဲများကို ပူးပေါင်းဖြေရှင်းရမည်
+            </p>
+          </div>
+        </div>
+        <div class="candidates">
+          <div class="election__title--wrapper py-3">
+            <h2
+              class="deep-purple--text darken-2 text-h6 text-md-h6 text-lg-h6 font-weight-bold workssan election__title text-center text-md-left py-2"
+            >
+              ကိုယ်စားလှယ်လောင်းများ
+            </h2>
+          </div>
+          <div>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12"> <CandidateCard /> </v-col>
+              </v-row>
+            </v-container>
+          </div>
+        </div>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import CandidateCard from "@/components/Candidate/CandidateCard.vue";
 export default {
-  props: {
-    news: {
-      type: Object,
-      required: true,
-    },
+  name: "Election",
+  components: {
+    CandidateCard,
   },
+  // props: {
+  //   news: {
+  //     type: Object,
+  //     required: true,
+  //   },
+  // },
 };
 </script>
 
@@ -111,7 +162,11 @@ export default {
   }
   &__link {
     opacity: 0.7;
+    cursor: pointer;
     //  border-bottom: 2px solid rgba(85, 69, 168, 0.3);
   }
+}
+.candidates {
+  width: 100%;
 }
 </style>
