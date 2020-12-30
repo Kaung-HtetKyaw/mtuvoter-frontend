@@ -15,7 +15,9 @@
             မန္တလေးနည်းပညာတက္ကသိုလ်ကျောင်းသားသမဂ္ဂ ရွေးကောက်ပွဲ ၂၀၂၀
           </h1>
         </div>
-        <div class="election__content font-weight-medium my-4">
+        <div
+          class="election__content font-weight-medium my-4 font-weight-bold px-1"
+        >
           <p>
             လွှတ်တော်ကိုယ်စားလှယ်လောင်းများ ရွေးကောက် တင်မြှောက်ခံနိုင်ရေး အတွက်
             အမည်စာရင်း တင်သွင်းလွှာ တင်သွင်းချိန်တွင် ပြည်သူ့လွှတ်တော်၊
@@ -55,7 +57,10 @@
           </div>
 
           <div>
-            <h3 class="election__link py-2 deep-purple--text darken-2">
+            <h3
+              class="election__link py-2 deep-purple--text darken-2"
+              @click="$vuetify.goTo('#position-2')"
+            >
               အတွင်းရေးမှူး ရွေးချယ်ခံ
             </h3>
             <v-divider class="my-2"></v-divider>
@@ -84,7 +89,7 @@
             ဥက္ကဌ ရွေးချယ်ခံ
           </h1>
         </div>
-        <div class=" election__content font-weight-medium my-4">
+        <div class=" election__content font-weight-bold my-4">
           <div class="position__description">
             <p>
               ဥက္ကဌသည် အခြေခံမူပါ မူဝါဒ/ရည်ရွယ်ချက်/မျှော်မှန်းချက်များကို
@@ -107,7 +112,58 @@
           <div>
             <v-container>
               <v-row>
-                <v-col cols="12" sm="12"> <CandidateCard /> </v-col>
+                <v-col cols="12" sm="12" v-for="i in 3" :key="i">
+                  <CandidateCard />
+                  <v-divider></v-divider>
+                </v-col>
+              </v-row>
+            </v-container>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col
+        cols="12"
+        sm="12"
+        md="9"
+        class="d-flex flex-column justify-center align-start"
+        id="position-2"
+      >
+        <div class="election__title--wrapper py-3">
+          <h1
+            class="deep-purple--text darken-2 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
+          >
+            အတွင်းရေးမှူး ရွေးချယ်ခံ
+          </h1>
+        </div>
+        <div class=" election__content font-weight-bold my-4">
+          <div class="position__description">
+            <p>
+              ဥက္ကဌသည် အခြေခံမူပါ မူဝါဒ/ရည်ရွယ်ချက်/မျှော်မှန်းချက်များကို
+              အကောင်အထည်ဖော်ရန် အဓိကတာဝန်ဖြစ်သည် <br />
+              ကျောင်းသားထုတစ်ရပ်လုံး၏ ပြောရေးဆိုခွင့်ရှိသူဖြစ်ပြီး
+              ကျောင်းသားထု​၏ အခွင့်အရေးများကို ကာကွယ်ပေးရမည့်သူဖြစ်သည် <br />
+              ပြင်ပဆက်ဆံရေးကိစ္စရပ်များကို ခွင့်ပြုစိစစ်ကာ
+              ကျောင်းသားကျောင်းသူများ​၏ အခက်အခဲများကို ပူးပေါင်းဖြေရှင်းရမည်
+            </p>
+          </div>
+        </div>
+        <div class="candidates">
+          <div class="election__title--wrapper py-3">
+            <h2
+              class="deep-purple--text darken-2 text-h6 text-md-h6 text-lg-h6 font-weight-bold workssan election__title text-center text-md-left py-2"
+            >
+              ကိုယ်စားလှယ်လောင်းများ
+            </h2>
+          </div>
+          <div>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" v-for="i in 3" :key="i">
+                  <CandidateCard />
+                  <v-divider></v-divider>
+                </v-col>
               </v-row>
             </v-container>
           </div>
@@ -159,6 +215,7 @@ export default {
   &__content {
     font-size: 17px;
     line-height: 2.5;
+    opacity: 0.8;
   }
   &__link {
     opacity: 0.7;
