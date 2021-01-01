@@ -40,16 +40,39 @@
             </blockquote>
           </div>
           <div class="d-flex flex-column justify-center align-center">
-            <v-btn
-              depressed
-              color="deep-purple darken-2 white--text text-capitalize"
-              block
-              >Vote</v-btn
-            >
-            <a
-              class="black--text text--secondary my-2 text-decoration-underline"
-              >See ကျော်တိုးတိုးဟန်'s candidate profile page</a
-            >
+            <transition name="fade" mode="out-in"
+              ><v-btn
+                depressed
+                color="deep-purple darken-2 white--text text-capitalize"
+                block
+                @mouseover="show = true"
+                @mouseleave="show = false"
+                v-if="!show"
+                >Vote</v-btn
+              >
+              <div
+                v-else
+                @mouseleave="show = false"
+                class="d-flex flex-column flex-md-row justify-center align-center"
+              >
+                <v-btn
+                  color="deep-purple darken-2"
+                  class="white--text mx-2"
+                  depressed
+                  small
+                  >Login</v-btn
+                >
+                <div>
+                  <v-icon color="deep-purple darken-2" size="20" class="mx-2"
+                    >mdi-lock-open-outline</v-icon
+                  >
+                  <span
+                    class="text-body-2 deep-purple--text darken-2 font-weight-medium"
+                    >To access this action</span
+                  >
+                </div>
+              </div>
+            </transition>
           </div>
         </div>
       </v-col>
@@ -58,7 +81,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      show: false,
+    };
+  },
+};
 </script>
 
 <style lang="scss">

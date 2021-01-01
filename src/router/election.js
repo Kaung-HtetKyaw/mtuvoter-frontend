@@ -9,7 +9,7 @@ export default [
     },
   },
   {
-    path: "/elections/:id",
+    path: "/elections/:election",
     name: "Election",
     component: () =>
       import(/* webpackChunkName: "election" */ "../views/Election.vue"),

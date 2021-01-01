@@ -37,7 +37,7 @@
               class="text-capitalize election-btn deep-purple darken-2 white--text font-weight-medium"
               :ripple="false"
               elevation="0"
-              :to="{ name: 'Election', params: { id: 'alo' } }"
+              :to="{ name: 'Election', params: { election: 'alo' } }"
               >View Details</v-btn
             >
           </v-card-actions>
