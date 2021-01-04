@@ -5,31 +5,30 @@
         <h1
           class="text-center text-sm-h6 text-md-h4 font-weight-bold deep-purple--text darken-2"
         >
-          {{ article.title }}
+          {{ news.title }}
         </h1>
         <h3
           class="text-center opacity-7 text-subtitle-2  font-weight-medium font-italic my-4"
         >
-          {{ article.description }}
+          {{ news.description }}
         </h3>
       </div>
-      <!-- 
+
       <div>
         <v-sheet
           height="400px"
-          v-if="article.photo.url"
+          v-if="filePreview"
           :style="{
-            backgroundImage: `url(${article.photo.url})`,
+            backgroundImage: `url(${filePreview})`,
 
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
           }"
           class="mb-6"
         ></v-sheet>
-      </div> -->
+      </div>
 
-      <vue-markdown :content="article.content"></vue-markdown>
+      <vue-markdown :content="news.content"></vue-markdown>
     </div>
   </div>
 </template>
@@ -42,13 +41,16 @@ export default {
     "vue-markdown": MarkDown,
   },
   props: {
-    article: {
+    news: {
       type: Object,
       required: true,
     },
+    filePreview: {
+      required: false,
+    },
   },
   created() {
-    console.log("PREVIEW", this.article);
+    console.log("PREVIEW", this.news);
   },
   methods: {},
   computed: {

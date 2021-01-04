@@ -2,11 +2,11 @@
   <div class="test--wrapper">
     <div>
       <v-container class="px-0">
-        <v-row dense v-if="!valid">
+        <!-- <v-row dense v-if="!valid">
           <v-alert border="left" color="red " dark
             >Article title can't be empty</v-alert
           >
-        </v-row>
+        </v-row> -->
         <v-row>
           <v-col cols="12" sm="12">
             <template>
@@ -62,9 +62,9 @@
                         <v-col cols="12" sm="12" class="pa-sm-3 pa-md-6">
                           <component
                             v-bind:is="item.component"
-                            :article="article"
-                            :file="file"
-                            @articleChanged="listenArticleChange"
+                            :news="news"
+                            :filePreview="filePreview"
+                            @newsChanged="listenNewsChange"
                             @fileChaged="listenFileChange"
                           ></component>
                         </v-col>
@@ -85,14 +85,14 @@
                 class="white--text"
                 depressed
                 :loading="loading"
-                @click="createArticle(writeFB)"
+                @click="createNews()"
                 >Publish</v-btn
               >
               <v-btn
                 depressed
                 color="indigo lighten-4"
                 class="white--text"
-                @click="cancelArticle"
+                @click="cancel"
                 >Cancel</v-btn
               >
             </div>
@@ -106,21 +106,23 @@
 <script>
 import NewsForm from "@/components/Form/NewsForm";
 import NewsPreview from "@/components/News/NewsPreview";
+import newsWriteModel from "@/components/Renderless/NewsCrud/WriteModel.vue";
 
 export default {
   components: {
     newsForm: NewsForm,
     newsPreview: NewsPreview,
+    "write-news": newsWriteModel,
   },
   data() {
     return {
       tab: null,
-      article: {
-        content: "",
-      },
-      file: {},
-      valid: true,
+      filePreview: {},
       loading: false,
+      news: {
+        title: "this is title",
+        content: "this is content",
+      },
       tabItems: [
         {
           title: "Write",
@@ -134,19 +136,20 @@ export default {
     };
   },
   methods: {
-    listenArticleChange(article) {
-      this.article = article;
+    listenNewsChange(news) {
+      this.news = news;
     },
-    listenFileChange(file) {
-      this.file = file;
+    listenFileChange(filePreview) {
+      this.filePreview = filePreview;
+      console.log(filePreview);
     },
-    createArticle() {
+    createNews() {
       let vm = this;
       vm.loading = true;
       vm.valid = true;
       //terminate if title is empty
     },
-    cancelArticle() {
+    cancel() {
       this.$router.push("/");
     },
   },

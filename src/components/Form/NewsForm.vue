@@ -15,7 +15,7 @@
             hide-input
             class="pa-0 ma-0 white--text"
             @change="emitFile"
-            v-model="clonedFile"
+            v-model="clonedNews.photo"
           ></v-file-input>
         </v-btn>
         <span class="text-sm-subtitle-2 text-md-h6 grey--text lighten-1 ml-3"
@@ -28,8 +28,8 @@
           label="Solo"
           placeholder="Article title here..."
           solo
-          v-model="clonedArticle.title"
-          @change="emitArticle"
+          v-model="clonedNews.title"
+          @change="emitNews"
           class="text-h6 text-md-h5 font-weight-medium grey--text darken-2"
         ></v-textarea>
       </div>
@@ -40,8 +40,8 @@
           solo
           auto-grow
           class="text-subtitle-1 font-weight-medium grey--text darken-1"
-          v-model="clonedArticle.content"
-          @change="emitArticle"
+          v-model="clonedNews.content"
+          @change="emitNews"
         ></v-textarea>
       </div>
     </v-form>
@@ -50,47 +50,41 @@
 
 <script>
 import { mapState } from "vuex";
+import { previewImg } from "@/utils/utils.js";
 
 export default {
   components: {},
   props: {
-    article: {
+    news: {
       type: Object,
       required: true,
     },
   },
   data() {
     return {
-      clonedFile: {},
       tags: [],
-      clonedArticle: {},
+      clonedNews: {},
+      filePreview: null,
     };
   },
-  watch: {
-    "clonedArticle.tags": {
-      deep: true,
-      handler: function() {
-        this.$emit("articleChanged", this.clonedArticle);
-      },
-    },
-  },
+
   created() {
-    this.clonedArticle = { ...this.article };
-    this.clonedFile = this.file;
+    this.clonedNews = { ...this.news };
   },
 
   methods: {
-    emitArticle() {
-      this.$emit("articleChanged", this.clonedArticle);
-      console.log(this.clonedArticle);
+    emitNews() {
+      console.log("changed");
+      this.$emit("newsChanged", this.clonedNews);
+      console.log(this.clonedNews);
     },
     emitFile(file) {
-      this.previewImg(file);
-      this.$emit("fileChaged", this.clonedFile);
-    },
-    previewImg(file) {
+      console.log(this.clonedNews);
       if (file) {
-        console.log(file);
+        let vm = this;
+        previewImg(file, (preview) => {
+          vm.$emit("fileChaged", preview);
+        });
       }
     },
   },
