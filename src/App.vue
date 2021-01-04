@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout class="main__wrapper">
     <NotificationContainer />
     <transition name="fade" tag="div"
       ><router-view :key="$route.fullPath"></router-view

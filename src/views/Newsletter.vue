@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mt-4 mb-8 py-0 ">
+  <v-container class="mt-4 mb-8 py-0 newsletter">
     <v-row>
       <v-col
         cols="12"
@@ -56,4 +56,7 @@ export default {
     }
   }
 }
+// .newsletter {
+//   background-color: #edf3ff;
+// }
 </style>

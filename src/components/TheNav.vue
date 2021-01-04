@@ -1,6 +1,13 @@
 <template>
   <div>
-    <v-app-bar app color="white" flat fixed class="nav-bar px-0 px-md-16 ">
+    <v-app-bar
+      app
+      hide-on-scroll
+      color="white"
+      flat
+      fixed
+      class="nav-bar px-0 px-md-16 "
+    >
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
         class="d-flex d-md-none"

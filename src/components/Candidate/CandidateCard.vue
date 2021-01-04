@@ -40,39 +40,44 @@
             </blockquote>
           </div>
           <div class="d-flex flex-column justify-center align-center">
-            <transition name="fade" mode="out-in"
-              ><v-btn
-                depressed
-                color="deep-purple darken-2 white--text text-capitalize"
-                block
-                @mouseover="show = true"
-                @mouseleave="show = false"
-                v-if="!show"
-                >Vote</v-btn
-              >
-              <div
-                v-else
-                @mouseleave="show = false"
-                class="d-flex flex-column flex-md-row justify-center align-center"
-              >
-                <v-btn
-                  color="deep-purple darken-2"
-                  class="white--text mx-2"
-                  depressed
-                  small
-                  >Login</v-btn
-                >
-                <div>
-                  <v-icon color="deep-purple darken-2" size="20" class="mx-2"
-                    >mdi-lock-open-outline</v-icon
+            <AuthCheck>
+              <template v-slot="{ loginNeeded, showLoginAction }">
+                <transition name="fade" mode="out-in">
+                  <v-btn
+                    depressed
+                    color="deep-purple darken-2 white--text text-capitalize"
+                    block
+                    @click="showLoginAction"
+                    v-if="!loginNeeded"
+                    >Vote</v-btn
                   >
-                  <span
-                    class="text-body-2 deep-purple--text darken-2 font-weight-medium"
-                    >To access this action</span
+                  <div
+                    v-else
+                    class="d-flex flex-column flex-md-row justify-center align-center"
                   >
-                </div>
-              </div>
-            </transition>
+                    <v-btn
+                      color="deep-purple darken-2"
+                      class="white--text mx-2"
+                      depressed
+                      small
+                      >Login</v-btn
+                    >
+                    <div>
+                      <v-icon
+                        color="deep-purple darken-2"
+                        size="20"
+                        class="mx-2"
+                        >mdi-lock-open-outline</v-icon
+                      >
+                      <span
+                        class="text-body-2 deep-purple--text darken-2 font-weight-medium"
+                        >To access this action</span
+                      >
+                    </div>
+                  </div>
+                </transition>
+              </template>
+            </AuthCheck>
           </div>
         </div>
       </v-col>
@@ -81,11 +86,20 @@
 </template>
 
 <script>
+import AuthCheck from "@/components/Renderless/AuthCheck.vue";
+
 export default {
+  name: "CandidateCard",
+  components: {
+    AuthCheck,
+  },
   data() {
-    return {
-      show: false,
-    };
+    return {};
+  },
+  methods: {
+    alo() {
+      alert("alo");
+    },
   },
 };
 </script>
