@@ -2,9 +2,7 @@
   <div>
     <div class="white pa-sm-6 pa-md-12 rounded-xl article-view bs-border">
       <div class="pa-4">
-        <h1
-          class="text-center text-sm-h6 text-md-h4 font-weight-bold deep-purple--text darken-2"
-        >
+        <h1 class="text-center text-sm-h6 text-md-h4 font-weight-bold ">
           {{ news.title }}
         </h1>
         <h3
@@ -17,9 +15,9 @@
       <div>
         <v-sheet
           height="400px"
-          v-if="filePreview"
+          v-if="filePreview || news.photo"
           :style="{
-            backgroundImage: `url(${filePreview})`,
+            backgroundImage: `url(${filePreview || news.photo})`,
 
             backgroundSize: 'contain',
             backgroundPosition: 'center',
@@ -35,7 +33,6 @@
 
 <script>
 import MarkDown from "@/components/Base/BaseMarkdown";
-import { mapGetters } from "vuex";
 export default {
   components: {
     "vue-markdown": MarkDown,
@@ -49,15 +46,8 @@ export default {
       required: false,
     },
   },
-  created() {
-    console.log("PREVIEW", this.news);
-  },
+
   methods: {},
-  computed: {
-    ...mapGetters({
-      getTagByID: "tag/getTagByID",
-    }),
-  },
 };
 </script>
 

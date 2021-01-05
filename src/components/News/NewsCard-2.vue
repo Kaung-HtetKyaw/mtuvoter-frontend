@@ -1,6 +1,6 @@
 <template>
   <v-container class="news-card-2">
-    <router-link :to="{ name: 'Election', params: { id: 'alo' } }">
+    <router-link :to="{ name: 'News-Single', params: { news: 'alo' } }">
       <v-row class="flex-column-reverse flex-md-row">
         <v-col cols="12" sm="12" md="10">
           <h2 class="text-decoration-underline my-2 news-card-2__title">

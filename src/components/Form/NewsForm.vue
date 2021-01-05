@@ -22,7 +22,19 @@
           >Add a Cover image</span
         >
       </div>
+      <div>
+        <v-sheet
+          height="400px"
+          v-if="filePreview || news.photo"
+          :style="{
+            backgroundImage: `url(${filePreview || news.photo})`,
 
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+          }"
+          class="mb-6"
+        ></v-sheet>
+      </div>
       <div>
         <v-textarea
           label="Solo"
@@ -30,7 +42,7 @@
           solo
           v-model="clonedNews.title"
           @change="emitNews"
-          class="text-h6 text-md-h5 font-weight-medium grey--text darken-2"
+          class="text-h6 text-md-h5 font-weight-bold grey--text darken-2"
         ></v-textarea>
       </div>
       <div>
@@ -39,7 +51,7 @@
           placeholder="Write your article here..."
           solo
           auto-grow
-          class="text-subtitle-1 font-weight-medium grey--text darken-1"
+          class="text-subtitle-1 font-weight-bold grey--text darken-1 text--secondary news-form__content"
           v-model="clonedNews.content"
           @change="emitNews"
         ></v-textarea>
@@ -74,15 +86,13 @@ export default {
 
   methods: {
     emitNews() {
-      console.log("changed");
       this.$emit("newsChanged", this.clonedNews);
-      console.log(this.clonedNews);
     },
     emitFile(file) {
-      console.log(this.clonedNews);
       if (file) {
         let vm = this;
         previewImg(file, (preview) => {
+          vm.filePreview = preview;
           vm.$emit("fileChaged", preview);
         });
       }
@@ -96,11 +106,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
   > .v-input__control
   > .v-input__slot {
   box-shadow: none !important;
   padding: auto 0;
+}
+.news-form {
+  &__content {
+    font-size: 17px;
+    line-height: 2.5;
+    opacity: 0.8;
+  }
 }
 </style>

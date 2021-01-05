@@ -44,7 +44,12 @@
       <v-spacer class=""></v-spacer>
       <div class="d-flex flex-row align-center justify-center">
         <div class="d-flex flex-row justify-centeer align-center">
-          <BaseUserAvatar />
+          <router-link :to="{ name: 'Login' }">
+            <a
+              class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+              >Account</a
+            ></router-link
+          >
           <router-link :to="{ name: 'Login' }">
             <a
               class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
@@ -74,14 +79,12 @@
 </template>
 <script>
 // import BaseSearch from "@/components/BaseSearch.vue";
-import BaseUserAvatar from "@/components/Base/BaseUserAvatar.vue";
 import BaseNavigationDrawer from "@/components/Base/BaseNavigationDrawer.vue";
 import UserDrawer from "@/components/User/UserDrawer.vue";
 export default {
   name: "TheNav",
   components: {
     // BaseSearch,
-    BaseUserAvatar,
     BaseNavigationDrawer,
     UserDrawer,
   },

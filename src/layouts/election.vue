@@ -7,7 +7,7 @@
         </template>
       </TheNav>
     </nav>
-    <v-main> <slot /></v-main>
+    <v-main class="main__wrapper"> <slot /></v-main>
     <footer>
       <TheFooter />
     </footer>
@@ -29,4 +29,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scope>
+.main__wrapper {
+  // background-color: #efefef;
+}
+</style>

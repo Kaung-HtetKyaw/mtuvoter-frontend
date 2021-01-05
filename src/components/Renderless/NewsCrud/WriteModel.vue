@@ -1,5 +1,4 @@
 <script>
-import { v4 as uuidv4 } from "uuid";
 export default {
   props: {
     type: {
@@ -35,7 +34,6 @@ export default {
         });
     },
     create(data) {
-      data.id = uuidv4();
       return this.writeNews("post", `${this.baseUrl}`, data);
     },
     destroy(id) {

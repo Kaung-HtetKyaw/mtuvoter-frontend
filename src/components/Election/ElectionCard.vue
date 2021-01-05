@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="#F9F9F9" :rounded="true" class="workssan" elevation="1">
+    <v-card color="#fff" :rounded="true" class="workssan" elevation="6">
       <div>
         <div>
           <v-chip small class="ma-2" color="deep-purple darken-2 white--text">

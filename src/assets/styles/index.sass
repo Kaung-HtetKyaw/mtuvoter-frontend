@@ -110,3 +110,10 @@ a
   position: absolute
   transform: translate(0, 30px)
   opacity: 0
+
+//override vuetify styles
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
+  > .v-input__control
+  > .v-input__slot 
+  box-shadow: none !important
+  padding: auto 0

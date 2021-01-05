@@ -115,6 +115,7 @@ export default {
   }
   &__quote {
     position: relative;
+    border-left: none;
     &::before {
       content: "\201C";
       position: absolute;

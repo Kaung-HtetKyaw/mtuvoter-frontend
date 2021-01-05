@@ -37,14 +37,19 @@
 const defaultItem = [
   {
     icon: "mdi-chart-bubble",
-    title: "Tags",
-    to: "/t",
+    title: "Elections",
+    to: { name: "Elections" },
     auth: false,
   },
   {
     icon: "mdi-account-group",
-    title: "Topics",
-    to: { name: "topics" },
+    title: "Newsletter",
+    to: { name: "Newsletter" },
+  },
+  {
+    icon: "mdi-account-group",
+    title: "FAQ",
+    to: { name: "FAQ" },
   },
 ];
 const authorityItem = [
