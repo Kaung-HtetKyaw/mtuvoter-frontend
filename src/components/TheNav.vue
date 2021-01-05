@@ -6,7 +6,7 @@
       color="white"
       flat
       fixed
-      class="nav-bar px-0 px-md-16 "
+      class="navbar px-0 px-md-16 "
     >
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
@@ -45,8 +45,7 @@
       <div class="d-flex flex-row align-center justify-center">
         <div class="d-flex flex-row justify-centeer align-center">
           <router-link :to="{ name: 'Login' }">
-            <a
-              class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+            <a class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
               >Account</a
             ></router-link
           >
@@ -103,6 +102,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
+  box-shadow: 0 0 0 1px rgba(8, 9, 10, 0.2);
   &-item {
     &--text {
       font-size: 17px;

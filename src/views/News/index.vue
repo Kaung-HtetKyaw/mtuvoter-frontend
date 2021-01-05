@@ -19,6 +19,7 @@
                 class="text-decoration-underline px-1"
                 >here</router-link
               >
+              and let the users know.
             </v-alert>
           </div>
         </template>
