@@ -38,9 +38,9 @@
           class="elevation-5 px-2 py-2 px-md-6 py-md-6 rounded chart__wrapper my-3 white"
         >
           <h2
-            class="result__title--candidate my-3 workssan font-weight-medium text-center py-2"
+            class="result__title--candidate my-3 deep-purple--text darken-2 workssan font-weight-medium text-center pb-4 font-weight-bold"
           >
-            Presidental Candidates
+            ဥက္ကဌ ရွေးချယ်ခံ
           </h2>
           <apexchart
             type="bar"

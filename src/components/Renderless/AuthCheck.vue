@@ -6,22 +6,15 @@ export default {
       loginNeeded: false,
     };
   },
-  methods: {
-    show() {
-      if (!this.authorized) this.loginNeeded = true;
-    },
-    hide() {
-      if (!this.authorized) this.loginNeeded = false;
-    },
-  },
+  methods: {},
   computed: {
     ...mapState({
-      authorized: (state) => !!state.user.user,
+      authenticated: (state) => !!state.user.user,
     }),
   },
   render() {
     return this.$scopedSlots.default({
-      loginNeeded: this.loginNeeded,
+      authenticated: this.authenticated,
       showLoginAction: this.show,
       hideLoginAction: this.hide,
     });

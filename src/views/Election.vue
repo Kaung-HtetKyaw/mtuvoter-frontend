@@ -66,9 +66,14 @@
             <v-divider class="my-2"></v-divider>
           </div>
           <div>
-            <h3 class="election__link py-2 deep-purple--text darken-2">
-              မဲရလဒ်များ
-            </h3>
+            <router-link
+              :to="{ name: 'Election-Result', params: { election: 'alo' } }"
+            >
+              <h3 class="election__link py-2 deep-purple--text darken-2">
+                မဲရလဒ်များ
+              </h3></router-link
+            >
+
             <v-divider class="my-2"></v-divider>
           </div>
         </div>
