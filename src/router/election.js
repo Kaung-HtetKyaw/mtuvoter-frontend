@@ -14,4 +14,10 @@ export default [
     component: () =>
       import(/* webpackChunkName: "election" */ "../views/Election.vue"),
   },
+  {
+    path: "/elections/:election/result",
+    name: "Election-Result",
+    component: () =>
+      import(/* webpackChunkName: "election" */ "../views/Result.vue"),
+  },
 ];

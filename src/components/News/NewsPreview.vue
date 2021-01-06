@@ -5,11 +5,6 @@
         <h1 class="text-center text-sm-h6 text-md-h4 font-weight-bold ">
           {{ news.title }}
         </h1>
-        <h3
-          class="text-center opacity-7 text-subtitle-2  font-weight-medium font-italic my-4"
-        >
-          {{ news.description }}
-        </h3>
       </div>
 
       <div>

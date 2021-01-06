@@ -1,8 +1,9 @@
 <template>
   <div>
     <v-app-bar
+      elevation="1"
       app
-      hide-on-scroll
+      elevate-on-scroll
       color="white"
       flat
       fixed
