@@ -1,8 +1,10 @@
 export default [
   {
-    path: "/elections/:election/candidates/:candidate",
-    name: "Candidate",
+    path: "/candidates/:candidate/edit",
+    name: "Election-Candidate-Edit",
     component: () =>
-      import(/* webpackChunkName: "candidate" */ "../views/Candidate.vue"),
+      import(
+        /* webpackChunkName: "election-edit" */ "../views/Candidate/edit.vue"
+      ),
   },
 ];

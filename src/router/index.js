@@ -8,6 +8,7 @@ import NotFound from "@/views/Error.vue";
 import electionRoutes from "./election";
 import newsRoutes from "./news";
 import candidateRoutes from "./candidate";
+import positionRoutes from "./position";
 
 const options = {
   latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
@@ -41,6 +42,7 @@ const routes = [
   ...electionRoutes,
   ...newsRoutes,
   ...candidateRoutes,
+  ...positionRoutes,
   {
     path: "/faq",
     name: "FAQ",

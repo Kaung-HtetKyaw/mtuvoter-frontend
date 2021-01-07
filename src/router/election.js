@@ -16,6 +16,7 @@ export default [
         /* webpackChunkName: "new-election" */ "../views/Election/new/index.vue"
       ),
   },
+
   {
     path: "/elections/new/:election/positions",
     name: "Election-New-Position",
@@ -26,10 +27,18 @@ export default [
   },
   {
     path: "/elections/new/:election/positions/:position/candidates",
-    name: "Election-New-Position",
+    name: "Election-New-Candidate",
     component: () =>
       import(
         /* webpackChunkName: "new-election-position" */ "../views/Election/new/_candidate.vue"
+      ),
+  },
+  {
+    path: "/elections/:election/edit",
+    name: "Election-Edit",
+    component: () =>
+      import(
+        /* webpackChunkName: "election-edit" */ "../views/Election/edit.vue"
       ),
   },
   {
@@ -40,6 +49,7 @@ export default [
         /* webpackChunkName: "election" */ "../views/Election/electionSingle.vue"
       ),
   },
+
   {
     path: "/elections/:election/result",
     name: "Election-Result",

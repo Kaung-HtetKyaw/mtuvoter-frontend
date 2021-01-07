@@ -2,27 +2,25 @@
   <v-container class="mt-4 mb-8 py-0 newsletter">
     <v-row>
       <v-col cols="12" sm="12">
-        <template>
-          <div class="px-3">
-            <v-alert
-              dismissible
-              color="deep-purple darken-2"
-              border="left"
-              elevation="2"
-              colored-border
-              icon="mdi-information"
-              class="text-body-2 text-md-subtitle-1"
+        <div class="px-3">
+          <v-alert
+            dismissible
+            color="deep-purple darken-2"
+            border="left"
+            elevation="2"
+            colored-border
+            icon="mdi-information"
+            class="text-body-2 text-md-subtitle-1"
+          >
+            Publish <strong>News</strong>
+            <router-link
+              :to="{ name: 'News-Publish' }"
+              class="text-decoration-underline px-1"
+              >here</router-link
             >
-              Publish <strong>News</strong>
-              <router-link
-                :to="{ name: 'News-Publish' }"
-                class="text-decoration-underline px-1"
-                >here</router-link
-              >
-              and let the users know.
-            </v-alert>
-          </div>
-        </template>
+            and let the users know.
+          </v-alert>
+        </div>
       </v-col>
     </v-row>
     <v-row>
