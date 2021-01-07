@@ -89,7 +89,7 @@ a {
     position: absolute;
     bottom: 0;
     width: 100%;
-    transform: translateY(calc(100px + 1em));
+    transform: translateY(0);
     transition: transform 0.3s;
     .content {
       padding: 1em;

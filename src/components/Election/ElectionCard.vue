@@ -6,10 +6,12 @@
           <v-chip small class="ma-2" color="deep-purple darken-2 white--text">
             Raced
           </v-chip>
-
-          <v-card-title class="election-title "
-            >MTU Student Union 2020</v-card-title
+          <v-divider></v-divider>
+          <v-card-title class="election-title  font-weight-bold text-center"
+            >မန္တလေးနည်းပညာတက္ကသိုလ်ကျောင်းသားသမဂ္ဂ ရွေးကောက်ပွဲ
+            ၂၀၂၀</v-card-title
           >
+          <v-divider></v-divider>
           <v-timeline align-top dense>
             <v-timeline-item color="#54AF51" small>
               <template v-slot:opposite>
