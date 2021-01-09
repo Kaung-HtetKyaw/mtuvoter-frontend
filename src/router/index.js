@@ -9,6 +9,7 @@ import electionRoutes from "./election";
 import newsRoutes from "./news";
 import candidateRoutes from "./candidate";
 import positionRoutes from "./position";
+import adminRoutes from "./admin";
 
 const options = {
   latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
@@ -43,6 +44,7 @@ const routes = [
   ...newsRoutes,
   ...candidateRoutes,
   ...positionRoutes,
+  ...adminRoutes,
   {
     path: "/faq",
     name: "FAQ",
