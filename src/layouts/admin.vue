@@ -3,7 +3,7 @@
     <nav>
       <TheNav />
     </nav>
-    <v-main> <slot /></v-main>
+    <v-main class="dashboard"> <slot /></v-main>
   </v-app>
 </template>
 
@@ -18,4 +18,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.dashboard {
+  background-color: #ebedef;
+}
+</style>

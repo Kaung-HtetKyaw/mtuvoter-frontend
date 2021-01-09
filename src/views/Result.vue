@@ -34,48 +34,45 @@
         :key="i"
         class="d-flex flex-column justify-center align-center"
       >
-        <div
-          class="elevation-5 px-2 py-2 px-md-6 py-md-6 rounded chart__wrapper my-3 white"
-        >
-          <h2
-            class="result__title--candidate my-3 deep-purple--text darken-2 workssan font-weight-medium text-center pb-4 font-weight-bold"
-          >
-            ဥက္ကဌ ရွေးချယ်ခံ
-          </h2>
-          <apexchart
-            type="bar"
-            :options="options"
-            :height="350"
-            :series="series"
-          ></apexchart>
-        </div>
+        <BarChart name="MTU Student Union Candidate" :result="result" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import BarChart from "@/components/Chart/Bar.vue";
 export default {
   name: "Result",
+  components: {
+    BarChart,
+  },
   data() {
     return {
-      options: {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [
-            "Kyaw Toe Toe Han",
-            "Zayar Min Htin",
-            "Pyae Htoo Khant",
-            "Kyi Khaing Khant Soe",
+      result: [
+        {
+          vote_count: 20,
+          candidate: [
+            {
+              name: "Kaung Htet Kyaw",
+            },
           ],
         },
-      },
-      series: [
         {
-          name: "MTUSU Presidental Candidate",
-          data: [400, 430, 448, 300],
+          vote_count: 30,
+          candidate: [
+            {
+              name: "Pyae Htoo Khant",
+            },
+          ],
+        },
+        {
+          vote_count: 44,
+          candidate: [
+            {
+              name: "Kyaw Toe Toe Han",
+            },
+          ],
         },
       ],
     };
@@ -89,26 +86,4 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.chart {
-  &__wrapper {
-    width: 100%;
-  }
-}
-.result__title {
-  &--candidate {
-    position: relative;
-    // color: #301934;
-    &::before {
-      content: "";
-      width: 100%;
-      height: 2px;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      background-color: #5545a8;
-    }
-  }
-}
-</style>
+<style></style>

@@ -1,5 +1,19 @@
 <template>
   <div v-bind="$attrs">
+    <div>
+      <router-link :to="{ name: 'Home' }" class="router-link">
+        <v-list-item class="d-flex justify-center align-center">
+          <v-avatar size="40">
+            <img src="/img/avatar-default.png" alt="John Doe" />
+          </v-avatar>
+          <v-list-item-title class="ml-4 body-1 admin--text">
+            <span class="d-block text-caption">Logged in as</span>
+            <span class="workssan">John Doe</span>
+          </v-list-item-title>
+        </v-list-item>
+        <v-divider class="my-2"></v-divider>
+      </router-link>
+    </div>
     <div v-for="item in items" :key="item.name">
       <v-list-item
         v-if="!item.kids"
@@ -71,6 +85,16 @@ export default {
         },
         {
           name: "Manage Roles",
+          to: "/",
+          icon: "mdi-account",
+        },
+        {
+          name: "View Logs",
+          to: "/",
+          icon: "mdi-account",
+        },
+        {
+          name: "Update Settings",
           to: "/",
           icon: "mdi-account",
         },

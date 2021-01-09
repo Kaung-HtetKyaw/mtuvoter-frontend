@@ -2,37 +2,27 @@
   <div class="admin">
     <v-app-bar elevation="1" app color="white" flat class="navbar">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
       <div class="d-flex flex-row align-center justify-center ml-12">
         <div class="d-none d-md-flex justify-centeer align-center">
           <router-link :to="{ name: 'Newsletter' }">
-            <a class=" mx-2 font-weight-medium">Dashboard</a></router-link
+            <a
+              class=" mx-2 font-weight-medium black--text text--secondary workssan"
+              >Dashboard</a
+            ></router-link
           >
 
           <router-link :to="{ name: 'Elections' }">
-            <a class="mx-2 font-weight-medium">Elections</a></router-link
+            <a
+              class=" mx-2 font-weight-medium black--text text--secondary workssan"
+              >Elections</a
+            ></router-link
           >
           <router-link :to="{ name: 'FAQ' }">
-            <a class=" mx-2 font-weight-medium">Roles</a></router-link
-          >
-        </div>
-      </div>
-      <!-- <v-toolbar-title class="pl-3 pl-md-0  ">Mtuvoter</v-toolbar-title> -->
-      <v-spacer class=""></v-spacer>
-      <div class="d-flex flex-row align-center justify-center">
-        <div class="d-flex flex-row justify-centeer align-center">
-          <router-link :to="{ name: 'Login' }">
-            <a class="   mx-2 mx-md-4 font-weight-medium"
-              >Account</a
+            <a
+              class=" mx-2 font-weight-medium black--text text--secondary workssan"
+              >Roles</a
             ></router-link
           >
-          <router-link :to="{ name: 'Login' }">
-            <a class="d-none d-md-flex  mx-2 mx-md-4 font-weight-medium"
-              >Sign in</a
-            ></router-link
-          >
-
-          <slot name="search"></slot>
         </div>
       </div>
     </v-app-bar>
