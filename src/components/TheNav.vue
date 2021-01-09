@@ -50,6 +50,11 @@
               >Account</a
             ></router-link
           >
+          <router-link :to="{ name: 'Dashboard' }">
+            <a class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+              >Dashboard</a
+            ></router-link
+          >
           <router-link :to="{ name: 'Login' }">
             <a
               class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"

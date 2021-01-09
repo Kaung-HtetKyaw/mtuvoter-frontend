@@ -19,16 +19,16 @@
 <script>
 export default {
   name: "BarChart",
-  props: {
-    result: {
-      type: Array,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-  },
+  // props: {
+  //   result: {
+  //     type: Array,
+  //     required: true,
+  //   },
+  //   name: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   created() {
     this.options.xaxis.categories = this.result.map(
       (el) => el.candidate[0].name
@@ -50,6 +50,32 @@ export default {
         {
           name: "",
           data: [],
+        },
+      ],
+      result: [
+        {
+          vote_count: 20,
+          candidate: [
+            {
+              name: "Kaung Htet Kyaw",
+            },
+          ],
+        },
+        {
+          vote_count: 30,
+          candidate: [
+            {
+              name: "Pyae Htoo Khant",
+            },
+          ],
+        },
+        {
+          vote_count: 44,
+          candidate: [
+            {
+              name: "Kyaw Toe Toe Han",
+            },
+          ],
         },
       ],
     };
