@@ -23,10 +23,21 @@ export default [
   },
   {
     path: "/dashboard/elections/:election/stats",
-    name: "Dashboard-Staticstics",
+    name: "Dashboard-Staticstics-Election",
     component: () =>
       import(
         /* webpackChunkName: "dashboard-staticstics" */ "../views/Dashboard/Election/staticstics.vue"
+      ),
+    meta: {
+      layout: "admin",
+    },
+  },
+  {
+    path: "/dashboard/elections/:election/candidates/:candidate/stats",
+    name: "Dashboard-Staticstics-Candidate",
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard-staticstics" */ "../views/Dashboard/Candidate/staticstics.vue"
       ),
     meta: {
       layout: "admin",

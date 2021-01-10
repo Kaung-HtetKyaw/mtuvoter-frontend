@@ -17,28 +17,38 @@
 </template>
 
 <script>
+import { getNestedPropertyFromDotString } from "@/utils/utils.js";
 export default {
   name: "BarChart",
   props: {
-    //  result: {
-    //    type: Array,
-    //    required: true,
-    //  },
+    result: {
+      type: Array,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
+    grouped_by: {
+      type: Array,
+      required: true,
+    },
+    seried_by: {
+      type: Array,
+      required: true,
+    },
   },
-  //  created() {
-  //    this.options.xaxis.categories = this.result.map(
-  //      (el) => el.candidate[0].name
-  //    );
-  //    this.series[0].data = this.result.map((el) => el.vote_count);
-  //    this.series[0].name = this.name;
-  //  },
+  created() {
+    this.chartOptions.labels = this.result.map((el) =>
+      getNestedPropertyFromDotString(el, this.grouped_by)
+    );
+    this.series = this.result.map((el) =>
+      getNestedPropertyFromDotString(el, this.seried_by)
+    );
+  },
   data() {
     return {
-      series: [44, 55, 13],
+      series: [],
       chartOptions: {
         chart: {
           width: 380,

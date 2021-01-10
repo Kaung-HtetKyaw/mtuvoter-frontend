@@ -21,29 +21,29 @@ import { getNestedPropertyFromDotString } from "@/utils/utils.js";
 export default {
   name: "BarChart",
   props: {
-    // result: {
-    //   type: Array,
-    //   required: true,
-    // },
-    // grouped_by:{
-    //   type:Array,
-    //   required:true
-    // },
+    result: {
+      type: Array,
+      required: true,
+    },
+    grouped_by: {
+      type: Array,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
-    // seried_by:{
-    //   type:Array,
-    //   required:true
-    // }
+    seried_by: {
+      type: Array,
+      required: true,
+    },
   },
   created() {
     this.options.xaxis.categories = this.result.map((el) => {
-      return getNestedPropertyFromDotString(el, ["candidate", 0, "name"]);
+      return getNestedPropertyFromDotString(el, this.grouped_by);
     });
     this.series[0].data = this.result.map((el) =>
-      getNestedPropertyFromDotString(el, ["vote_count"])
+      getNestedPropertyFromDotString(el, this.seried_by)
     );
     this.series[0].name = this.name;
   },
@@ -61,32 +61,6 @@ export default {
         {
           name: "",
           data: [],
-        },
-      ],
-      result: [
-        {
-          vote_count: 20,
-          candidate: [
-            {
-              name: "Kaung Htet Kyaw",
-            },
-          ],
-        },
-        {
-          vote_count: 30,
-          candidate: [
-            {
-              name: "Pyae Htoo Khant",
-            },
-          ],
-        },
-        {
-          vote_count: 44,
-          candidate: [
-            {
-              name: "Kyaw Toe Toe Han",
-            },
-          ],
         },
       ],
     };

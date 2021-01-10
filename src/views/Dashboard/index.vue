@@ -7,10 +7,24 @@
         </h2>
         <v-divider></v-divider>
       </v-col>
-      <v-col cols="12" sm="12" md="6"><BarChart /></v-col>
-      <v-col cols="12" sm="12" md="6"><BarChart /></v-col>
+
+      <v-col cols="12" sm="12" md="6" v-for="i in 2" :key="i"
+        ><BarChart
+          :result="election_result"
+          :grouped_by="['candidate', 0, 'name']"
+          :seried_by="['vote_count']"
+          name="Presidental Candidate Result"
+      /></v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
-        <v-btn text color="deep-purple darken-2 " class="text-capitalize"
+        <v-btn
+          :to="{
+            name: 'Dashboard-Staticstics-Election',
+            params: { election: 'alo' },
+          }"
+          :ripple="false"
+          text
+          color="deep-purple darken-2 "
+          class="text-capitalize"
           >See All Staticstics
           <v-icon small class="px-1"
             >mdi-arrow-right-bold-circle-outline</v-icon
@@ -91,6 +105,10 @@ import BarChart from "@/components/Chart/Bar.vue";
 import BaseTable from "@/components/Base/BaseTable.vue";
 import BaseLogCard from "@/components/Base/BaseLogCard.vue";
 import { timeAgo } from "@/utils/time.js";
+import {
+  candidate_votes_by_student,
+  election_result,
+} from "@/dev-data/result.js";
 export default {
   name: "Dashboard",
   components: {
@@ -100,6 +118,8 @@ export default {
   },
   data() {
     return {
+      candidate_votes_by_student,
+      election_result,
       elections: {
         items: [
           {

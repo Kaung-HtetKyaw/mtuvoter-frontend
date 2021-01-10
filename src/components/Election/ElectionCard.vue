@@ -52,7 +52,7 @@
               :ripple="false"
               elevation="0"
               :to="{
-                name: 'Dashboard-Staticstics',
+                name: 'Dashboard-Staticstics-Election',
                 params: { election: 'alo' },
               }"
               >View Statictics</v-btn
