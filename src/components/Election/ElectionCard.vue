@@ -46,6 +46,17 @@
               :to="{ name: 'Election', params: { election: 'alo' } }"
               >View Details</v-btn
             >
+            <v-btn
+              v-if="stats"
+              class="text-capitalize election-btn deep-purple darken-2 white--text font-weight-medium"
+              :ripple="false"
+              elevation="0"
+              :to="{
+                name: 'Dashboard-Staticstics',
+                params: { election: 'alo' },
+              }"
+              >View Statictics</v-btn
+            >
           </v-card-actions>
         </div>
       </div>
@@ -54,7 +65,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "ElectionCard",
+  props: {
+    election: {
+      type: Object,
+      required: true,
+    },
+    stats: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

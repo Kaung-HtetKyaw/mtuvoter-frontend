@@ -12,3 +12,12 @@ export function previewImg(file, callback) {
 export function isFile(obj) {
   return obj.toString() === "[object File]";
 }
+
+export function getNestedPropertyFromDotString(obj, properties) {
+  /* eslint-disable */
+  let result = obj;
+  properties.forEach((el) => {
+    result = result[el];
+  });
+  return result;
+}

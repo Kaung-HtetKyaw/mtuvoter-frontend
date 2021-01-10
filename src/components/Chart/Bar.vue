@@ -3,9 +3,9 @@
     class="elevation-5 px-2 py-2 px-md-6 py-md-6 rounded chart__wrapper my-3 white"
   >
     <h2
-      class="result__title--candidate my-3 deep-purple--text darken-2 workssan font-weight-medium text-center pb-4 font-weight-bold"
+      class="result__title--candidate text-subtitle-1 my-3 deep-purple--text darken-2 workssan font-weight-medium text-center pb-4 font-weight-bold"
     >
-      ဥက္ကဌ ရွေးချယ်ခံ
+      {{ name }}
     </h2>
     <apexchart
       type="bar"
@@ -17,23 +17,34 @@
 </template>
 
 <script>
+import { getNestedPropertyFromDotString } from "@/utils/utils.js";
 export default {
   name: "BarChart",
-  // props: {
-  //   result: {
-  //     type: Array,
-  //     required: true,
-  //   },
-  //   name: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
+  props: {
+    // result: {
+    //   type: Array,
+    //   required: true,
+    // },
+    // grouped_by:{
+    //   type:Array,
+    //   required:true
+    // },
+    name: {
+      type: String,
+      required: true,
+    },
+    // seried_by:{
+    //   type:Array,
+    //   required:true
+    // }
+  },
   created() {
-    this.options.xaxis.categories = this.result.map(
-      (el) => el.candidate[0].name
+    this.options.xaxis.categories = this.result.map((el) => {
+      return getNestedPropertyFromDotString(el, ["candidate", 0, "name"]);
+    });
+    this.series[0].data = this.result.map((el) =>
+      getNestedPropertyFromDotString(el, ["vote_count"])
     );
-    this.series[0].data = this.result.map((el) => el.vote_count);
     this.series[0].name = this.name;
   },
   data() {

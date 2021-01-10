@@ -8,10 +8,12 @@ import "nprogress/nprogress.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import VueApexCharts from "vue-apexcharts";
+import VueObserveVisibility from "vue-observe-visibility";
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(VueApexCharts);
+Vue.use(VueObserveVisibility);
 Vue.component("apexchart", VueApexCharts);
 
 new Vue({

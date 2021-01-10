@@ -32,7 +32,11 @@
         />
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
-        <v-btn text color="deep-purple darken-2 " class="text-capitalize"
+        <v-btn
+          :to="{ name: 'Dashboard-Elections' }"
+          text
+          color="deep-purple darken-2 "
+          class="text-capitalize"
           >See All Election
           <v-icon small class="px-1"
             >mdi-arrow-right-bold-circle-outline</v-icon
@@ -49,6 +53,7 @@
       ></v-col>
       <v-col cols="12" sm="12">
         <ElectionTable :items="users.items" :headings="users.headings" />
+        <v-divider></v-divider>
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
         <v-btn text color="deep-purple darken-2 " class="text-capitalize"
@@ -85,6 +90,7 @@
 import BarChart from "@/components/Chart/Bar.vue";
 import BaseTable from "@/components/Base/BaseTable.vue";
 import BaseLogCard from "@/components/Base/BaseLogCard.vue";
+import { timeAgo } from "@/utils/time.js";
 export default {
   name: "Dashboard",
   components: {
@@ -129,7 +135,7 @@ export default {
             name: "Kaung Htet Kyaw",
             email: "kgsama@gmail.com",
             role: "mod",
-            activity: new Date().toISOString(),
+            activity: timeAgo(new Date().getTime()),
           },
         ],
         headings: ["name", "email", "role", "activity"],
