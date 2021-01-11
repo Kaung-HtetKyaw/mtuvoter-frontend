@@ -22,6 +22,17 @@ export default [
     },
   },
   {
+    path: "/dashboard/roles",
+    name: "Dashboard-Roles",
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard-roles" */ "../views/Dashboard/Roles.vue"
+      ),
+    meta: {
+      layout: "admin",
+    },
+  },
+  {
     path: "/dashboard/elections",
     name: "Dashboard-Elections",
     component: () =>
@@ -32,6 +43,7 @@ export default [
       layout: "admin",
     },
   },
+
   {
     path: "/dashboard/elections/:election/stats",
     name: "Dashboard-Staticstics-Election",

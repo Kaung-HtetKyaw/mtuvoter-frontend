@@ -19,7 +19,7 @@
               >Elections</a
             ></router-link
           >
-          <router-link :to="{ name: 'FAQ' }">
+          <router-link :to="{ name: 'Dashboard-Roles' }">
             <a
               class=" mx-2 font-weight-medium black--text text--secondary workssan"
               >Roles</a

@@ -18,7 +18,7 @@
       <v-list-item
         v-if="!item.kids"
         key="dashboard"
-        :to="{ name: 'Dashboard' }"
+        :to="item.to"
         router
         exact
       >
@@ -70,7 +70,7 @@ export default {
       items: [
         {
           name: "Dashboard",
-          to: "/",
+          to: { name: "Dashboard" },
           icon: "mdi-speedometer",
         },
         {
@@ -78,24 +78,24 @@ export default {
           kids: [
             {
               name: "Elections",
-              to: "/",
+              to: { name: "Dashboard-Elections" },
               icon: "mdi-chart-bubble",
             },
           ],
         },
         {
           name: "Manage Roles",
-          to: "/",
+          to: { name: "Dashboard-Roles" },
           icon: "mdi-account",
         },
         {
           name: "View Logs",
-          to: "/",
+          to: { name: "Dashboard-Logs" },
           icon: "mdi-account",
         },
         {
           name: "Update Settings",
-          to: "/",
+          to: { name: "Dashboard" },
           icon: "mdi-account",
         },
       ],
