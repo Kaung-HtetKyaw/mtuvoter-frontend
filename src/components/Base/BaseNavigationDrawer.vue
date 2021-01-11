@@ -30,6 +30,16 @@
           <v-list-item-title v-text="item.title" />
         </v-list-item-content>
       </v-list-item>
+      <v-list-item :to="{ name: 'Login' }" router exact key="login">
+        <v-list-item-content>
+          <v-btn
+            color="deep-purple darken-2"
+            class="white--text text-capitalize"
+            depressed
+            >Log in</v-btn
+          >
+        </v-list-item-content>
+      </v-list-item>
     </transition-group>
   </div>
 </template>

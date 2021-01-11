@@ -15,13 +15,7 @@
       </router-link>
     </div>
     <div v-for="item in items" :key="item.name">
-      <v-list-item
-        v-if="!item.kids"
-        key="dashboard"
-        :to="item.to"
-        router
-        exact
-      >
+      <v-list-item v-if="!item.kids" key="dashboard" :to="item.to" router exact>
         <v-list-item-action>
           <v-icon small color="#ffffffbf">{{ item.icon }}</v-icon>
         </v-list-item-action>
@@ -94,9 +88,9 @@ export default {
           icon: "mdi-account",
         },
         {
-          name: "Update Settings",
-          to: { name: "Dashboard" },
-          icon: "mdi-account",
+          name: "Back to Home",
+          to: "/",
+          icon: "mdi-home-outline",
         },
       ],
     };

@@ -33,6 +33,12 @@
           >
         </div>
       </div>
+      <v-spacer></v-spacer>
+      <router-link to="/">
+        <a class=" mx-2 font-weight-medium black--text text--secondary workssan"
+          >Back To Home</a
+        ></router-link
+      >
     </v-app-bar>
 
     <v-navigation-drawer color="#3C4B64" v-model="drawer" fixed app>

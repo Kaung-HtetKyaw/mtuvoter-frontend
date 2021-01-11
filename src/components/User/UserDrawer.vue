@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{ name: 'Home' }" class="router-link">
+    <router-link :to="{ name: 'Account' }" class="router-link">
       <v-list-item class="d-flex justify-center align-center">
         <v-avatar size="40">
           <img src="/img/avatar-default.png" alt="John Doe" />

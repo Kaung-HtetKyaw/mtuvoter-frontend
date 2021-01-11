@@ -40,7 +40,7 @@
             class="pt-2"
           ></v-text-field>
           <div
-            class="access-table__mod__wrapper px-4 py-4 rounded px-md-8 mb-3"
+            class="access-table__mod__wrapper px-4 py-4 rounded px-md-8 mb-3 rounded"
           >
             <div
               class="access-table__mod px-6 d-flex flex-column flex-md-row justify-md-space-between align-md-center justify-center align-space-between"
@@ -102,6 +102,7 @@ export default {
   .access-table__mod {
     &__wrapper {
       background-color: #f6f8fa;
+      border: 1px solid rgba(0, 0, 0, 0.39);
       cursor: pointer;
     }
   }

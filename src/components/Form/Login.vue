@@ -10,6 +10,9 @@
       <input type="password" placeholder="Password" />
     </div>
     <input type="submit" value="Login" class="btn solid" />
+    <router-link :to="{ name: 'Forgot-Password' }">
+      <a class="text-decoration-underline my-3">Forgot password ?</a>
+    </router-link>
   </form>
 </template>
 

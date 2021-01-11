@@ -10,6 +10,8 @@ import newsRoutes from "./news";
 import candidateRoutes from "./candidate";
 import positionRoutes from "./position";
 import adminRoutes from "./admin";
+import accountRoutes from "./account";
+import authRoutes from "./auth";
 
 const options = {
   latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
@@ -26,20 +28,14 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
   },
-  {
-    path: "/login",
-    name: "Login",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Login.vue"),
-    meta: {
-      layout: "about",
-    },
-  },
+
   {
     path: "/test",
     name: "Test",
     component: () => import(/* webpackChunkName: "test" */ "../views/Test.vue"),
   },
+  ...authRoutes,
+  ...accountRoutes,
   ...electionRoutes,
   ...newsRoutes,
   ...candidateRoutes,
