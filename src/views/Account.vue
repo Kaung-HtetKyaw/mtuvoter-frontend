@@ -74,9 +74,16 @@
                 <h6
                   class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
                 >
-                  New Password
+                  Current Password
                 </h6>
                 <v-text-field :height="10" outlined dense></v-text-field>
+                <div class="width-100 d-flex justify-end">
+                  <router-link :to="{ name: 'Forgot-Password' }">
+                    <a class="mb-3 text-caption text-decoration-underline"
+                      >Forgot password ?</a
+                    ></router-link
+                  >
+                </div>
               </div>
               <div>
                 <h6

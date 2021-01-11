@@ -15,6 +15,9 @@ export default [
       import(
         /* webpackChunkName: "forgot-password" */ "../views/Auth/ForgotPassword.vue"
       ),
+    meta: {
+      layout: "no-footer",
+    },
   },
   {
     path: "/reset",
@@ -23,5 +26,8 @@ export default [
       import(
         /* webpackChunkName: "reset-password" */ "../views/Auth/ResetPassword.vue"
       ),
+    meta: {
+      layout: "no-footer",
+    },
   },
 ];
