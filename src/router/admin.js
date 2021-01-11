@@ -11,6 +11,17 @@ export default [
     },
   },
   {
+    path: "/dashboard/logs",
+    name: "Dashboard-Logs",
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard-logs" */ "../views/Dashboard/Logs.vue"
+      ),
+    meta: {
+      layout: "admin",
+    },
+  },
+  {
     path: "/dashboard/elections",
     name: "Dashboard-Elections",
     component: () =>

@@ -11,7 +11,9 @@
             ></router-link
           >
 
-          <router-link :to="{ name: 'Elections' }">
+          <router-link
+            :to="{ name: 'Dashboard-Elections', params: { election: 'alo' } }"
+          >
             <a
               class=" mx-2 font-weight-medium black--text text--secondary workssan"
               >Elections</a
@@ -21,6 +23,12 @@
             <a
               class=" mx-2 font-weight-medium black--text text--secondary workssan"
               >Roles</a
+            ></router-link
+          >
+          <router-link :to="{ name: 'Dashboard-Logs' }">
+            <a
+              class=" mx-2 font-weight-medium black--text text--secondary workssan"
+              >Logs</a
             ></router-link
           >
         </div>
