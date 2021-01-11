@@ -22,6 +22,7 @@
                 </div>
                 <v-text-field
                   outlined
+                  type="email"
                   label="Your email address"
                   required
                   dense
@@ -36,6 +37,7 @@
                   class="white--text text-capitalize"
                   depressed
                   :ripple="false"
+                  @click="sendResetLink"
                   >Send Reset link</v-btn
                 >
               </div>
@@ -48,7 +50,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "ForgotPassword",
+  methods: {
+    sendResetLink() {
+      this.$router.push({ name: "Reset-Password" });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
