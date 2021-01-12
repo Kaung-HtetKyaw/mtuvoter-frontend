@@ -5,11 +5,28 @@
         <slot v-bind:activator="{ on, attrs }"></slot>
       </template>
       <v-card class="px-0 py-0 px-lg-6 py-lg-6">
+        <div class="width-100 d-flex justify-end">
+          <v-btn
+            :ripple="false"
+            class="mx-2"
+            fab
+            icon
+            dark
+            depressed
+            color="deep-purple darken-2 rotate-45 my-2"
+            x-small
+            @click="dialog = false"
+          >
+            <v-icon dark class="rotate-45">
+              mdi-plus
+            </v-icon>
+          </v-btn>
+        </div>
         <v-card-title
           class="px-2  px-lg-6 text-center d-flex justify-center align-center"
         >
           <span
-            class=" text-subtitle-1 text-center text-md-h4 font-weight-bold deep-purple--text darken-2"
+            class=" text-center text-h6 font-weight-bold deep-purple--text darken-2"
             >You are not currently logged in</span
           >
         </v-card-title>
@@ -34,7 +51,7 @@
 
           <v-text-field
             outlined
-            label="Enter Voting Token"
+            label="Enter Guest Token"
             required
             dense
             class="pt-2"
@@ -45,15 +62,10 @@
             class="white--text text-capitalize"
             depressed
             block
-            >Log in</v-btn
+            :ripple="false"
+            >Log in as guest</v-btn
           >
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="deep-purple darken-2" text @click="dialog = false">
-            Close
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>

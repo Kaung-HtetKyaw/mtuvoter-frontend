@@ -1,13 +1,32 @@
 <template>
   <v-container class="mt-4 mb-8 py-0">
     <v-row>
+      <v-col cols="12" sm="12">
+        <v-alert
+          dismissible
+          color="deep-purple darken-2"
+          border="left"
+          elevation="2"
+          colored-border
+          icon="mdi-information"
+          class="text-body-2 text-md-subtitle-1"
+        >
+          Create an election
+          <router-link
+            :to="{ name: 'Election-New' }"
+            class="text-decoration-underline"
+            >Here
+          </router-link>
+        </v-alert>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col
         cols="12"
         sm="12"
         class="d-flex flex-column justify-center align-center deep-purple--text darken-2"
       >
         <h1 class="d-inline-block elections--title">Elections</h1>
-        <ElectionQuote />
       </v-col>
     </v-row>
     <v-row>
@@ -31,13 +50,11 @@
 
 <script>
 import ElectionCard from "@/components/Election/ElectionCard.vue";
-import ElectionQuote from "@/components/UI/BlockquoteElection.vue";
 import BaseLoader from "@/components/Base/BaseLoader.vue";
 export default {
   name: "Elections",
   components: {
     ElectionCard,
-    ElectionQuote,
     BaseLoader,
   },
 };

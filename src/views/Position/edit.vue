@@ -66,25 +66,13 @@
                 class="width-100 d-flex flex-column justify-center align-center"
               >
                 <v-btn
-                  :ripple="false"
-                  class="mx-2 mb-6"
-                  fab
-                  dark
-                  color="deep-purple darken-2"
-                  @click="addPosition"
-                >
-                  <v-icon dark>
-                    mdi-plus
-                  </v-icon>
-                </v-btn>
-                <v-btn
                   color="deep-purple darken-2"
                   class="white--text text-capitalize"
                   block
                   depressed
                   :ripple="false"
-                  @click="createPositions"
-                  >Create Positions</v-btn
+                  @click="updatePositions"
+                  >Update Positions</v-btn
                 >
               </div>
             </v-form>
@@ -112,24 +100,12 @@ export default {
     this.positions[0]._election = this.election;
   },
   methods: {
-    createPositions() {
+    updatePositions() {
       console.log(this.positions);
       this.$router.push({
         name: "Election-New-Candidate",
         params: { election: "alo", position: "alo" },
       });
-    },
-    addPosition() {
-      this.positions.push({
-        _election: this.election,
-        name: "",
-        description: "",
-      });
-      console.log(this.positions);
-    },
-    removePosition(index) {
-      this.positions.splice(index, 1);
-      console.log(this.positions);
     },
   },
 };

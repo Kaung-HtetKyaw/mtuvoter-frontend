@@ -58,7 +58,7 @@ export default {
     AdminDrawer,
   },
   data: () => ({
-    drawer: true,
+    drawer: false,
     group: null,
   }),
 

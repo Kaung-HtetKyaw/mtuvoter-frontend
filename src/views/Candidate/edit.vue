@@ -122,7 +122,7 @@
                   block
                   depressed
                   :ripple="false"
-                  >Create Candidates</v-btn
+                  >Update Candidates</v-btn
                 >
               </div>
             </v-form>

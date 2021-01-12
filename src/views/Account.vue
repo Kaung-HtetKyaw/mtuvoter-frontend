@@ -45,9 +45,24 @@
                   dense
                 ></v-text-field>
               </div>
+              <div>
+                <h6
+                  class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                >
+                  Student ID
+                </h6>
+                <v-text-field
+                  v-model="SID"
+                  :height="10"
+                  outlined
+                  dense
+                  disabled
+                ></v-text-field>
+              </div>
               <v-btn
                 depressed
                 small
+                :ripple="false"
                 color="deep-purple darken-2 text-capitalize"
                 class="white--text"
                 >Update Profile</v-btn
@@ -77,13 +92,6 @@
                   Current Password
                 </h6>
                 <v-text-field :height="10" outlined dense></v-text-field>
-                <div class="width-100 d-flex justify-end">
-                  <router-link :to="{ name: 'Forgot-Password' }">
-                    <a class="mb-3 text-caption text-decoration-underline"
-                      >Forgot password ?</a
-                    ></router-link
-                  >
-                </div>
               </div>
               <div>
                 <h6
@@ -104,10 +112,25 @@
               <v-btn
                 depressed
                 small
+                :ripple="false"
                 color="deep-purple darken-2 text-capitalize"
                 class="white--text"
                 >Update Password</v-btn
               >
+              <div class="width-100 d-flex flex-column justify-end my-3">
+                <p class="text-body-2 text--secondary">
+                  You can reset password by clicking the following button and
+                  password reset link will be sent to you email address.
+                </p>
+                <v-btn
+                  depressed
+                  small
+                  :ripple="false"
+                  color="deep-purple darken-2 text-capitalize"
+                  class="white--text"
+                  >Forgot Password</v-btn
+                >
+              </div>
             </div>
           </v-col>
           <v-col cols="12" sm="12">
@@ -126,6 +149,7 @@ export default {
     return {
       email: "speed02749@gmail.com",
       name: "Kaung Htet Kyaw",
+      SID: "123456",
     };
   },
 };

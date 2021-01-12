@@ -1,6 +1,27 @@
 /* eslint-disable */
 <template>
   <v-container class="election py-0">
+    <v-row>
+      <v-col cols="12" sm="12">
+        <v-alert
+          dismissible
+          color="deep-purple darken-2"
+          border="left"
+          elevation="2"
+          colored-border
+          icon="mdi-information"
+          class="text-body-2 text-md-subtitle-1"
+        >
+          As a moderator, you can generate guest token
+          <router-link
+            :to="{ name: 'Guest-Token' }"
+            class="text-decoration-underline"
+            >Here
+          </router-link>
+          for the guest users.
+        </v-alert>
+      </v-col>
+    </v-row>
     <v-row class="flex-column-reverse flex-md-row">
       <v-col
         cols="12"
@@ -76,6 +97,20 @@
 
             <v-divider class="my-2"></v-divider>
           </div>
+          <div class="width-100">
+            <router-link
+              :to="{ name: 'Election-Edit', params: { election: 'alo' } }"
+            >
+              <v-btn
+                color="deep-purple darken-2"
+                class="white--text text-capitalize"
+                depressed
+                block
+                :ripple="false"
+                >Edit this election</v-btn
+              ></router-link
+            >
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -104,6 +139,23 @@
               ပြင်ပဆက်ဆံရေးကိစ္စရပ်များကို ခွင့်ပြုစိစစ်ကာ
               ကျောင်းသားကျောင်းသူများ​၏ အခက်အခဲများကို ပူးပေါင်းဖြေရှင်းရမည်
             </p>
+          </div>
+          <div
+            class="d-flex flex-column flex-md-row justify-center align-center my-3"
+          >
+            <v-btn
+              depressed
+              color="deep-purple darken-2"
+              block
+              class="white--text text-capitalize"
+              :ripple="false"
+              exact
+              :to="{
+                name: 'Election-Position-Edit',
+                params: { position: 'alo' },
+              }"
+              >Update this position
+            </v-btn>
           </div>
         </div>
         <div class="candidates">
@@ -152,6 +204,23 @@
               ပြင်ပဆက်ဆံရေးကိစ္စရပ်များကို ခွင့်ပြုစိစစ်ကာ
               ကျောင်းသားကျောင်းသူများ​၏ အခက်အခဲများကို ပူးပေါင်းဖြေရှင်းရမည်
             </p>
+          </div>
+          <div
+            class="d-flex flex-column flex-md-row justify-center align-center my-3"
+          >
+            <v-btn
+              depressed
+              color="deep-purple darken-2"
+              block
+              class="white--text text-capitalize"
+              :ripple="false"
+              exact
+              :to="{
+                name: 'Election-Position-Edit',
+                params: { position: 'alo' },
+              }"
+              >Update this candidate
+            </v-btn>
           </div>
         </div>
         <div class="candidates">

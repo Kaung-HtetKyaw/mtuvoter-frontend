@@ -80,7 +80,7 @@ export default {};
 <style lang="scss" scoped>
 .reset__wrapper {
   width: 100%;
-  height: 80vh;
+  height: 90vh;
 }
 .reset__form {
   border: 1px solid rgba(0, 0, 0, 0.39);

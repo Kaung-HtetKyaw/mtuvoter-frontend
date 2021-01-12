@@ -41,14 +41,14 @@
           </div>
           <div class="d-flex flex-column justify-center align-center">
             <div class="width-100">
-              <!-- <v-btn
-                    depressed
-                    color="deep-purple darken-2 white--text text-capitalize"
-                    block
-                    :ripple="false"
-                    v-if="authenticated"
-                    >Vote</v-btn
-                  > -->
+              <v-btn
+                depressed
+                color="deep-purple darken-2 white--text text-capitalize"
+                block
+                :ripple="false"
+                v-if="authenticated"
+                >Vote</v-btn
+              >
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center"
               >
@@ -66,6 +66,24 @@
                     </v-btn>
                   </template>
                 </GuestLogin>
+              </div>
+              <div
+                class="d-flex flex-column flex-md-row justify-center align-center my-3"
+              >
+                <v-btn
+                  depressed
+                  color="deep-purple darken-2"
+                  block
+                  text
+                  class="white--text text-capitalize"
+                  :ripple="false"
+                  exact
+                  :to="{
+                    name: 'Election-Candidate-Edit',
+                    params: { candidate: 'alo' },
+                  }"
+                  >Update this candidate
+                </v-btn>
               </div>
             </div>
           </div>

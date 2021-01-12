@@ -12,25 +12,30 @@
               <v-card class="elevation-0 pb-6 width-100 forgot__form">
                 <v-card-title
                   class="deep-purple darken-2 white--text d-flex justify-center"
-                  >Forgot Password</v-card-title
+                  >Generate Guest Token</v-card-title
                 >
                 <v-card-text class="mt-6 px-1">
                   <v-form ref="form" class="px-2">
                     <div class="px-3">
                       <div class="width-100">
                         <p class="text-center text-body-2">
-                          Enter your email address below. Reset link will be
-                          sent to that address
+                          Generate a guest login token for voting in an election
                         </p>
                       </div>
                       <v-text-field
                         outlined
                         type="email"
-                        v-model="email"
-                        label="Your email address"
+                        v-model="SID"
+                        label="Student ID"
                         required
                         dense
                       ></v-text-field>
+                      <div
+                        class="width-100 d-flex justify-center align-center no-result mb-4 py-3 rounded"
+                      >
+                        Guest Token:
+                        <span class="ml-2 font-weight-bold">aslf3l4</span>
+                      </div>
                     </div>
 
                     <div
@@ -41,14 +46,8 @@
                         class="white--text text-capitalize"
                         depressed
                         :ripple="false"
-                        @click="sendResetLink"
-                        >Send Reset link</v-btn
+                        >Generate Token</v-btn
                       >
-                    </div>
-                    <div class="mt-2">
-                      <router-link :to="{ name: 'Home' }">
-                        <a class="text-decoration-underline">Back to Home</a>
-                      </router-link>
                     </div>
                   </v-form>
                 </v-card-text>
@@ -63,15 +62,12 @@
 
 <script>
 export default {
+  name: "GuestToken",
+
   data() {
     return {
-      email: "",
+      SID: "",
     };
-  },
-  methods: {
-    sendResetLink() {
-      this.$router.push({ name: "Reset-Password" });
-    },
   },
 };
 </script>
@@ -79,9 +75,13 @@ export default {
 <style lang="scss" scoped>
 .forgot__wrapper {
   width: 100%;
-  height: 90vh;
+  height: 80vh;
 }
 .forgot__form {
   border: 1px solid rgba(0, 0, 0, 0.39);
+}
+.no-result {
+  border: 1px solid rgba(0, 0, 0, 0.39);
+  background-color: #f6f8fa;
 }
 </style>
