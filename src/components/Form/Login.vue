@@ -10,7 +10,7 @@
       <input type="password" placeholder="Password" />
     </div>
     <input type="submit" value="Login" class="btn solid" />
-    <router-link :to="{ name: 'Forgot-Password' }">
+    <router-link :to="{ name: 'Forgot-Password' }" exact>
       <a class="text-decoration-underline my-3">Forgot password ?</a>
     </router-link>
   </form>

@@ -4,9 +4,6 @@ export default [
     name: "Elections",
     component: () =>
       import(/* webpackChunkName: "elections" */ "../views/Election/index.vue"),
-    meta: {
-      layout: "election",
-    },
   },
   {
     path: "/elections/new",
@@ -43,7 +40,7 @@ export default [
   },
   {
     path: "/elections/:election",
-    name: "Election",
+    name: "Election-Single",
     component: () =>
       import(
         /* webpackChunkName: "election" */ "../views/Election/electionSingle.vue"

@@ -3,7 +3,7 @@ export default [
     path: "/login",
     name: "Login",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Auth/Login.vue"),
+      import(/* webpackChunkName: "login" */ "../views/Auth/Login.vue"),
     meta: {
       layout: "about",
     },
@@ -16,9 +16,10 @@ export default [
         /* webpackChunkName: "forgot-password" */ "../views/Auth/ForgotPassword.vue"
       ),
     meta: {
-      layout: "no-footer",
+      layout: "about",
     },
   },
+
   {
     path: "/reset",
     name: "Reset-Password",
@@ -27,7 +28,7 @@ export default [
         /* webpackChunkName: "reset-password" */ "../views/Auth/ResetPassword.vue"
       ),
     meta: {
-      layout: "no-footer",
+      layout: "about",
     },
   },
 ];

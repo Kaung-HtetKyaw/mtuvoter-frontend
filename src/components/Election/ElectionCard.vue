@@ -43,7 +43,7 @@
               class="text-capitalize election-btn deep-purple darken-2 white--text font-weight-medium"
               :ripple="false"
               elevation="0"
-              :to="{ name: 'Election', params: { election: 'alo' } }"
+              :to="{ name: 'Election-Single', params: { election: 'alo' } }"
               >View Details</v-btn
             >
             <v-btn
@@ -68,10 +68,10 @@
 export default {
   name: "ElectionCard",
   props: {
-    election: {
-      type: Object,
-      required: true,
-    },
+    // election: {
+    //   type: Object,
+    //   required: true,
+    // },
     stats: {
       type: Boolean,
       default: false,

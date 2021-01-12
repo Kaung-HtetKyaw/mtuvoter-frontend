@@ -106,13 +106,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
-  > .v-input__control
-  > .v-input__slot {
-  box-shadow: none !important;
-  padding: auto 0;
-}
+<style lang="scss" scoped>
 .news-form {
   &__content {
     font-size: 17px;
