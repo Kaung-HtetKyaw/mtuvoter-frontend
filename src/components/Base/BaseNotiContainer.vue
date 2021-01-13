@@ -16,9 +16,6 @@ export default {
       notifications: (state) => state.notification.notifications,
     }),
   },
-  created() {
-    console.log(this.notifications);
-  },
 };
 </script>
 
