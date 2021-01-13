@@ -1,23 +1,41 @@
 <template>
-  <v-snackbar v-model="snackbar" :timeout="timeout">
-    {{ noti.message }}
+  <v-snackbar
+    light
+    top
+    v-model="snackbar"
+    :timeout="timeout"
+    rounded="lg"
+    class="elevation-21"
+  >
+    <div>
+      <p class="mb-0 text-body-2 font-weight-medium deep-purple--text darken-2">
+        {{ noti.message }}
+      </p>
+    </div>
 
     <template v-slot:action="{ attrs }">
       <v-btn
-        class="workssan"
-        :color="noti.type"
-        text
+        :ripple="false"
+        class="mx-2"
+        fab
+        icon
+        dark
+        depressed
+        color="deep-purple darken-2 rotate-45 my-2"
+        x-small
         v-bind="attrs"
         @click="snackbar = false"
       >
-        Close
+        <v-icon dark class="rotate-45">
+          mdi-plus
+        </v-icon>
       </v-btn>
     </template>
   </v-snackbar>
 </template>
 
 <script>
-import store from "@/store/index.js";
+// import store from "@/store/index.js";
 export default {
   props: {
     noti: {
@@ -32,16 +50,16 @@ export default {
     };
   },
   computed: {},
-  mounted() {
-    setTimeout(() => {
-      store.dispatch("notification/deleteNoti", this.noti).then(() => {
-        this.snackbar = false;
-      });
-    }, this.timeout);
-  },
-  beforeDestroy() {
-    clearTimeout(this.timeout);
-  },
+  // mounted() {
+  //   setTimeout(() => {
+  //     store.dispatch("notification/deleteNoti", this.noti).then(() => {
+  //       this.snackbar = false;
+  //     });
+  //   }, this.timeout);
+  // },
+  // beforeDestroy() {
+  //   clearTimeout(this.timeout);
+  // },
 };
 </script>
 
