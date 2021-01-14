@@ -1,11 +1,6 @@
 <template>
   <Layout class="main__wrapper">
     <NotificationContainer />
-
-    <BaseNotificationBar
-      :noti="{ type: 'success', message: 'This is the message' }"
-    />
-
     <transition name="fade" tag="div"
       ><router-view :key="$route.fullPath"></router-view
     ></transition>
@@ -15,14 +10,12 @@
 <script>
 import Layout from "@/layouts/AppLayout.vue";
 import NotificationContainer from "@/components/Base/BaseNotiContainer.vue";
-import BaseNotificationBar from "@/components/Base/BaseNotification.vue";
 
 export default {
   name: "App",
   components: {
     Layout,
     NotificationContainer,
-    BaseNotificationBar,
   },
 
   data: () => ({

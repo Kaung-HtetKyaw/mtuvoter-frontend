@@ -21,3 +21,19 @@ export function getNestedPropertyFromDotString(obj, properties) {
   });
   return result;
 }
+
+export function setDefaultAuthMetaForRoutes(routes) {
+  let result = routes.map((route) => {
+    if (!route.meta || !route.meta.auth) {
+      route.meta = {
+        auth: {
+          required: false,
+          role: "user",
+        },
+      };
+    }
+    return route;
+  });
+  console.log(result);
+  return result;
+}

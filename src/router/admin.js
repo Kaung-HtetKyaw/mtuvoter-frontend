@@ -8,6 +8,8 @@ export default [
       ),
     meta: {
       layout: "admin",
+      requiresAuth: true,
+      role: "admin",
     },
   },
   {
@@ -19,6 +21,8 @@ export default [
       ),
     meta: {
       layout: "admin",
+      requiresAuth: true,
+      role: "admin",
     },
   },
   {
@@ -30,6 +34,8 @@ export default [
       ),
     meta: {
       layout: "admin",
+      requiresAuth: true,
+      role: "admin",
     },
   },
   {
@@ -41,6 +47,8 @@ export default [
       ),
     meta: {
       layout: "admin",
+      requiresAuth: true,
+      role: "admin",
     },
   },
 
@@ -53,6 +61,8 @@ export default [
       ),
     meta: {
       layout: "admin",
+      requiresAuth: true,
+      role: "admin",
     },
   },
   {
@@ -64,6 +74,8 @@ export default [
       ),
     meta: {
       layout: "admin",
+      requiresAuth: true,
+      role: "admin",
     },
   },
 ];

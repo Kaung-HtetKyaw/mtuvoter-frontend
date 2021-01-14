@@ -152,6 +152,13 @@ export default {
       SID: "123456",
     };
   },
+  async created() {
+    await this.axios
+      .get(`${process.env.VUE_APP_BASE_API_URL}/users/me`, {
+        withCredentials: true,
+      })
+      .then((res) => console.log(res.data.data));
+  },
 };
 </script>
 
