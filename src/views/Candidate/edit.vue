@@ -37,7 +37,10 @@
             <router-link
               :to="{
                 name: 'Election-Position-Edit',
-                params: { election, position },
+                params: {
+                  election: candidate._election,
+                  position: candidate._post,
+                },
               }"
               class="text-decoration-underline px-1"
               >here</router-link
@@ -54,36 +57,32 @@
           >
           <v-card-text class="mt-6 px-1">
             <v-form ref="form" class="px-2">
-              <div v-for="i in candidates.length" :key="i">
-                <div class="width-100 d-flex justify-end">
-                  <v-btn
-                    v-if="i - 1 > 0"
-                    :ripple="false"
-                    class="mx-2"
-                    fab
-                    dark
-                    depressed
-                    color="deep-purple darken-2 rotate-45 my-2"
-                    x-small
-                    @click="removeCandidate(i - 1)"
-                  >
-                    <v-icon dark>
-                      mdi-plus
-                    </v-icon>
-                  </v-btn>
-                </div>
+              <div>
                 <v-text-field
                   outlined
                   label="Enter Candidate name"
                   required
-                  v-model="candidates[i - 1].name"
+                  v-model="candidate.name"
                 ></v-text-field>
                 <v-text-field
                   outlined
                   label="Enter Candidate email"
                   required
-                  v-model="candidates[i - 1].name"
+                  v-model="candidate.email"
                 ></v-text-field>
+                <v-text-field
+                  outlined
+                  label="Enter Candidate major"
+                  required
+                  v-model="candidate.major"
+                ></v-text-field>
+                <v-select
+                  :items="yearArray"
+                  label="Candidate's attending year"
+                  dense
+                  v-model="candidate.year"
+                  outlined
+                ></v-select>
                 <v-file-input
                   class="user-photo"
                   accept="image/*"
@@ -91,31 +90,19 @@
                   outlined
                   dense
                   show-size
-                  v-model="candidates[i - 1].photo"
+                  v-model="candidate.photo"
                 ></v-file-input>
                 <v-textarea
                   outlined
                   label="Enter Candidate's Election or Campaign Promise"
                   required
-                  v-model="candidates[i - 1].description"
+                  v-model="candidate.promise"
                 ></v-textarea>
               </div>
 
               <div
                 class="width-100 d-flex flex-column justify-center align-center"
               >
-                <v-btn
-                  :ripple="false"
-                  class="mx-2 mb-6"
-                  fab
-                  dark
-                  color="deep-purple darken-2"
-                  @click="addCandidate"
-                >
-                  <v-icon dark>
-                    mdi-plus
-                  </v-icon>
-                </v-btn>
                 <v-btn
                   color="deep-purple darken-2"
                   class="white--text text-capitalize"
@@ -134,42 +121,47 @@
 </template>
 
 <script>
+import { yearArray } from "@/utils/constants.js";
+import { showNoti } from "@/utils/noti.js";
+// import axios from "@/services/axios.js";
+import store from "@/store/index.js";
+import { mapState } from "vuex";
+
 export default {
   name: "Election-New-Position",
   data() {
     return {
-      candidates: [{ name: "", email: "", promise: "", photo: {} }],
+      candidate: { name: "", email: "", promise: "", photo: {}, year: "" },
+      yearArray: yearArray,
+      loading: false,
     };
   },
   computed: {
-    election() {
-      return this.$route.params.election;
+    ...mapState({
+      election: (state) => state.election.election,
+    }),
+    originalCandidate() {
+      return this.election.candidates.find(
+        (el) => el._id === this.$route.params.candidate
+      );
     },
-    position() {
-      return this.$route.params.position;
-    },
+  },
+  beforeRouteEnter(to, from, next) {
+    if (!store.state.election.election) {
+      showNoti(
+        "error",
+        "You must go to the election page to update candidate",
+        { name: "Elections" },
+        next
+      );
+    }
+    next();
   },
   created() {
-    this.candidates[0]._election = this.election;
-    this.candidates[0]._position = this.position;
+    console.log(this.originalCandidate);
+    this.candidate = { ...this.originalCandidate };
   },
-  methods: {
-    addCandidate() {
-      this.candidates.push({
-        _election: this.election,
-        _position: this.position,
-        name: "",
-        email: "",
-        promise: "",
-        photo: "",
-      });
-      console.log(this.candidates);
-    },
-    removeCandidate(index) {
-      this.candidates.splice(index, 1);
-      console.log(this.candidates);
-    },
-  },
+  methods: {},
 };
 </script>
 

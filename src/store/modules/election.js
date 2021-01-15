@@ -1,5 +1,6 @@
 import axios from "@/services/axios.js";
-import showNoti from "@/utils/noti.js";
+import { showNoti } from "@/utils/noti.js";
+import { replaceBy } from "@/utils/utils.js";
 
 export const namespaced = true;
 export const state = {
@@ -16,6 +17,9 @@ export const mutations = {
   },
   FETCH_ELECTION(state, election) {
     state.election = election;
+  },
+  UPDATE_CANDIDATE(state, candidate) {
+    replaceBy(state.election.candidates, candidate, "_id");
   },
   INCREMENT_PAGE(state) {
     state.page++;
@@ -52,5 +56,27 @@ export const actions = {
       });
     return election;
   },
+  async updateCandidates({ commit }, electionId, positionId, candidate) {
+    // update to DB
+    const updatedCandidate = await axios()
+      .patch(
+        `elections/${electionId}/postions/${positionId}/candidates/${candidate._id}`
+      )
+      .then(() => {
+        commit("UPDATE_CANDIDATE", candidate);
+      })
+      .catch(() => showNoti("error", "Error updating candidate."));
+    return updatedCandidate;
+    // update in local
+  },
 };
-export const getters = {};
+export const getters = {
+  getCandidatesByPosition: (state) => (position) => {
+    let desiredPosition = state.election.position.find(
+      (el) => el._id === position
+    );
+    return state.election.candidates.filter(
+      (el) => el._post === desiredPosition
+    );
+  },
+};

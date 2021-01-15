@@ -37,3 +37,13 @@ export function setDefaultAuthMetaForRoutes(routes) {
   console.log(result);
   return result;
 }
+
+export function replaceBy(array, item, type = "id") {
+  const index = array.findIndex((el) => {
+    if (isPlainObject(el) && isPlainObject(item)) {
+      return el[type] === item[type];
+    }
+    return el === item;
+  });
+  return array.splice(index, 1, item);
+}

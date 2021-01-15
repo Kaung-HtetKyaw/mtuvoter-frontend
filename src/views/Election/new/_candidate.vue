@@ -84,6 +84,19 @@
                   required
                   v-model="candidates[i - 1].name"
                 ></v-text-field>
+                <v-text-field
+                  outlined
+                  label="Enter Candidate major"
+                  required
+                  v-model="candidates[i - 1].major"
+                ></v-text-field>
+                <v-select
+                  :items="yearArray"
+                  label="Candidate's attending year"
+                  dense
+                  v-model="candidates[i - 1].year"
+                  outlined
+                ></v-select>
                 <v-file-input
                   class="user-photo"
                   accept="image/*"
@@ -122,6 +135,8 @@
                   block
                   depressed
                   :ripple="false"
+                  :loading="loading"
+                  @click="createCandidates"
                   >Create Candidates</v-btn
                 >
               </div>
@@ -134,11 +149,16 @@
 </template>
 
 <script>
+import { yearArray } from "@/utils/constants.js";
+import { showNoti } from "@/utils/noti.js";
+import axios from "@/services/axios.js";
 export default {
   name: "Election-New-Position",
   data() {
     return {
-      candidates: [{ name: "", email: "", promise: "", photo: {} }],
+      candidates: [{ name: "", email: "", promise: "", photo: {}, year: "" }],
+      yearArray: yearArray,
+      loading: false,
     };
   },
   computed: {
@@ -154,6 +174,19 @@ export default {
     this.candidates[0]._position = this.position;
   },
   methods: {
+    async createCandidates() {
+      const vm = this;
+      vm.loading = true;
+      await axios()
+        .post(
+          `/elections/${this.election}/positions/${this.positions}/candidates`,
+          this.candidates
+        )
+        .then(() => {
+          vm.loading = false;
+        })
+        .catch(() => showNoti("error", "Error creating candidate."));
+    },
     addCandidate() {
       this.candidates.push({
         _election: this.election,

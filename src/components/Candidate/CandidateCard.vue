@@ -10,13 +10,13 @@
           ကျော်တိုးတိုးဟန်
         </h5>
 
-        <span class="candidate__info__type d-block font-weight-bold"
-          >စတုတ္ထနှစ်</span
-        >
+        <span class="candidate__info__type d-block font-weight-bold">{{
+          yearMap[candidate.year] || yearMap["others"]
+        }}</span>
 
-        <span class="candidate__info__major d-block font-weight-bold"
-          >ကွန်ပျူတာအင်ဂျင်နီယာနှင့် သတင်းအချက်အလက်နည်းပညာ</span
-        >
+        <span class="candidate__info__major d-block font-weight-bold">{{
+          majorMap[candidate.major] || majorMap["CEIT"]
+        }}</span>
       </v-col>
       <v-col cols="12" sm="12" md="3" class="px-0">
         <div class="candidate__photo">
@@ -33,10 +33,7 @@
             <blockquote
               class="candidate__quote font-weight-bold text--secondary px-3 py-3"
             >
-              လက်ရှိ မန္တလေးနည်းပညာတက္ကသိုလ်ကျောင်းသားသမဂ္ဂသည် လုပ်ငန်းအဖွဲ့
-              အသီးသီးဖြင့် လုပ်ငန်းကိစ္စများကိုဆောင်ရွက်လျက်ရှိရာ
-              ထိုလုပ်ငန်းအဖွဲ့များတွင် ပါဝင်လုပ်ကိုင်နိုင်ရန်အတွက်
-              အလုပ်သင်များကို ခေါ်ယူသွားရန်ရှိပါသည်။
+              {{ candidate.promise || "No promise provided" }}
             </blockquote>
           </div>
           <div class="d-flex flex-column justify-center align-center">
@@ -73,7 +70,7 @@
                   v-if="userDetail.role === 'admin'"
                   :to="{
                     name: 'Election-Candidate-Edit',
-                    params: { candidate: 'alo' },
+                    params: { candidate: candidate._id },
                   }"
                   >Update this candidate
                 </v-btn>
@@ -88,14 +85,24 @@
 
 <script>
 import GuestLogin from "@/components/Form/GuestLogin.vue";
+import { yearMap, majorMap } from "@/utils/constants.js";
 
 export default {
   name: "CandidateCard",
   components: {
     GuestLogin,
   },
+  props: {
+    candidate: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
-    return {};
+    return {
+      yearMap,
+      majorMap,
+    };
   },
   methods: {
     alo() {

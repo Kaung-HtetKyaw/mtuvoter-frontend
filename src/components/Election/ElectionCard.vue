@@ -101,8 +101,8 @@ export default {
   computed: {
     holding() {
       return (
-        Date.now() > this.election.startDate &&
-        Date.now() < this.election.endDate
+        Date.now() > new Date(this.election.startDate) &&
+        Date.now() < new Date(this.election.endDate)
       );
     },
   },

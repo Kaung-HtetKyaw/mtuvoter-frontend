@@ -7,7 +7,7 @@
             {{ news.title }}
           </h2>
           <p class="my-2 news-card-2__description">
-            {{ news.content.split(" ").slice(0, 20) + "....." }}
+            {{ news.description }}
           </p>
           <p class="news-card-2__date text-right my-2">8 Aug 2020</p>
         </v-col>

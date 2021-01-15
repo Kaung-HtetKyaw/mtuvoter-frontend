@@ -181,7 +181,7 @@ export default {
   async beforeRouteEnter(to, from, next) {
     let election = store.state.election.election;
 
-    if (!election) {
+    if (!election || election._id !== to.params.election) {
       election = await store.dispatch(
         "election/getElection",
         to.params.election

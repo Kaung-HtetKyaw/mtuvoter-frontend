@@ -1,7 +1,7 @@
 import NProgress from "nprogress";
 import store from "@/store/index.js";
 
-export function showNoti(type, message, to, from, next) {
+export function showNoti(type, message, to, next) {
   store.dispatch(
     "notification/addNoti",
     {
@@ -11,5 +11,7 @@ export function showNoti(type, message, to, from, next) {
     { root: true }
   );
   NProgress.done();
-  next({ name: from.name, params: from.params });
+  if (to && next) {
+    next(to);
+  }
 }
