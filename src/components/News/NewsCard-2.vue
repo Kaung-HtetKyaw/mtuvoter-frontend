@@ -1,18 +1,13 @@
 <template>
   <v-container class="news-card-2">
-    <router-link :to="{ name: 'News-Single', params: { news: 'alo' } }">
+    <router-link :to="{ name: 'News-Single', params: { news: news._id } }">
       <v-row class="flex-column-reverse flex-md-row">
         <v-col cols="12" sm="12" md="10">
           <h2 class="text-decoration-underline my-2 news-card-2__title">
-            မဲစာရင်းမိတ္တူကူးယူရန်ကိစ္စနှင့်စပ်လျဉ်း၍
-            အသိပေးကြေညာချက်ထုတ်ပြန်ခြင်း
+            {{ news.title }}
           </h2>
           <p class="my-2 news-card-2__description">
-            ပြည်ထောင်စုရွေးကောက်ပွဲကော်မရှင်သည် ၂၀၂၀ ပြည့်နှစ် နိုဝင်ဘာလ ၈
-            ရက်နေ့တွင် ကျင်းပခဲ့သည့် ပါတီစုံဒီမိုကရေစီအထွေထွေရွေးကောက်ပွဲအတွက်
-            မဲစာရင်းများကို ၂၅-၇-၂၀၂၀ ရက်နေ့ မှ ၁၄-၈-၂၀၂၀ ရက်နေ့အထိတစ်ကြိမ်၊
-            ၁-၁၀-၂၀၂၀ ရက်နေ့မှ ၁၄-၁၀-၂၀၂၀ ရက်နေ့အထိ တစ်ကြိမ်
-            မဲဆန္ဒရှင်ပြည်သူများသို့ .....
+            {{ news.content.split(" ").slice(0, 20) + "....." }}
           </p>
           <p class="news-card-2__date text-right my-2">8 Aug 2020</p>
         </v-col>
@@ -30,7 +25,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "News-Card-2",
+  props: {
+    news: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +46,8 @@ export default {};
   &__date {
     font-size: 13px;
     opacity: 0.5;
+  }
+  &__description {
   }
   &:hover {
     text-decoration: underline;

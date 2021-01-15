@@ -41,14 +41,6 @@
           </div>
           <div class="d-flex flex-column justify-center align-center">
             <div class="width-100">
-              <v-btn
-                depressed
-                color="deep-purple darken-2 white--text text-capitalize"
-                block
-                :ripple="false"
-                v-if="authenticated"
-                >Vote</v-btn
-              >
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center"
               >
@@ -78,6 +70,7 @@
                   class="white--text text-capitalize"
                   :ripple="false"
                   exact
+                  v-if="userDetail.role === 'admin'"
                   :to="{
                     name: 'Election-Candidate-Edit',
                     params: { candidate: 'alo' },

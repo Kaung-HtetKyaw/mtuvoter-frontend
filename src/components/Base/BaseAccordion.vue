@@ -18,10 +18,7 @@
     </div>
     <details class="py-4 px-4 py-lg-10 px-lg-10 text-body-2 text-md-h6 mx-0">
       <summary>
-        <span class="font-weight-bold">
-          မဲဆန္ဒရှင်စာရင်းမှာ မိမိအမည် ပါ၊ မပါ ဘာကြောင့် စစ်ဆေးဖို့
-          လိုပါသလဲ။</span
-        >
+        <span class="font-weight-bold"> {{ faq.question }}</span>
 
         <svg
           class="control-icon control-icon-expand"
@@ -44,17 +41,22 @@
         </svg>
       </summary>
       <p class="my-3 deep-purple--text lighten-3">
-        ၂၀၂၀ပြည့်နှစ် အထွေထွေရွေးကောက်ပွဲမှာ မဲပေးနိုင်ဖို့ဆိုရင် မိမိအမည်က
-        မဲဆန္ဒရှင်စာရင်းမှာ ပါဝင်ရပါမယ်။ မဲဆန္ဒရှင်စာရင်း ကပ်ထားကြေညာချိန်မှာ
-        မိမိအမည် ပါ၊ မပါနှင့် မဲစာရင်း အချက်အလက်များ မှန်မှန်ကန်ကန်
-        ဖော်ပြထားခြင်း ရှိ၊ မရှိကို သေချာစွာ စစ်ဆေးရပါမယ်။
+        {{ faq.answer }}
       </p>
     </details>
   </div>
 </template>
 
 <script scoped>
-export default {};
+export default {
+  name: "BaseAccordion",
+  props: {
+    faq: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>

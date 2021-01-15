@@ -37,14 +37,19 @@
         cols="12"
         sm="12"
         class="workssan d-flex justify-center align-center deep-purple--text darken-2 "
-        v-for="i in 3"
-        :key="i"
+        v-for="el in news"
+        :key="el.id"
       >
-        <NewsCard />
+        <NewsCard :news="el" />
       </v-col>
     </v-row>
     <v-row class="my-6">
-      <v-col cols="12" sm="12" class="d-flex justify-center align-center">
+      <v-col
+        cols="12"
+        sm="12"
+        class="d-flex justify-center align-center"
+        v-if="loading"
+      >
         <BaseLoader />
       </v-col>
     </v-row>
@@ -54,11 +59,49 @@
 <script>
 import NewsCard from "@/components/News/NewsCard-2.vue";
 import BaseLoader from "@/components/Base/BaseLoader.vue";
+import store from "@/store/index.js";
+import { mapState } from "vuex";
+
 export default {
   name: "Elections",
   components: {
     NewsCard,
     BaseLoader,
+  },
+  computed: {
+    ...mapState({
+      news: (state) => state.news.news,
+      end: (state) => state.news.end,
+    }),
+  },
+  data() {
+    return {
+      loading: false,
+    };
+  },
+  async beforeRouteEnter(to, from, next) {
+    let news = store.state.news.news;
+    if (news.length == 0) {
+      news = await store.dispatch("news/getNews");
+    }
+    store.dispatch("UI/changeLoadingState", true);
+    next();
+  },
+  methods: {
+    async loadNews() {
+      if (!this.end) {
+        const vm = this;
+        this.loading = true;
+        await store
+          .dispatch("news/getNews")
+          .then(() => {
+            vm.loading = false;
+          })
+          .catch(() => {
+            vm.loading = false;
+          });
+      }
+    },
   },
 };
 </script>

@@ -18,14 +18,20 @@
         cols="12"
         sm="12"
         class="d-flex justify-center align-center"
-        v-for="i in 3"
-        :key="i"
+        v-for="(faq, index) in faqs"
+        :key="faq._id"
+        v-observe-visibility="index === faqs.length - 1 ? loadFAQs : false"
       >
-        <BaseAccordion />
+        <BaseAccordion :faq="faq" />
       </v-col>
     </v-row>
     <v-row class="my-6">
-      <v-col cols="12" sm="12" class="d-flex justify-center align-center">
+      <v-col
+        cols="12"
+        sm="12"
+        class="d-flex justify-center align-center"
+        v-if="loading"
+      >
         <BaseLoader />
       </v-col>
     </v-row>
@@ -34,11 +40,49 @@
 <script>
 import BaseAccordion from "@/components/Base/BaseAccordion.vue";
 import BaseLoader from "@/components/Base/BaseLoader.vue";
+import store from "@/store/index.js";
+import { mapState } from "vuex";
+
 export default {
   name: "faq",
   components: {
     BaseAccordion,
     BaseLoader,
+  },
+  computed: {
+    ...mapState({
+      faqs: (state) => state.faq.faqs,
+      end: (state) => state.faq.end,
+    }),
+  },
+  data() {
+    return {
+      loading: false,
+    };
+  },
+  async beforeRouteEnter(to, from, next) {
+    let faqs = store.state.faq.faqs;
+    if (faqs.length == 0) {
+      faqs = await store.dispatch("faq/getFAQs");
+    }
+    store.dispatch("UI/changeLoadingState", true);
+    next();
+  },
+  methods: {
+    async loadFAQs() {
+      if (!this.end) {
+        const vm = this;
+        this.loading = true;
+        await store
+          .dispatch("faq/getFAQs")
+          .then(() => {
+            vm.loading = false;
+          })
+          .catch(() => {
+            vm.loading = false;
+          });
+      }
+    },
   },
 };
 </script>

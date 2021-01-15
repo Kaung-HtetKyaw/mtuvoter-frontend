@@ -35,14 +35,22 @@
         sm="12"
         md="6"
         lg="4"
-        v-for="election in elections"
+        v-for="(election, index) in elections"
         :key="election.id"
+        v-observe-visibility="
+          index === elections.length - 1 ? loadElections : false
+        "
       >
         <ElectionCard :election="election" />
       </v-col>
     </v-row>
     <v-row class="my-6">
-      <v-col cols="12" sm="12" class="d-flex justify-center align-center">
+      <v-col
+        v-if="loading"
+        cols="12"
+        sm="12"
+        class="d-flex justify-center align-center"
+      >
         <BaseLoader />
       </v-col>
     </v-row>
@@ -52,39 +60,49 @@
 <script>
 import ElectionCard from "@/components/Election/ElectionCard.vue";
 import BaseLoader from "@/components/Base/BaseLoader.vue";
-import axios from "@/services/axios.js";
+import { mapState } from "vuex";
+import store from "@/store/index.js";
+
 export default {
   name: "Elections",
   components: {
     ElectionCard,
     BaseLoader,
   },
+  computed: {
+    ...mapState({
+      elections: (state) => state.election.elections,
+      end: (state) => state.election.end,
+    }),
+  },
   data() {
     return {
-      elections: [],
-      page: 1,
-      limit: 5,
       loading: false,
     };
   },
   async beforeRouteEnter(to, from, next) {
-    const elections = await axios().get(`/elections?limit=5&page=1`);
-    next((vm) => {
-      vm.elections = elections.data.data;
-      vm.page++;
-    });
+    let elections = store.state.election.elections;
+    if (elections.length == 0) {
+      elections = await store.dispatch("election/getElections");
+    }
+    store.dispatch("UI/changeLoadingState", true);
+    next();
   },
 
   methods: {
     async loadElections() {
-      this.loading = true;
-      await axios()
-        .get(`/elections?limit=${this.limit}&page=${this.page}`)
-        .then((res) => {
-          this.elections = res.data.data;
-          this.page++;
-          this.loading = false;
-        });
+      if (!this.end) {
+        const vm = this;
+        this.loading = true;
+        await store
+          .dispatch("election/getElections")
+          .then(() => {
+            vm.loading = false;
+          })
+          .catch(() => {
+            vm.loading = false;
+          });
+      }
     },
   },
 };

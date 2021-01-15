@@ -15,7 +15,6 @@
 import Hero from "@/components/UI/Hero.vue";
 import ElectionOverview from "@/components/UI/ElectionOverview.vue";
 import NewsOverview from "@/components/UI/NewsOverview.vue";
-import axios from "@/services/axios.js";
 import store from "@/store/index.js";
 export default {
   name: "About",
@@ -31,12 +30,19 @@ export default {
     };
   },
   async beforeRouteEnter(to, from, next) {
-    const elections = await axios().get("/elections?limit=3");
-    const news = await axios().get("/news");
+    // fetch only if not present in local state
+    let elections = store.state.election.elections.slice(0, 5);
+    let news = store.state.news.news.slice(0, 5);
+    if (elections.length == 0) {
+      elections = await store.dispatch("election/getElections");
+    }
+    if (news.length == 0) {
+      news = await store.dispatch("news/getNews");
+    }
     store.dispatch("UI/changeLoadingState", true);
     next((vm) => {
-      vm.elections = elections.data.data;
-      vm.news = news.data.data;
+      vm.elections = elections;
+      vm.news = news;
     });
   },
 };
