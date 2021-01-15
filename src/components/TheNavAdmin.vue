@@ -34,7 +34,7 @@
         </div>
       </div>
       <v-spacer></v-spacer>
-      <router-link to="/">
+      <router-link :to="{ name: 'Home' }">
         <a class=" mx-2 font-weight-medium black--text text--secondary workssan"
           >Back To Home</a
         ></router-link

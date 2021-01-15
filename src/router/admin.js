@@ -1,3 +1,4 @@
+const adminLayout = () => import("@/layouts/admin.vue");
 export default [
   {
     path: "/dashboard",
@@ -7,7 +8,7 @@ export default [
         /* webpackChunkName: "Dashboard" */ "../views/Dashboard/index.vue"
       ),
     meta: {
-      layout: "admin",
+      layout: adminLayout,
       requiresAuth: true,
       role: "admin",
     },
@@ -20,7 +21,7 @@ export default [
         /* webpackChunkName: "dashboard-logs" */ "../views/Dashboard/Logs.vue"
       ),
     meta: {
-      layout: "admin",
+      layout: adminLayout,
       requiresAuth: true,
       role: "admin",
     },
@@ -33,7 +34,7 @@ export default [
         /* webpackChunkName: "dashboard-roles" */ "../views/Dashboard/Roles.vue"
       ),
     meta: {
-      layout: "admin",
+      layout: adminLayout,
       requiresAuth: true,
       role: "admin",
     },
@@ -46,7 +47,7 @@ export default [
         /* webpackChunkName: "dashboard-elections" */ "../views/Dashboard/Election/index.vue"
       ),
     meta: {
-      layout: "admin",
+      layout: adminLayout,
       requiresAuth: true,
       role: "admin",
     },
@@ -60,7 +61,7 @@ export default [
         /* webpackChunkName: "dashboard-staticstics" */ "../views/Dashboard/Election/staticstics.vue"
       ),
     meta: {
-      layout: "admin",
+      layout: adminLayout,
       requiresAuth: true,
       role: "admin",
     },
@@ -73,7 +74,7 @@ export default [
         /* webpackChunkName: "dashboard-staticstics" */ "../views/Dashboard/Candidate/staticstics.vue"
       ),
     meta: {
-      layout: "admin",
+      layout: adminLayout,
       requiresAuth: true,
       role: "admin",
     },

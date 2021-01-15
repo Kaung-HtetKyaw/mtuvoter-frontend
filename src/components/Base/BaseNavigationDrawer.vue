@@ -30,7 +30,13 @@
           <v-list-item-title v-text="item.title" />
         </v-list-item-content>
       </v-list-item>
-      <v-list-item :to="{ name: 'Login' }" router exact key="login">
+      <v-list-item
+        :to="{ name: 'Login' }"
+        router
+        exact
+        key="login"
+        v-if="!authenticated"
+      >
         <v-list-item-content>
           <v-btn
             color="deep-purple darken-2"
@@ -67,17 +73,12 @@ const authorityItem = [
   {
     icon: "mdi-account-tie",
     title: "Admin Dashboard",
-    to: { name: "dashboard" },
-  },
-  {
-    icon: "#",
-    title: "Create tag",
-    to: { name: "t-new" },
+    to: { name: "Dashboard" },
   },
 ];
+
 export default {
   name: "BaseNavigationDrawer",
-
   computed: {
     items() {
       const vm = this;
@@ -117,8 +118,8 @@ export default {
         : defaultItem;
     },
     authorityItem() {
-      const user = this.user;
-      return user ? (user.claims.d || user.claims.a ? authorityItem : []) : [];
+      const user = this.userDetail;
+      return user ? (user.role === "admin" ? authorityItem : []) : [];
     },
   },
 };

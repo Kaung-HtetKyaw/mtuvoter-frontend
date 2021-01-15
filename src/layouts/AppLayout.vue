@@ -1,30 +1,31 @@
 <template>
-  <component :is="layout">
-    <slot />
-  </component>
+  <div>
+    <LoadingScreen v-if="loading" />
+    <component v-else :is="this.$route.meta.layout || 'div'">
+      <slot />
+    </component>
+  </div>
 </template>
 
 <script>
 import DefaultLayout from "@/layouts/default.vue";
+import LoadingScreen from "@/components/UI/LoadingScreen.vue";
+import { mapState } from "vuex";
 export default {
   name: "AppLayout",
+  components: {
+    LoadingScreen,
+  },
+  computed: {
+    ...mapState({
+      loading: (state) => state.UI.loading,
+    }),
+  },
+
   data() {
     return {
       layout: DefaultLayout,
     };
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      async handler(route) {
-        try {
-          const component = await import(`@/layouts/${route.meta.layout}.vue`);
-          this.layout = component?.default || DefaultLayout;
-        } catch (e) {
-          this.layout = DefaultLayout;
-        }
-      },
-    },
   },
 };
 </script>

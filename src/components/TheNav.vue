@@ -45,29 +45,33 @@
       <v-spacer class=""></v-spacer>
       <div class="d-flex flex-row align-center justify-center">
         <div class="d-flex flex-row justify-centeer align-center">
-          <router-link :to="{ name: 'Account' }">
+          <router-link :to="{ name: 'Account' }" v-if="!!user">
             <a class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
               >Account</a
             ></router-link
           >
-          <router-link :to="{ name: 'Dashboard' }">
+          <router-link
+            :to="{ name: 'Dashboard' }"
+            v-if="!!user && user.role === 'admin'"
+          >
             <a class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
               >Dashboard</a
             ></router-link
           >
-          <router-link :to="{ name: 'Login' }">
+
+          <router-link :to="{ name: 'Login' }" v-if="!user">
             <a
               class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
               >Sign in</a
             ></router-link
           >
-
+          <!-- 
           <v-btn
             elevation="0"
             class="d-none d-md-flex  deep-purple darken-2 white--text text-capitalize mx-2 font-weight-medium"
             >Create account</v-btn
           >
-          <slot name="search"></slot>
+          <slot name="search"></slot> -->
         </div>
 
         <!-- <BaseSearch /> -->
@@ -86,12 +90,18 @@
 // import BaseSearch from "@/components/BaseSearch.vue";
 import BaseNavigationDrawer from "@/components/Base/BaseNavigationDrawer.vue";
 import UserDrawer from "@/components/User/UserDrawer.vue";
+import { mapState } from "vuex";
 export default {
   name: "TheNav",
   components: {
     // BaseSearch,
     BaseNavigationDrawer,
     UserDrawer,
+  },
+  computed: {
+    ...mapState({
+      user: (state) => state.user.user,
+    }),
   },
   data: () => ({
     drawer: false,

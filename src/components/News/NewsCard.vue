@@ -5,16 +5,18 @@
         <div class="example-1 card ">
           <div class="wrapper ">
             <div class="date">
-              <span class="day">12</span>
-              <span class="month">Aug</span>
-              <span class="year">2016</span>
+              <span class="day">{{ new Date(news.createdAt).getDay() }}</span>
+              <span class="month">{{
+                new Date(news.createdAt).toDateString().split(" ")[1]
+              }}</span>
+              <span class="year">{{
+                new Date(news.createdAt).toDateString().split(" ")[3]
+              }}</span>
             </div>
             <div class="data ">
               <div class="content">
                 <h1 class="title pb-2">
-                  <a href="#" class="workssan"
-                    >MTU Student Union Election 2020 Results
-                  </a>
+                  <a href="#" class="workssan">{{ news.title }} </a>
                 </h1>
                 <p class="text">
                   The highly anticipated world championship fight will take
@@ -32,12 +34,12 @@
 
 <script>
 export default {
-  // props:{
-  //   news:{
-  //     type:Object,
-  //     required:true
-  //   }
-  // }
+  props: {
+    news: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 

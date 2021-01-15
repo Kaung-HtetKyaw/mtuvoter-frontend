@@ -1,10 +1,12 @@
 <template>
-  <Layout class="main__wrapper">
-    <NotificationContainer />
-    <transition name="fade" tag="div"
-      ><router-view :key="$route.fullPath"></router-view
-    ></transition>
-  </Layout>
+  <div>
+    <Layout class="main__wrapper">
+      <NotificationContainer />
+      <transition name="fade" tag="div"
+        ><router-view :key="$route.fullPath"></router-view
+      ></transition>
+    </Layout>
+  </div>
 </template>
 
 <script>

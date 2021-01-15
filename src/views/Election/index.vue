@@ -30,14 +30,15 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="12" md="6" lg="4">
-        <ElectionCard />
-      </v-col>
-      <v-col cols="12" sm="12" md="6" lg="4">
-        <ElectionCard />
-      </v-col>
-      <v-col cols="12" sm="12" md="6" lg="4">
-        <ElectionCard />
+      <v-col
+        cols="12"
+        sm="12"
+        md="6"
+        lg="4"
+        v-for="election in elections"
+        :key="election.id"
+      >
+        <ElectionCard :election="election" />
       </v-col>
     </v-row>
     <v-row class="my-6">
@@ -51,11 +52,40 @@
 <script>
 import ElectionCard from "@/components/Election/ElectionCard.vue";
 import BaseLoader from "@/components/Base/BaseLoader.vue";
+import axios from "@/services/axios.js";
 export default {
   name: "Elections",
   components: {
     ElectionCard,
     BaseLoader,
+  },
+  data() {
+    return {
+      elections: [],
+      page: 1,
+      limit: 5,
+      loading: false,
+    };
+  },
+  async beforeRouteEnter(to, from, next) {
+    const elections = await axios().get(`/elections?limit=5&page=1`);
+    next((vm) => {
+      vm.elections = elections.data.data;
+      vm.page++;
+    });
+  },
+
+  methods: {
+    async loadElections() {
+      this.loading = true;
+      await axios()
+        .get(`/elections?limit=${this.limit}&page=${this.page}`)
+        .then((res) => {
+          this.elections = res.data.data;
+          this.page++;
+          this.loading = false;
+        });
+    },
   },
 };
 </script>

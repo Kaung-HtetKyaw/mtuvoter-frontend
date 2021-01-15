@@ -17,6 +17,10 @@ import store from "@/store/index.js";
 import { showNoti } from "@/utils/noti.js";
 // import { setDefaultAuthMetaForRoutes } from "@/utils/utils.js";
 
+// layouts
+const defaultLayout = () => import("@/layouts/default.vue");
+const errorLayout = () => import("@/layouts/error.vue");
+
 const options = {
   latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
 };
@@ -31,12 +35,18 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    meta: {
+      layout: defaultLayout,
+    },
   },
 
   {
     path: "/test",
     name: "Test",
     component: () => import(/* webpackChunkName: "test" */ "../views/Test.vue"),
+    meta: {
+      layout: defaultLayout,
+    },
   },
   ...electionRoutes,
   ...newsRoutes,
@@ -49,13 +59,16 @@ const routes = [
     path: "/faq",
     name: "FAQ",
     component: () => import(/* webpackChunkName: "faq" */ "../views/FAQ.vue"),
+    meta: {
+      layout: defaultLayout,
+    },
   },
   {
     path: "/error",
     name: "404",
     component: NotFound,
     meta: {
-      layout: "error",
+      layout: errorLayout,
     },
   },
   {
@@ -64,17 +77,28 @@ const routes = [
   },
 ];
 
+function setDefaultLayout(routes) {
+  let result = routes.map((route) => {
+    if (!route.meta?.layout) {
+      route.meta = {
+        layout: defaultLayout,
+      };
+    }
+    return route;
+  });
+  return result;
+}
+
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   scrollBehavior() {
     return { x: 0, y: 0 };
   },
-  routes,
+  routes: setDefaultLayout(routes),
 });
 
 router.beforeEach(async (to, from, next) => {
-  console.log(from);
   const requiresAuth = to.matched.some((el) => !!el.meta.requiresAuth);
   const requiresMod = to.matched.some(
     (el) => el.meta.role === "mod" || el.meta.role === "admin"
@@ -128,6 +152,7 @@ router.beforeEach(async (to, from, next) => {
 
 router.afterEach(() => {
   NProgress.done();
+  store.dispatch("UI/changeLoadingState", false);
 });
 
 export default router;

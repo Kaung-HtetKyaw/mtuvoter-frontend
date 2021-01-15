@@ -26,7 +26,7 @@
                   Email address
                 </h6>
                 <v-text-field
-                  v-model="email"
+                  v-model="user.email"
                   :height="10"
                   outlined
                   dense
@@ -39,7 +39,7 @@
                   Name
                 </h6>
                 <v-text-field
-                  v-model="name"
+                  v-model="user.name"
                   :height="10"
                   outlined
                   dense
@@ -52,7 +52,7 @@
                   Student ID
                 </h6>
                 <v-text-field
-                  v-model="SID"
+                  v-model="user.SID"
                   :height="10"
                   outlined
                   dense
@@ -143,21 +143,17 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Account",
-  data() {
-    return {
-      email: "speed02749@gmail.com",
-      name: "Kaung Htet Kyaw",
-      SID: "123456",
-    };
+  computed: {
+    ...mapState({
+      user: (state) => state.user.user,
+    }),
   },
-  async created() {
-    await this.axios
-      .get(`${process.env.VUE_APP_BASE_API_URL}/users/me`, {
-        withCredentials: true,
-      })
-      .then((res) => console.log(res.data.data));
+  data() {
+    return {};
   },
 };
 </script>

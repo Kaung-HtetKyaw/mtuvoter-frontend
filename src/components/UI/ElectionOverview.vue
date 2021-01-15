@@ -9,9 +9,16 @@
         </h2>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols="12" sm="12" md="4" v-for="i in 3" :key="i">
-        <ElectionCard />
+    <v-row justify="center">
+      <v-col
+        cols="12"
+        sm="12"
+        md="6"
+        lg="4"
+        v-for="election in elections"
+        :key="election.id"
+      >
+        <ElectionCard :election="election" />
       </v-col>
     </v-row>
     <v-row class="my-6">
@@ -38,6 +45,12 @@ export default {
   name: "ElectionOverview",
   components: {
     ElectionCard,
+  },
+  props: {
+    elections: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>

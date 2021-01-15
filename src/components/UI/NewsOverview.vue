@@ -9,15 +9,9 @@
         </h2>
       </v-col>
     </v-row>
-    <v-row class="my-6">
-      <v-col cols="12" sm="12" md="6" lg="4">
-        <NewsCard />
-      </v-col>
-      <v-col cols="12" sm="12" md="6" lg="4">
-        <NewsCard />
-      </v-col>
-      <v-col cols="12" sm="12" md="6" lg="4">
-        <NewsCard />
+    <v-row justify="center" class="my-6">
+      <v-col cols="12" sm="12" md="6" lg="4" v-for="el in news" :key="el.id">
+        <NewsCard :news="el" />
       </v-col>
     </v-row>
     <v-row>
@@ -39,6 +33,12 @@ export default {
   name: "NewsOverview",
   components: {
     NewsCard,
+  },
+  props: {
+    news: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
