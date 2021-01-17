@@ -108,28 +108,43 @@
             {{ position.name }}
           </h1>
         </div>
-        <div class=" election__content font-weight-bold my-4">
+        <div class=" election__content font-weight-bold my-4 width-100">
           <div class="position__description">
             <p>
               {{ position.description }}
             </p>
           </div>
           <div
-            class="d-flex flex-column flex-md-row justify-center align-center my-3"
+            class="d-flex flex-column  justify-center align-center my-3 width-100"
           >
             <v-btn
               depressed
               color="deep-purple darken-2"
               block
-              class="white--text text-capitalize"
+              class="white--text text-capitalize mb-3"
               :ripple="false"
-              exact
               v-if="userDetail.role === 'admin'"
               :to="{
                 name: 'Election-Position-Edit',
                 params: { position: position._id },
               }"
               >Update this position
+            </v-btn>
+            <v-btn
+              depressed
+              color="deep-purple darken-2"
+              block
+              class="white--text text-capitalize mb-3"
+              :ripple="false"
+              v-if="userDetail.role === 'admin'"
+              :to="{
+                name: 'Election-New-Candidate',
+                params: {
+                  position: position._id,
+                  election: $route.params.election,
+                },
+              }"
+              >Add Candidates to this position
             </v-btn>
           </div>
         </div>

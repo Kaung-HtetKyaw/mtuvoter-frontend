@@ -1,5 +1,5 @@
 import axios from "@/services/axios.js";
-import showNoti from "@/utils/noti.js";
+import { showNoti } from "@/utils/noti.js";
 
 export const namespaced = true;
 export const state = {

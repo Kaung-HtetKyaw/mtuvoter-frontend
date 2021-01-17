@@ -7,7 +7,7 @@
         class="py-0 px-0 d-flex flex-column candidate__info justify-center align-center align-md-start text-center text-md-left"
       >
         <h5 class="candidate__info__name text-h6 font-weight-bold underline">
-          ကျော်တိုးတိုးဟန်
+          {{ candidate.name }}
         </h5>
 
         <span class="candidate__info__type d-block font-weight-bold">{{
@@ -22,7 +22,7 @@
         <div class="candidate__photo">
           <img
             class="borderedpicture"
-            src="/img/mtu-candidate.jpg"
+            :src="'https://kgnatours.herokuapp.com/images/' + candidate.photo"
             alt="putyourpicturesalttexthere"
           />
         </div>

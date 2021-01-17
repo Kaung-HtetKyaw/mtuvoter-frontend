@@ -47,3 +47,15 @@ export function replaceBy(array, item, type = "id") {
   });
   return array.splice(index, 1, item);
 }
+
+export function isPlainObject(obj) {
+  return obj.toString() === "[object Object]";
+}
+
+export function convertToForm(data) {
+  let form = new FormData();
+  for (const key in data) {
+    form.append(key, data[key]);
+  }
+  return form;
+}

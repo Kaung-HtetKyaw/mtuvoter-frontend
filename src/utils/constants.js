@@ -23,7 +23,7 @@ export const majorArray = (() => {
 function mapToArray(map) {
   let result = [];
   for (const key in map) {
-    result.push(map[key]);
+    result.push(key);
   }
   return result;
 }

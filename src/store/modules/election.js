@@ -21,6 +21,9 @@ export const mutations = {
   UPDATE_CANDIDATE(state, candidate) {
     replaceBy(state.election.candidates, candidate, "_id");
   },
+  ADD_CANDIDATES(state, candidates) {
+    state.election.candidates = state.election.candidates.concat(candidates);
+  },
   INCREMENT_PAGE(state) {
     state.page++;
   },
@@ -56,20 +59,57 @@ export const actions = {
       });
     return election;
   },
-  async updateCandidates({ commit }, electionId, positionId, candidate) {
-    // update to DB
+  async updateCandidate(
+    { commit },
+    { electionId, positionId, formData, candidate }
+  ) {
     const updatedCandidate = await axios()
       .patch(
-        `elections/${electionId}/postions/${positionId}/candidates/${candidate._id}`
+        `/elections/${electionId}/positions/${positionId}/candidates/${candidate._id}`,
+        formData,
+        {
+          withCredentials: true,
+        }
       )
-      .then(() => {
-        commit("UPDATE_CANDIDATE", candidate);
+      .then((res) => {
+        commit("UPDATE_CANDIDATE", res.data.data);
+        return res.data.data;
       })
-      .catch(() => showNoti("error", "Error updating candidate."));
+      .catch((e) => {
+        console.log(e);
+        showNoti("error", "Error updating candidate.");
+      });
     return updatedCandidate;
     // update in local
   },
+  async addCandidates({ commit }, { electionId, positionId, candidates }) {
+    console.log(electionId, positionId, candidates);
+    const newCandidates = await Promise.all(
+      candidates.map((el) => createCandidate(electionId, positionId, el))
+    ).then((res) => {
+      commit("ADD_CANDIDATES", res);
+      return res;
+    });
+    return newCandidates;
+  },
 };
+
+async function createCandidate(electionId, positionId, candidate) {
+  return await axios()
+    .post(
+      `/elections/${electionId}/positions/${positionId}/candidates`,
+      candidate,
+      { withCredentials: true }
+    )
+    .then((res) => {
+      console.log(res.data.data);
+      return res.data.data;
+    })
+    .catch((e) => {
+      console.log(e);
+      showNoti("error", "Error creating new candidates.");
+    });
+}
 export const getters = {
   getCandidatesByPosition: (state) => (position) => {
     let desiredPosition = state.election.position.find(

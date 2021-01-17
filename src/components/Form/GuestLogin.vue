@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <slot v-bind:activator="{ on, attrs }"></slot>
       </template>
-      <v-card class="px-0 py-0 px-lg-6 py-lg-6">
+      <v-card class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6">
         <div class="width-100 d-flex justify-end">
           <v-btn
             :ripple="false"
@@ -26,11 +26,11 @@
           class="px-2  px-lg-6 text-center d-flex justify-center align-center"
         >
           <span
-            class=" text-center text-h6 font-weight-bold deep-purple--text darken-2"
+            class=" text-center text-body-1 text-md-h6 font-weight-bold deep-purple--text darken-2"
             >You are not currently logged in</span
           >
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="px-4">
           <div class="pl-0 pl-lg-3 my-2">
             <ul class="text-body-2 auth-info">
               <li>

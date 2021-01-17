@@ -53,7 +53,7 @@
         <v-card class="elevation-2 pb-6">
           <v-card-title
             class="deep-purple darken-2 white--text d-flex justify-center"
-            >Enter Candidates Details</v-card-title
+            >Update Candidates Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
             <v-form ref="form" class="px-2">
@@ -109,6 +109,8 @@
                   block
                   depressed
                   :ripple="false"
+                  :loading="loading"
+                  @click="updateCandidate"
                   >Update Candidates</v-btn
                 >
               </div>
@@ -123,15 +125,16 @@
 <script>
 import { yearArray } from "@/utils/constants.js";
 import { showNoti } from "@/utils/noti.js";
+import { convertToForm } from "@/utils/utils.js";
 // import axios from "@/services/axios.js";
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 
 export default {
-  name: "Election-New-Position",
+  name: "Election-Edit-Candidate",
   data() {
     return {
-      candidate: { name: "", email: "", promise: "", photo: {}, year: "" },
+      candidate: { name: "", email: "", promise: "", photo: "", year: "" },
       yearArray: yearArray,
       loading: false,
     };
@@ -145,6 +148,12 @@ export default {
         (el) => el._id === this.$route.params.candidate
       );
     },
+    electionId() {
+      return this.candidate._election;
+    },
+    positionId() {
+      return this.candidate._post;
+    },
   },
   beforeRouteEnter(to, from, next) {
     if (!store.state.election.election) {
@@ -154,6 +163,7 @@ export default {
         { name: "Elections" },
         next
       );
+      return;
     }
     next();
   },
@@ -161,7 +171,31 @@ export default {
     console.log(this.originalCandidate);
     this.candidate = { ...this.originalCandidate };
   },
-  methods: {},
+  methods: {
+    async updateCandidate() {
+      const vm = this;
+      this.loading = true;
+      // take the original image if no new image is selected
+      if (!vm.candidate.photo) {
+        vm.candidate.photo = vm.originalCandidate.photo;
+      }
+      const formData = convertToForm(vm.candidate, "PATCH");
+      console.log(vm.candidate, formData, vm.electionId, vm.positionId);
+      await store
+        .dispatch("election/updateCandidate", {
+          electionId: vm.electionId,
+          positionId: vm.positionId,
+          formData,
+          candidate: vm.candidate,
+        })
+        .then(() => {
+          vm.loading = false;
+        })
+        .catch(() => {
+          vm.loading = false;
+        });
+    },
+  },
 };
 </script>
 

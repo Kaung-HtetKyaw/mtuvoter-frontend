@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       snackbar: true,
-      timeout: 3000,
+      timeout: 4000,
     };
   },
   computed: {},

@@ -14,7 +14,7 @@
           >
             Go
             <router-link
-              :to="{ name: 'Election-Edit', params: { election } }"
+              :to="{ name: 'Election-Edit', params: { election: electionId } }"
               class="text-decoration-underline px-1"
               >here</router-link
             >
@@ -37,7 +37,7 @@
             <router-link
               :to="{
                 name: 'Election-Position-Edit',
-                params: { election, position },
+                params: { election: electionId, position: positionId },
               }"
               class="text-decoration-underline px-1"
               >here</router-link
@@ -82,7 +82,7 @@
                   outlined
                   label="Enter Candidate email"
                   required
-                  v-model="candidates[i - 1].name"
+                  v-model="candidates[i - 1].email"
                 ></v-text-field>
                 <v-text-field
                   outlined
@@ -110,7 +110,7 @@
                   outlined
                   label="Enter Candidate's Election or Campaign Promise"
                   required
-                  v-model="candidates[i - 1].description"
+                  v-model="candidates[i - 1].promise"
                 ></v-textarea>
               </div>
 
@@ -151,56 +151,83 @@
 <script>
 import { yearArray } from "@/utils/constants.js";
 import { showNoti } from "@/utils/noti.js";
-import axios from "@/services/axios.js";
+import { convertToForm } from "@/utils/utils.js";
+import store from "@/store/index.js";
 export default {
   name: "Election-New-Position",
   data() {
     return {
-      candidates: [{ name: "", email: "", promise: "", photo: {}, year: "" }],
+      candidates: [],
       yearArray: yearArray,
       loading: false,
     };
   },
   computed: {
-    election() {
+    electionId() {
       return this.$route.params.election;
     },
-    position() {
+    positionId() {
       return this.$route.params.position;
     },
   },
+  beforeRouteEnter(to, from, next) {
+    const { election } = to.params;
+    if (
+      !store.state.election.election ||
+      store.state.election.election._id !== election
+    ) {
+      showNoti(
+        "error",
+        "Please go to the election page or create an election first to add new candidates.",
+        { name: "Election-Single", params: { election } },
+        next
+      );
+      return;
+    }
+    next();
+  },
   created() {
-    this.candidates[0]._election = this.election;
-    this.candidates[0]._position = this.position;
+    // add the first candidate
+    this.addCandidate();
   },
   methods: {
     async createCandidates() {
       const vm = this;
       vm.loading = true;
-      await axios()
-        .post(
-          `/elections/${this.election}/positions/${this.positions}/candidates`,
-          this.candidates
-        )
-        .then(() => {
-          vm.loading = false;
+      console.log(vm.convertToFormArray(vm.candidates));
+      await store
+        .dispatch("election/addCandidates", {
+          electionId: vm.electionId,
+          positionId: vm.positionId,
+          candidates: vm.convertToFormArray(vm.candidates),
         })
-        .catch(() => showNoti("error", "Error creating candidate."));
+        .then((res) => {
+          vm.loading = false;
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+          showNoti("error", "Error creating new candidates.");
+        });
     },
     addCandidate() {
       this.candidates.push({
-        _election: this.election,
-        _position: this.position,
+        _election: this.electionId,
+        _post: this.positionId,
         name: "",
         email: "",
         promise: "",
         photo: "",
+        year: "",
       });
       console.log(this.candidates);
     },
     removeCandidate(index) {
       this.candidates.splice(index, 1);
       console.log(this.candidates);
+    },
+    convertToFormArray(data) {
+      return data.map((el) => convertToForm(el));
     },
   },
 };

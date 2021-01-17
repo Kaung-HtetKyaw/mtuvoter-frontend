@@ -102,6 +102,7 @@ export default {
       },
     };
   },
+
   methods: {
     createElection() {
       console.log(this.election);
