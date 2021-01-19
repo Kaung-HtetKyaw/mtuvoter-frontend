@@ -201,12 +201,11 @@ export default {
           positionId: vm.positionId,
           candidates: vm.convertToFormArray(vm.candidates),
         })
-        .then((res) => {
+        .then(() => {
           vm.loading = false;
-          console.log(res);
+          this.$router.go(-1);
         })
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
           showNoti("error", "Error creating new candidates.");
         });
     },

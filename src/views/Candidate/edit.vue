@@ -168,7 +168,6 @@ export default {
     next();
   },
   created() {
-    console.log(this.originalCandidate);
     this.candidate = { ...this.originalCandidate };
   },
   methods: {
@@ -180,7 +179,6 @@ export default {
         vm.candidate.photo = vm.originalCandidate.photo;
       }
       const formData = convertToForm(vm.candidate, "PATCH");
-      console.log(vm.candidate, formData, vm.electionId, vm.positionId);
       await store
         .dispatch("election/updateCandidate", {
           electionId: vm.electionId,
@@ -190,6 +188,7 @@ export default {
         })
         .then(() => {
           vm.loading = false;
+          this.$router.go(-1);
         })
         .catch(() => {
           vm.loading = false;

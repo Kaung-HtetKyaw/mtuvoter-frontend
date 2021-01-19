@@ -1,9 +1,10 @@
 <template>
   <div>
-    <LoadingScreen v-if="loading" />
-    <component v-else :is="this.$route.meta.layout || 'div'">
-      <slot />
-    </component>
+    <transition name="fade" mode="out-in">
+      <LoadingScreen v-if="loading"/>
+      <component v-else :is="this.$route.meta.layout || 'div'">
+        <slot /> </component
+    ></transition>
   </div>
 </template>
 

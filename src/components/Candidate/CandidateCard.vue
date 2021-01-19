@@ -22,7 +22,7 @@
         <div class="candidate__photo">
           <img
             class="borderedpicture"
-            :src="'https://kgnatours.herokuapp.com/images/' + candidate.photo"
+            :src="candidate.photo"
             alt="putyourpicturesalttexthere"
           />
         </div>
@@ -75,6 +75,27 @@
                   >Update this candidate
                 </v-btn>
               </div>
+              <div
+                class="d-flex flex-column flex-md-row justify-center align-center my-3"
+              >
+                <ConfirmModal :id="candidate._id">
+                  <template v-slot:default="{ activator }">
+                    <v-btn
+                      depressed
+                      color="red darken-2"
+                      block
+                      text
+                      v-bind="activator.attrs"
+                      v-on="activator.on"
+                      class="white--text text-capitalize"
+                      :ripple="false"
+                      exact
+                      v-if="userDetail.role === 'admin'"
+                      >Remove this candidate
+                    </v-btn></template
+                  >
+                </ConfirmModal>
+              </div>
             </div>
           </div>
         </div>
@@ -85,12 +106,14 @@
 
 <script>
 import GuestLogin from "@/components/Form/GuestLogin.vue";
+import ConfirmModal from "@/components/Modal/CandidateConfirmModal.vue";
 import { yearMap, majorMap } from "@/utils/constants.js";
 
 export default {
   name: "CandidateCard",
   components: {
     GuestLogin,
+    ConfirmModal,
   },
   props: {
     candidate: {

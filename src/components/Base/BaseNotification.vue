@@ -8,7 +8,13 @@
     class="elevation-21"
   >
     <div>
-      <p class="mb-0 text-body-2 font-weight-medium deep-purple--text darken-2">
+      <p
+        class="mb-0 text-body-2 font-weight-medium darken-2"
+        :class="{
+          'deep-purple--text': noti.type === 'success',
+          'red--text': noti.type === 'error',
+        }"
+      >
         {{ noti.message }}
       </p>
     </div>

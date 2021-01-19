@@ -1,6 +1,6 @@
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
-import { replaceBy } from "@/utils/utils.js";
+import { replaceBy, removeBy } from "@/utils/utils.js";
 
 export const namespaced = true;
 export const state = {
@@ -23,6 +23,9 @@ export const mutations = {
   },
   ADD_CANDIDATES(state, candidates) {
     state.election.candidates = state.election.candidates.concat(candidates);
+  },
+  DELETE_CANDIDATE(state, candidateId) {
+    removeBy(state.election.candidates, candidateId, "_id");
   },
   INCREMENT_PAGE(state) {
     state.page++;
@@ -63,6 +66,7 @@ export const actions = {
     { commit },
     { electionId, positionId, formData, candidate }
   ) {
+    console.log(electionId, positionId, candidate);
     const updatedCandidate = await axios()
       .patch(
         `/elections/${electionId}/positions/${positionId}/candidates/${candidate._id}`,
@@ -76,8 +80,8 @@ export const actions = {
         return res.data.data;
       })
       .catch((e) => {
-        console.log(e);
-        showNoti("error", "Error updating candidate.");
+        console.log(e.response);
+        showNoti("error", e.response.data.message);
       });
     return updatedCandidate;
     // update in local
@@ -91,6 +95,18 @@ export const actions = {
       return res;
     });
     return newCandidates;
+  },
+  async removeCandidate({ commit, getters }, { candidateId }) {
+    console.log(candidateId);
+    const { _election, _position } = getters.getCandidatesById(candidateId);
+    await axios()
+      .delete(
+        `/elections/${_election}/positions/${_position}/candidates/${candidateId}`
+      )
+      .then(() => {
+        commit("DELETE_CANDIDATE");
+      })
+      .catch((e) => showNoti("error", e.response.message));
   },
 };
 
@@ -118,5 +134,8 @@ export const getters = {
     return state.election.candidates.filter(
       (el) => el._post === desiredPosition
     );
+  },
+  getCandidatesById: (state) => (id) => {
+    return state.election.candidates.find((el) => el._id === id);
   },
 };

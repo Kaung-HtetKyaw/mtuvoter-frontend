@@ -118,12 +118,10 @@ router.beforeEach(async (to, from, next) => {
   }
   // gurad for the auth routes
   if (requiresAuth && !currentUser) {
-    console.log("currentUser", currentUser);
     showNoti(
       "error",
       "You are no authenticated. Please log in to continue",
-      to,
-      from,
+      { name: "Login" },
       next
     );
     return;

@@ -48,6 +48,16 @@ export function replaceBy(array, item, type = "id") {
   return array.splice(index, 1, item);
 }
 
+export function removeBy(array, id, type = "id") {
+  const index = array.findIndex((el) => {
+    if (isPlainObject(el)) {
+      return el[type] === id;
+    }
+    return el === id;
+  });
+  return array.splice(index, 1);
+}
+
 export function isPlainObject(obj) {
   return obj.toString() === "[object Object]";
 }
