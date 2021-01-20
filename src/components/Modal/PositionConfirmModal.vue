@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="end">
+  <v-row justify="end" class="width-100">
     <v-dialog scrollable v-model="dialog" persistent max-width="620px">
       <template v-slot:activator="{ on, attrs }">
         <slot v-bind:activator="{ on, attrs }"></slot>
@@ -23,7 +23,7 @@
           </v-btn>
         </div>
         <v-card-title
-          class="px-0  px-lg-6 text-center d-flex justify-center align-center"
+          class="px-4  px-lg-6 text-center d-flex justify-center align-center"
         >
           <span
             class=" text-subtitle-1 text-center text-md-h6 font-weight-bold red--text darken-2"
@@ -31,10 +31,10 @@
           >
 
           <p
-            class="text-body-2 text-center my-0 font-weight-medium text--secondary mt-6"
+            class="text-body-2 text-center my-0 font-weight-medium text--secondary mt-6 px-6"
           >
-            Notice that you the candidate data cannot be restored after the
-            deletion.
+            Notice that the position and the related candidates' data cannot be
+            restored after the deletion.
           </p>
         </v-card-title>
         <v-card-text class="add-mod mt-6">
@@ -83,17 +83,17 @@ export default {
       const vm = this;
       vm.loading = true;
       await store
-        .dispatch("election/removeCandidate", {
-          candidateId: vm.id,
+        .dispatch("election/removePosition", {
+          positionId: vm.id,
         })
         .then(() => {
           vm.loading = false;
-          showNoti("success", "Candidate is successfully removed");
+          showNoti("success", "Position is successfully removed");
         })
         .catch(() => {
           vm.loading = false;
 
-          showNoti("error", "Error deleting candidate");
+          showNoti("error", "Error removing position");
         });
     },
   },

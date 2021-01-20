@@ -123,6 +123,10 @@ export default {
             "success",
             "Position informations have been updated successfully"
           );
+          vm.$router.replace({
+            name: "Election",
+            params: { election: vm.position._election },
+          });
         })
         .catch(() => {
           vm.loading = false;

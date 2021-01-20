@@ -27,8 +27,14 @@ export const mutations = {
   DELETE_CANDIDATE(state, candidateId) {
     removeBy(state.election.candidates, candidateId, "_id");
   },
+  ADD_POSITION(state, position) {
+    state.election.positions.push(position);
+  },
   UPDATE_POSITION(state, position) {
     replaceBy(state.election.positions, position, "_id");
+  },
+  DELETE_POSITION(state, positionId) {
+    removeBy(state.election.positions, positionId, "_id");
   },
   INCREMENT_PAGE(state) {
     state.page++;
@@ -90,7 +96,6 @@ export const actions = {
     // update in local
   },
   async addCandidates({ commit }, { electionId, positionId, candidates }) {
-    console.log(electionId, positionId, candidates);
     const newCandidates = await Promise.all(
       candidates.map((el) => createCandidate(electionId, positionId, el))
     ).then((res) => {
@@ -101,7 +106,7 @@ export const actions = {
   },
   async removeCandidate({ commit, getters }, { candidateId }) {
     console.log(candidateId);
-    const { _election, _position } = getters.getCandidatesById(candidateId);
+    const { _election, _position } = getters.getCandidateById(candidateId);
     await axios()
       .delete(
         `/elections/${_election}/positions/${_position}/candidates/${candidateId}`
@@ -112,6 +117,19 @@ export const actions = {
       .catch((e) => showNoti("error", e.response.message));
   },
   // position
+  async addPosition({ commit }, { position }) {
+    const newPosition = await axios()
+      .post(`/elections/${position._election}/positions`, position)
+      .then((res) => {
+        commit("ADD_POSITION", res.data.data);
+        return res.data.data;
+      })
+      .catch((e) => {
+        showNoti("error", e.response.message);
+      });
+    console.log(newPosition);
+    return newPosition;
+  },
   async updatePosition({ commit }, { position }) {
     const updatedPosition = await axios()
       .patch(
@@ -125,6 +143,20 @@ export const actions = {
       })
       .catch((e) => showNoti("error", e.response.message));
     return updatedPosition;
+  },
+  async removePosition({ commit, getters }, { positionId }) {
+    const position = getters.getPositionById(positionId);
+    await axios()
+      .delete(`/elections/${position._election}/positions/${position._id}`)
+      .then(() => {
+        commit("DELETE_POSITION", positionId);
+        //* remove related candidates(still deciding which is better between deleteing all candidates or just delete it from the local store)
+        const candidates = getters.getCandidatesByPosition(positionId);
+        candidates.forEach((el) => {
+          commit("DELETE_CANDIDATE", el._id);
+        });
+      })
+      .catch((e) => showNoti("error", e.response.message));
   },
 };
 
@@ -153,7 +185,10 @@ export const getters = {
       (el) => el._post === desiredPosition
     );
   },
-  getCandidatesById: (state) => (id) => {
+  getCandidateById: (state) => (id) => {
     return state.election.candidates.find((el) => el._id === id);
+  },
+  getPositionById: (state) => (id) => {
+    return state.election.positions.find((el) => el._id === id);
   },
 };

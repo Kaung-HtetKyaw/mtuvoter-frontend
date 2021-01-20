@@ -47,6 +47,24 @@
             {{ election.about }}
           </p>
         </div>
+        <div class="width-100">
+          <router-link
+            v-if="userDetail.role === 'admin'"
+            :to="{
+              name: 'Election-New-Position',
+              params: { election: election._id },
+            }"
+          >
+            <v-btn
+              color="deep-purple darken-2"
+              class="white--text text-capitalize"
+              depressed
+              block
+              :ripple="false"
+              >Add position to this election</v-btn
+            ></router-link
+          >
+        </div>
       </v-col>
       <v-col cols="12" sm="12" md="3">
         <div
@@ -161,16 +179,22 @@
               }"
               >Add Candidates to this position
             </v-btn>
-            <v-btn
-              depressed
-              color="red darken-2"
-              block
-              text
-              class="white--text text-capitalize mb-3"
-              :ripple="false"
-              v-if="userDetail.role === 'admin'"
-              >Remove this position
-            </v-btn>
+            <PositionConfirmModal :id="position._id">
+              <template v-slot:default="{ activator }">
+                <v-btn
+                  depressed
+                  color="red darken-2"
+                  block
+                  text
+                  v-bind="activator.attrs"
+                  v-on="activator.on"
+                  class="white--text text-capitalize mb-3"
+                  :ripple="false"
+                  v-if="userDetail.role === 'admin'"
+                  >Remove this position
+                </v-btn>
+              </template>
+            </PositionConfirmModal>
           </div>
         </div>
         <div class="candidates">
@@ -206,12 +230,14 @@
 
 <script>
 import CandidateCard from "@/components/Candidate/CandidateCard.vue";
+import PositionConfirmModal from "@/components/Modal/PositionConfirmModal.vue";
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 export default {
   name: "Election",
   components: {
     CandidateCard,
+    PositionConfirmModal,
   },
   computed: {
     ...mapState({
