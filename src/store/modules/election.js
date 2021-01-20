@@ -156,7 +156,10 @@ export const actions = {
           commit("DELETE_CANDIDATE", el._id);
         });
       })
-      .catch((e) => showNoti("error", e.response.message));
+      .catch((e) => {
+        console.log(e);
+        showNoti("error", e.response.message);
+      });
   },
 };
 
@@ -178,7 +181,7 @@ async function createCandidate(electionId, positionId, candidate) {
 }
 export const getters = {
   getCandidatesByPosition: (state) => (position) => {
-    let desiredPosition = state.election.position.find(
+    let desiredPosition = state.election.positions.find(
       (el) => el._id === position
     );
     return state.election.candidates.filter(

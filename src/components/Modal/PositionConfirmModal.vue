@@ -88,11 +88,14 @@ export default {
         })
         .then(() => {
           vm.loading = false;
-          showNoti("success", "Position is successfully removed");
+          showNoti(
+            "success",
+            "Position has been successfully removed from the election"
+          );
         })
-        .catch(() => {
+        .catch((e) => {
           vm.loading = false;
-
+          console.log(e);
           showNoti("error", "Error removing position");
         });
     },
