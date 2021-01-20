@@ -156,7 +156,10 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    if (!store.state.election.election) {
+    if (
+      !store.state.election.election ||
+      store.state.election._id === to.params.candidate._election
+    ) {
       showNoti(
         "error",
         "You must go to the election page to update candidate",
@@ -178,7 +181,7 @@ export default {
       if (!vm.candidate.photo) {
         vm.candidate.photo = vm.originalCandidate.photo;
       }
-      const formData = convertToForm(vm.candidate, "PATCH");
+      const formData = convertToForm(vm.candidate);
       await store
         .dispatch("election/updateCandidate", {
           electionId: vm.electionId,

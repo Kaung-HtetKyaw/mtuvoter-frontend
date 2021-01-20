@@ -90,6 +90,21 @@
               ></router-link
             >
           </div>
+          <div class="width-100 mt-3">
+            <router-link
+              v-if="userDetail.role === 'admin'"
+              :to="{ name: 'Election-Edit', params: { election: 'alo' } }"
+            >
+              <v-btn
+                color="red darken-2"
+                class="white--text text-capitalize"
+                depressed
+                block
+                :ripple="false"
+                >Delete this election</v-btn
+              ></router-link
+            >
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -145,6 +160,16 @@
                 },
               }"
               >Add Candidates to this position
+            </v-btn>
+            <v-btn
+              depressed
+              color="red darken-2"
+              block
+              text
+              class="white--text text-capitalize mb-3"
+              :ripple="false"
+              v-if="userDetail.role === 'admin'"
+              >Remove this position
             </v-btn>
           </div>
         </div>
@@ -235,7 +260,6 @@ export default {
   &__content {
     font-size: 17px;
     line-height: 2.5;
-    opacity: 0.8;
   }
   &__link {
     opacity: 0.7;

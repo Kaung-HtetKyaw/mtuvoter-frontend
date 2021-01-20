@@ -27,6 +27,9 @@ export const mutations = {
   DELETE_CANDIDATE(state, candidateId) {
     removeBy(state.election.candidates, candidateId, "_id");
   },
+  UPDATE_POSITION(state, position) {
+    replaceBy(state.election.positions, position, "_id");
+  },
   INCREMENT_PAGE(state) {
     state.page++;
   },
@@ -107,6 +110,21 @@ export const actions = {
         commit("DELETE_CANDIDATE");
       })
       .catch((e) => showNoti("error", e.response.message));
+  },
+  // position
+  async updatePosition({ commit }, { position }) {
+    const updatedPosition = await axios()
+      .patch(
+        `/elections/${position._election}/positions/${position._id}`,
+        position
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        commit("UPDATE_POSITION", res.data.data);
+        return res.data.data;
+      })
+      .catch((e) => showNoti("error", e.response.message));
+    return updatedPosition;
   },
 };
 

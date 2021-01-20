@@ -14,7 +14,10 @@
           >
             Go
             <router-link
-              :to="{ name: 'Election-Edit', params: { election } }"
+              :to="{
+                name: 'Election-Edit',
+                params: { election: position._id },
+              }"
               class="text-decoration-underline px-1"
               >here</router-link
             >
@@ -26,41 +29,22 @@
         <v-card class="elevation-2 pb-6">
           <v-card-title
             class="deep-purple darken-2 white--text d-flex justify-center"
-            >Enter Positions Details</v-card-title
+            >Update Positions Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
             <v-form ref="form" class="px-2">
-              <div v-for="i in positions.length" :key="i">
-                <div class="width-100 d-flex justify-end">
-                  <v-btn
-                    v-if="i - 1 > 0"
-                    :ripple="false"
-                    class="mx-2"
-                    fab
-                    dark
-                    depressed
-                    color="deep-purple darken-2 rotate-45 my-2"
-                    x-small
-                    @click="removePosition(i - 1)"
-                  >
-                    <v-icon dark>
-                      mdi-plus
-                    </v-icon>
-                  </v-btn>
-                </div>
-                <v-text-field
-                  outlined
-                  label="Provide Position's name"
-                  required
-                  v-model="positions[i - 1].name"
-                ></v-text-field>
-                <v-textarea
-                  outlined
-                  label="Provide Position's information briefly"
-                  required
-                  v-model="positions[i - 1].description"
-                ></v-textarea>
-              </div>
+              <v-text-field
+                outlined
+                label="Provide Position's name"
+                required
+                v-model="position.name"
+              ></v-text-field>
+              <v-textarea
+                outlined
+                label="Provide Position's information briefly"
+                required
+                v-model="position.description"
+              ></v-textarea>
 
               <div
                 class="width-100 d-flex flex-column justify-center align-center"
@@ -71,7 +55,8 @@
                   block
                   depressed
                   :ripple="false"
-                  @click="updatePositions"
+                  :loading="loading"
+                  @click="updatePosition"
                   >Update Positions</v-btn
                 >
               </div>
@@ -84,28 +69,65 @@
 </template>
 
 <script>
+import store from "@/store/index.js";
+import { showNoti } from "@/utils/noti.js";
+import { mapState } from "vuex";
 export default {
   name: "Election-New-Position",
   data() {
     return {
-      positions: [{ name: "", description: "" }],
+      position: {},
+      loading: false,
     };
   },
   computed: {
-    election() {
-      return this.$route.params.election;
+    ...mapState({
+      election: (state) => state.election.election,
+    }),
+    originalPosition() {
+      return this.election.positions.find(
+        (el) => el._id === this.$route.params.position
+      );
     },
   },
+  beforeRouteEnter(to, from, next) {
+    if (
+      !store.state.election.election ||
+      store.state.election._id !== to.params.position._election
+    ) {
+      showNoti(
+        "error",
+        "You must go to the election page to update this position",
+        { name: "Elections" },
+        next
+      );
+      return;
+    }
+    next();
+  },
   created() {
-    this.positions[0]._election = this.election;
+    this.position = { ...this.originalPosition };
   },
   methods: {
-    updatePositions() {
-      console.log(this.positions);
-      this.$router.push({
-        name: "Election-New-Candidate",
-        params: { election: "alo", position: "alo" },
-      });
+    async updatePosition() {
+      const vm = this;
+      this.loading = true;
+
+      await store
+        .dispatch("election/updatePosition", {
+          position: vm.position,
+        })
+        .then(() => {
+          vm.loading = false;
+          showNoti(
+            "success",
+            "Position informations have been updated successfully"
+          );
+        })
+        .catch(() => {
+          vm.loading = false;
+          showNoti("error", "Error updating position informations");
+        });
     },
   },
 };

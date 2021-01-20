@@ -69,3 +69,11 @@ export function convertToForm(data) {
   }
   return form;
 }
+
+export function stripPropertiesFromObj(obj, fields) {
+  let result;
+  for (const key in obj) {
+    if (!fields.includes(key)) result[key] = obj[key];
+  }
+  return result;
+}

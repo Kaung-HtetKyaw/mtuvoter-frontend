@@ -88,10 +88,11 @@ export default {
         })
         .then(() => {
           vm.loading = false;
+          showNoti("success", "Candidate is successfully removed");
         })
-        .catch((e) => {
+        .catch(() => {
           vm.loading = false;
-          console.log(e);
+
           showNoti("error", "Error deleting candidate");
         });
     },
