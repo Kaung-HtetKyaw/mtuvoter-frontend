@@ -96,7 +96,10 @@
           <div class="width-100">
             <router-link
               v-if="userDetail.role === 'admin'"
-              :to="{ name: 'Election-Edit', params: { election: 'alo' } }"
+              :to="{
+                name: 'Election-Edit',
+                params: { election: election._id },
+              }"
             >
               <v-btn
                 color="deep-purple darken-2"
@@ -111,7 +114,10 @@
           <div class="width-100 mt-3">
             <router-link
               v-if="userDetail.role === 'admin'"
-              :to="{ name: 'Election-Edit', params: { election: 'alo' } }"
+              :to="{
+                name: 'Election-Edit',
+                params: { election: election._id },
+              }"
             >
               <v-btn
                 color="red darken-2"

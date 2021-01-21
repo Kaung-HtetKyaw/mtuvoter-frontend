@@ -5,10 +5,16 @@
         <v-card class="elevation-1">
           <v-card-title
             class="deep-purple darken-2 white--text d-flex justify-center"
-            >Enter Election Details</v-card-title
+            >Update Election Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
             <v-form ref="form" class="px-2">
+              <v-text-field
+                outlined
+                label="Election's name"
+                required
+                v-model="name"
+              ></v-text-field>
               <v-textarea
                 outlined
                 label="Provide Election's information briefly"
@@ -73,8 +79,10 @@
                       class="mr-4 white--text text-capitalize"
                       depressed
                       block
-                      @click="createElection"
-                      >Create Election</v-btn
+                      :ripple="false"
+                      @click="updateElection"
+                      :loading="loading"
+                      >Update Election</v-btn
                     >
                   </v-col>
                 </v-row>
@@ -88,10 +96,14 @@
 </template>
 
 <script>
+import store from "@/store/index.js";
+import { showNoti } from "@/utils/noti.js";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       about: "",
+      name: "",
       start: {
         date: new Date().toISOString().substr(0, 10),
         time: "00:00",
@@ -100,24 +112,66 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         time: "00:00",
       },
+      loading: false,
     };
-  },
-  methods: {
-    createElection() {
-      console.log(this.election);
-      this.$router.push({
-        name: "Election-New-Position",
-        params: { election: "alo" },
-      });
-    },
   },
   computed: {
     election() {
       return {
         about: this.about,
-        startDate: new Date(`${this.start.date}T${this.start.time}`),
-        endDate: new Date(`${this.start.date}T${this.start.time}`),
+        startDate: `${this.start.date}:${this.start.time}:00`,
+        endDate: `${this.end.date}:${this.end.time}:00`,
+        name: this.name,
+        _id: this.originalElection._id,
       };
+    },
+    isValidDate() {
+      return (
+        new Date(this.election.endDate) > new Date(this.election.startDate)
+      );
+    },
+    ...mapState({
+      originalElection: (state) => state.election.election,
+    }),
+  },
+  beforeRouteEnter(to, from, next) {
+    const { election } = to.params;
+    if (!store.state.election.election) {
+      showNoti(
+        "error",
+        "Please go to the election page to update this election.",
+        { name: "Election-Single", params: { election } },
+        next
+      );
+      return;
+    }
+    next();
+  },
+  created() {
+    this.about = this.originalElection.about;
+    this.name = this.originalElection.name;
+  },
+  methods: {
+    async updateElection() {
+      const vm = this;
+      vm.loading = true;
+      if (!vm.isValidDate) {
+        showNoti(
+          "error",
+          "Election end date must be greate than the election start date"
+        );
+      }
+      await store
+        .dispatch("election/updateElection", { election: vm.election })
+        .then(() => {
+          vm.loading = false;
+          showNoti("success", "Election has been created successfully");
+        })
+        .catch((e) => {
+          console.log(e);
+          vm.loading = false;
+          showNoti("error", "Error updating the election");
+        });
     },
   },
 };

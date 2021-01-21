@@ -28,6 +28,7 @@
 
 <script>
 import store from "@/store/index.js";
+import { showNoti } from "@/utils/noti.js";
 export default {
   name: "Login",
   data() {
@@ -41,8 +42,13 @@ export default {
   methods: {
     async login(e) {
       e.preventDefault();
-      const user = await store.dispatch("user/login", this.account);
-      console.log(user);
+      const vm = this;
+      await store
+        .dispatch("user/login", this.account)
+        .then(() => {
+          vm.$router.push({ name: "Elections" });
+        })
+        .catch(() => showNoti("error", "Something went wrong"));
     },
   },
 };

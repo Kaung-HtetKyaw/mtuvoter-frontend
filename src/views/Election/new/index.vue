@@ -9,6 +9,12 @@
           >
           <v-card-text class="mt-6 px-1">
             <v-form ref="form" class="px-2">
+              <v-text-field
+                outlined
+                label="Election's name"
+                required
+                v-model="name"
+              ></v-text-field>
               <v-textarea
                 outlined
                 label="Provide Election's information briefly"
@@ -73,7 +79,9 @@
                       class="mr-4 white--text text-capitalize"
                       depressed
                       block
+                      :ripple="false"
                       @click="createElection"
+                      :loading="loading"
                       >Create Election</v-btn
                     >
                   </v-col>
@@ -88,10 +96,13 @@
 </template>
 
 <script>
+import store from "@/store/index.js";
+import { showNoti } from "@/utils/noti.js";
 export default {
   data() {
     return {
       about: "",
+      name: "",
       start: {
         date: new Date().toISOString().substr(0, 10),
         time: "00:00",
@@ -100,25 +111,44 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         time: "00:00",
       },
+      loading: false,
     };
-  },
-
-  methods: {
-    createElection() {
-      console.log(this.election);
-      this.$router.push({
-        name: "Election-New-Position",
-        params: { election: "alo" },
-      });
-    },
   },
   computed: {
     election() {
       return {
         about: this.about,
-        startDate: new Date(`${this.start.date}T${this.start.time}`),
-        endDate: new Date(`${this.start.date}T${this.start.time}`),
+        startDate: `${this.start.date}T${this.start.time}`,
+        endDate: `${this.end.date}T${this.end.time}`,
+        name: this.name,
       };
+    },
+    isValidDate() {
+      return (
+        new Date(this.election.endDate) > new Date(this.election.startDate)
+      );
+    },
+  },
+  methods: {
+    async createElection() {
+      const vm = this;
+      vm.loading = true;
+      if (!vm.isValidDate) {
+        showNoti(
+          "error",
+          "Election end date must be greate than the election start date"
+        );
+      }
+      await store
+        .dispatch("election/createElection", { election: vm.election })
+        .then(() => {
+          vm.loading = false;
+          showNoti("success", "New election has been created successfully");
+        })
+        .catch(() => {
+          vm.loading = false;
+          showNoti("error", "Error creating new election");
+        });
     },
   },
 };

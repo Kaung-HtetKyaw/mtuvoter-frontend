@@ -1,3 +1,4 @@
+const plainLayout = () => import("@/layouts/about.vue");
 export default [
   {
     path: "/login",
@@ -5,7 +6,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/Auth/Login.vue"),
     meta: {
-      layout: "about",
+      layout: plainLayout,
     },
   },
   {
@@ -16,7 +17,7 @@ export default [
         /* webpackChunkName: "forgot-password" */ "../views/Auth/ForgotPassword.vue"
       ),
     meta: {
-      layout: "about",
+      layout: plainLayout,
     },
   },
 
@@ -28,7 +29,7 @@ export default [
         /* webpackChunkName: "reset-password" */ "../views/Auth/ResetPassword.vue"
       ),
     meta: {
-      layout: "about",
+      layout: plainLayout,
     },
   },
   {

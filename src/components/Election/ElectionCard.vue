@@ -40,7 +40,7 @@
               </template>
               <div>
                 <div class="font-weight-normal">
-                  {{ new Date(election.startDate).toLocaleString() }}
+                  {{ new Date(dates.start).toLocaleString() }}
                 </div>
               </div>
             </v-timeline-item>
@@ -48,7 +48,7 @@
             <v-timeline-item color="#E53935" small>
               <div>
                 <div class="font-weight-normal">
-                  {{ new Date(election.endDate).toLocaleString() }}
+                  {{ new Date(dates.end).toLocaleString() }}
                 </div>
               </div>
             </v-timeline-item>
@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import { formatISODate } from "@/utils/time.js";
 export default {
   name: "ElectionCard",
   props: {
@@ -104,6 +105,12 @@ export default {
         Date.now() > new Date(this.election.startDate) &&
         Date.now() < new Date(this.election.endDate)
       );
+    },
+    dates() {
+      return {
+        start: formatISODate(this.election.startDate),
+        end: formatISODate(this.election.endDate),
+      };
     },
   },
 };
