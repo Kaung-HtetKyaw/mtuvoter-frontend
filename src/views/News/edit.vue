@@ -151,9 +151,7 @@ export default {
     async updateNews() {
       const vm = this;
       vm.loading = true;
-      console.log(vm.news);
       const formData = convertToForm(vm.news);
-      console.log(formData);
       await store
         .dispatch("news/updateNews", { newsId: vm.news._id, news: formData })
         .then(() => {

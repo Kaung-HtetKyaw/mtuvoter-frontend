@@ -11,7 +11,7 @@
           >
             {{ news.title }}
           </h1>
-          <div class="width-100 my-6">
+          <div class="width-100 mt-6 mb-3">
             <v-btn
               depressed
               block
@@ -23,14 +23,20 @@
             >
           </div>
           <div class="width-100 mb-6">
-            <v-btn
-              depressed
-              block
-              color="red darken-2"
-              :ripple="false"
-              class="white--text text-capitalize"
-              >Delete this news</v-btn
-            >
+            <NewsConfirmModal :id="news._id">
+              <template v-slot:default="{ activator }">
+                <v-btn
+                  depressed
+                  block
+                  color="red darken-2"
+                  v-bind="activator.attrs"
+                  v-on="activator.on"
+                  :ripple="false"
+                  class="white--text text-capitalize"
+                  >Delete this news</v-btn
+                >
+              </template>
+            </NewsConfirmModal>
           </div>
         </div>
         <v-container fluid class="px-0 py-0">
@@ -61,10 +67,12 @@
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 import Markdown from "@/components/Base/BaseMarkdown.vue";
+import NewsConfirmModal from "@/components/Modal/NewsConfirmModal.vue";
 export default {
   name: "News-Single",
   components: {
     "vue-markdown": Markdown,
+    NewsConfirmModal,
   },
   computed: {
     ...mapState({

@@ -1,6 +1,6 @@
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
-import { replaceBy } from "@/utils/utils.js";
+import { replaceBy, removeBy } from "@/utils/utils.js";
 
 export const namespaced = true;
 export const state = {
@@ -25,6 +25,10 @@ export const mutations = {
   UPDATE_NEWS(state, news) {
     replaceBy(state.news, news, "_id");
     state.singleNews = news;
+  },
+  DELETE_NEWS(state, newsId) {
+    removeBy(state.news, newsId, "_id");
+    state.singleNews = null;
   },
   INCREMENT_PAGE(state) {
     state.page++;
@@ -74,6 +78,17 @@ export const actions = {
       })
       .catch((e) => {
         console.log(e.response);
+        showNoti("error", e.response.message);
+      });
+  },
+  async deleteNews({ commit }, { newsId }) {
+    await axios()
+      .delete(`/news/${newsId}`)
+      .then(() => {
+        commit("DELETE_NEWS", newsId);
+      })
+      .catch((e) => {
+        console.log(e);
         showNoti("error", e.response.message);
       });
   },
