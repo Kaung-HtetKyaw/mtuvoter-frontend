@@ -112,22 +112,20 @@
             >
           </div>
           <div class="width-100 mt-3">
-            <router-link
-              v-if="userDetail.role === 'admin'"
-              :to="{
-                name: 'Election-Edit',
-                params: { election: election._id },
-              }"
-            >
-              <v-btn
-                color="red darken-2"
-                class="white--text text-capitalize"
-                depressed
-                block
-                :ripple="false"
-                >Delete this election</v-btn
-              ></router-link
-            >
+            <ElectionConfirmModal :id="election._id">
+              <template v-slot:default="{ activator }">
+                <v-btn
+                  color="red darken-2"
+                  class="white--text text-capitalize"
+                  depressed
+                  block
+                  v-bind="activator.attrs"
+                  v-on="activator.on"
+                  :ripple="false"
+                  >Delete this election</v-btn
+                >
+              </template>
+            </ElectionConfirmModal>
           </div>
         </div>
       </v-col>
@@ -237,6 +235,7 @@
 <script>
 import CandidateCard from "@/components/Candidate/CandidateCard.vue";
 import PositionConfirmModal from "@/components/Modal/PositionConfirmModal.vue";
+import ElectionConfirmModal from "@/components/Modal/ElectionConfirmModal.vue";
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 export default {
@@ -244,6 +243,7 @@ export default {
   components: {
     CandidateCard,
     PositionConfirmModal,
+    ElectionConfirmModal,
   },
   computed: {
     ...mapState({

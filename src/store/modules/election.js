@@ -23,9 +23,10 @@ export const mutations = {
     state.elections.push(election);
   },
   UPDATE_ELECTION(state, election) {
-    console.log(election);
     replaceBy(state.elections, election, "_id");
-    console.log(state.elections);
+  },
+  DELETE_ELECTION(state, electionId) {
+    removeBy(state.elections, electionId, "_id");
   },
   UPDATE_CANDIDATE(state, candidate) {
     replaceBy(state.election.candidates, candidate, "_id");
@@ -105,6 +106,14 @@ export const actions = {
         console.log(e.response);
         showNoti("error", e.response.message);
       });
+  },
+  async deleteElection({ commit }, { electionId }) {
+    await axios()
+      .delete(`/elections/${electionId}`)
+      .then(() => {
+        commit("DELETE_ELECTION", electionId);
+      })
+      .catch((e) => showNoti(e.response.message));
   },
   async updateCandidate(
     { commit },
