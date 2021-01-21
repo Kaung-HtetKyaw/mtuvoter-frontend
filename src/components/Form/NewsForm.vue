@@ -48,6 +48,17 @@
       <div>
         <v-textarea
           label="Solo"
+          placeholder="Provide brief overview of your news"
+          solo
+          auto-grow
+          class="text-subtitle-1 font-weight-bold grey--text darken-1 text--secondary news-form__content"
+          v-model="clonedNews.description"
+          @change="emitNews"
+        ></v-textarea>
+      </div>
+      <div>
+        <v-textarea
+          label="Solo"
           placeholder="Write your article here..."
           solo
           auto-grow
@@ -106,12 +117,17 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .news-form {
   &__content {
     font-size: 17px;
     line-height: 2.5;
     opacity: 0.8;
   }
+}
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
+  > .v-input__control
+  > .v-input__slot {
+  box-shadow: none !important;
 }
 </style>

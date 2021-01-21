@@ -91,9 +91,8 @@ export default {
           showNoti("success", "Election has been successfully deleted.");
           vm.$router.replace({ name: "Elections" });
         })
-        .catch((e) => {
+        .catch(() => {
           vm.loading = false;
-          console.log(e);
           showNoti("error", "Error deleting election");
         });
     },

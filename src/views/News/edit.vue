@@ -79,18 +79,14 @@
         </v-row>
         <v-row dense>
           <v-col cols="12" sm="12" class="d-flex justify-center align-center">
-            <WriteNews type="create">
-              <template v-slot="{ create, loading }">
-                <v-btn
-                  depressed
-                  color="deep-purple darken-2"
-                  class="white--text text-capitalize"
-                  :loading="loading"
-                  @click="create(news)"
-                  >Publish News</v-btn
-                >
-              </template>
-            </WriteNews>
+            <v-btn
+              depressed
+              color="deep-purple darken-2"
+              class="white--text text-capitalize"
+              :loading="loading"
+              @click="updateNews"
+              >Publish News</v-btn
+            >
           </v-col>
         </v-row>
       </v-container>
@@ -101,23 +97,21 @@
 <script>
 import NewsForm from "@/components/Form/NewsForm";
 import NewsPreview from "@/components/News/NewsPreview";
-import WriteNews from "@/components/Renderless/NewsCrud/WriteModel.vue";
-
+import store from "@/store/index.js";
+import { showNoti } from "@/utils/noti.js";
+import { convertToForm } from "@/utils/utils.js";
+import { mapState } from "vuex";
 export default {
   components: {
     newsForm: NewsForm,
     newsPreview: NewsPreview,
-    WriteNews,
   },
   data() {
     return {
       tab: null,
-      filePreview: {},
+      filePreview: null,
       loading: false,
-      news: {
-        title: "this is title",
-        content: "this is content",
-      },
+      news: {},
       tabItems: [
         {
           title: "Write",
@@ -130,7 +124,51 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState({
+      originalNews: (state) => state.news.singleNews,
+    }),
+  },
+  beforeRouteEnter(to, from, next) {
+    const { news } = to.params;
+    if (!store.state.news.singleNews) {
+      showNoti(
+        "error",
+        "Please go to the news page to update this news.",
+        { name: "News-Single", params: { news } },
+        next
+      );
+      return;
+    }
+    next();
+  },
+  created() {
+    this.news = { ...this.originalNews };
+    console.log(this.news);
+  },
+
   methods: {
+    async updateNews() {
+      const vm = this;
+      vm.loading = true;
+      console.log(vm.news);
+      const formData = convertToForm(vm.news);
+      console.log(formData);
+      await store
+        .dispatch("news/updateNews", { newsId: vm.news._id, news: formData })
+        .then(() => {
+          vm.loading = false;
+          showNoti("success", "News has been updated successfully");
+          vm.$router.replace({
+            name: "News-Single",
+            params: { news: vm.$route.params.news },
+          });
+        })
+        .catch(() => {
+          vm.loading = false;
+          showNoti("error", "Error updating news");
+        });
+    },
     listenNewsChange(news) {
       this.news = news;
     },

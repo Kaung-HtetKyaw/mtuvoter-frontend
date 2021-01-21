@@ -30,4 +30,13 @@ export default [
       layout: defaultLayout,
     },
   },
+  {
+    path: "/news/:news/edit",
+    name: "News-Edit",
+    component: () =>
+      import(/* webpackChunkName: "news-eidt" */ "../views/News/edit.vue"),
+    meta: {
+      layout: defaultLayout,
+    },
+  },
 ];

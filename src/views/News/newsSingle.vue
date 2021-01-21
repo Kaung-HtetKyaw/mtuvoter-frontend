@@ -11,6 +11,27 @@
           >
             {{ news.title }}
           </h1>
+          <div class="width-100 my-6">
+            <v-btn
+              depressed
+              block
+              :to="{ name: 'News-Edit', params: { news: news._id } }"
+              color="deep-purple darken-2"
+              :ripple="false"
+              class="white--text text-capitalize"
+              >Update the news</v-btn
+            >
+          </div>
+          <div class="width-100 mb-6">
+            <v-btn
+              depressed
+              block
+              color="red darken-2"
+              :ripple="false"
+              class="white--text text-capitalize"
+              >Delete this news</v-btn
+            >
+          </div>
         </div>
         <v-container fluid class="px-0 py-0">
           <v-row class="flex-column-reverse flex-md-row">
@@ -59,7 +80,7 @@ export default {
     let news = store.state.news.news.find((el) => el._id === to);
     // check for already fetched as a single
     if (!news) {
-      if (store.state.news.singleNews._id === id)
+      if (store.state.news.singleNews && store.state.news.singleNews._id === id)
         news = store.state.news.singleNews;
     }
 

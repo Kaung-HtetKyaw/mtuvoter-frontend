@@ -41,7 +41,7 @@
 </template>
 
 <script>
-// import store from "@/store/index.js";
+import store from "@/store/index.js";
 export default {
   props: {
     noti: {
@@ -56,16 +56,16 @@ export default {
     };
   },
   computed: {},
-  // mounted() {
-  //   setTimeout(() => {
-  //     store.dispatch("notification/deleteNoti", this.noti).then(() => {
-  //       this.snackbar = false;
-  //     });
-  //   }, this.timeout);
-  // },
-  // beforeDestroy() {
-  //   clearTimeout(this.timeout);
-  // },
+  mounted() {
+    setTimeout(() => {
+      store.dispatch("notification/deleteNoti", this.noti).then(() => {
+        this.snackbar = false;
+      });
+    }, this.timeout);
+  },
+  beforeDestroy() {
+    clearTimeout(this.timeout);
+  },
 };
 </script>
 

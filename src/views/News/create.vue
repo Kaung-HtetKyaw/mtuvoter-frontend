@@ -79,18 +79,14 @@
         </v-row>
         <v-row dense>
           <v-col cols="12" sm="12" class="d-flex justify-center align-center">
-            <WriteNews type="create">
-              <template v-slot="{ create, loading }">
-                <v-btn
-                  depressed
-                  color="deep-purple darken-2"
-                  class="white--text text-capitalize"
-                  :loading="loading"
-                  @click="create(news)"
-                  >Publish News</v-btn
-                >
-              </template>
-            </WriteNews>
+            <v-btn
+              depressed
+              color="deep-purple darken-2"
+              class="white--text text-capitalize"
+              :loading="loading"
+              @click="createNews"
+              >Publish News</v-btn
+            >
           </v-col>
         </v-row>
       </v-container>
@@ -101,13 +97,13 @@
 <script>
 import NewsForm from "@/components/Form/NewsForm";
 import NewsPreview from "@/components/News/NewsPreview";
-import WriteNews from "@/components/Renderless/NewsCrud/WriteModel.vue";
-
+import { convertToForm } from "@/utils/utils.js";
+import { showNoti } from "@/utils/noti.js";
+import store from "@/store/index.js";
 export default {
   components: {
     newsForm: NewsForm,
     newsPreview: NewsPreview,
-    WriteNews,
   },
   data() {
     return {
@@ -115,8 +111,10 @@ export default {
       filePreview: {},
       loading: false,
       news: {
-        title: "this is title",
-        content: "this is content",
+        title: "",
+        content: "",
+        photo: "",
+        description: "",
       },
       tabItems: [
         {
@@ -131,6 +129,20 @@ export default {
     };
   },
   methods: {
+    async createNews() {
+      const vm = this;
+      vm.loading = true;
+      const formData = convertToForm(vm.news);
+      await store
+        .dispatch("news/createNews", { news: formData })
+        .then(() => {
+          vm.loading = false;
+          showNoti("success", "News has been published successfully");
+        })
+        .catch(() => {
+          showNoti("error", "Error publishing news.");
+        });
+    },
     listenNewsChange(news) {
       this.news = news;
     },
