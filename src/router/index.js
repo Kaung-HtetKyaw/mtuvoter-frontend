@@ -12,6 +12,7 @@ import positionRoutes from "./position";
 import adminRoutes from "./admin";
 import accountRoutes from "./account";
 import authRoutes from "./auth";
+import faqRoutes from "./faq";
 
 import store from "@/store/index.js";
 import { showNoti } from "@/utils/noti.js";
@@ -55,14 +56,7 @@ const routes = [
   ...adminRoutes,
   ...authRoutes,
   ...accountRoutes,
-  {
-    path: "/faq",
-    name: "FAQ",
-    component: () => import(/* webpackChunkName: "faq" */ "../views/FAQ.vue"),
-    meta: {
-      layout: defaultLayout,
-    },
-  },
+  ...faqRoutes,
   {
     path: "/error",
     name: "404",

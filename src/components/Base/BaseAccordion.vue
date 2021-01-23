@@ -44,12 +44,47 @@
         {{ faq.answer }}
       </p>
     </details>
+    <div
+      class="d-block my-3 d-flex justify-end"
+      v-if="
+        (userDetail && userDetail.role === 'mod') || userDetail.role === 'admin'
+      "
+    >
+      <v-btn
+        color="deep-purple darken-2"
+        class="white--text text-capitalize"
+        depressed
+        small
+        :ripple="false"
+        :to="{ name: 'FAQ-Edit', params: { faq: faq._id } }"
+        >Edit</v-btn
+      >
+      <FAQConfirmModal :id="faq._id">
+        <template v-slot:default="{ activator }">
+          <v-btn
+            color="red darken-2"
+            text
+            class="white--text text-capitalize"
+            depressed
+            small
+            v-bind="activator.attrs"
+            v-on="activator.on"
+            :ripple="false"
+            >Delete</v-btn
+          >
+        </template>
+      </FAQConfirmModal>
+    </div>
   </div>
 </template>
 
-<script scoped>
+<script>
+import FAQConfirmModal from "@/components/Modal/FAQConfirmModal.vue";
 export default {
   name: "BaseAccordion",
+  components: {
+    FAQConfirmModal,
+  },
   props: {
     faq: {
       type: Object,

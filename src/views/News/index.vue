@@ -32,15 +32,16 @@
         <h1 class="d-inline-block elections--title">Latest News</h1>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-for="el in news" :key="el.id">
       <v-col
         cols="12"
         sm="12"
         class="workssan d-flex justify-center align-center deep-purple--text darken-2 "
-        v-for="el in news"
-        :key="el.id"
       >
         <NewsCard :news="el" />
+      </v-col>
+      <v-col cols="12" sm="12">
+        <v-divider></v-divider>
       </v-col>
     </v-row>
     <v-row class="my-6">

@@ -28,6 +28,7 @@
                 <v-btn
                   depressed
                   block
+                  text
                   color="red darken-2"
                   v-bind="activator.attrs"
                   v-on="activator.on"

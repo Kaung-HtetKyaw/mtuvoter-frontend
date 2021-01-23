@@ -6,7 +6,7 @@
           <h2 class="text-decoration-underline my-2 news-card-2__title">
             {{ news.title }}
           </h2>
-          <p class="my-2 news-card-2__description">
+          <p class="my-2 news-card-2__description font-weight-bold">
             {{ news.description }}
           </p>
           <p class="news-card-2__date text-right my-2">8 Aug 2020</p>

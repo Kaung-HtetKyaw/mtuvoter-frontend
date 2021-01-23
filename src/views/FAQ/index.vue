@@ -7,10 +7,30 @@
         class="d-flex flex-column justify-center align-center deep-purple--text darken-2"
       >
         <h1
-          class="d-inline-block text-h6 text-md-h5 text-lg-h5 font-weight-bold workssan text-center faq--title py-2"
+          class="d-inline-block text-h6 text-md-h5 text-lg-h5 font-weight-bold workssan text-center faq--title py-2 mb-3"
         >
           Frequently Asked Questions
         </h1>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="12"
+        class="d-flex justify-end py-0"
+        v-if="
+          (userDetail && userDetail.role === 'mod') ||
+            userDetail.role === 'admin'
+        "
+      >
+        <v-btn
+          color="deep-purple darken-2"
+          class="white--text text-capitalize"
+          small
+          depressed
+          :ripple="false"
+          :to="{ name: 'FAQ-New' }"
+        >
+          Create new FAQ
+        </v-btn>
       </v-col>
     </v-row>
     <v-row>
