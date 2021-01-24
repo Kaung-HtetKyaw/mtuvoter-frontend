@@ -8,12 +8,12 @@
         <v-divider></v-divider>
       </v-col>
 
-      <v-col cols="12" sm="12" md="6" v-for="i in 2" :key="i"
+      <v-col cols="12" sm="12" md="6" v-for="(result, i) in results" :key="i"
         ><BarChart
-          :result="election_result"
+          :result="result"
           :grouped_by="['candidate', 0, 'name']"
           :seried_by="['vote_count']"
-          name="Presidental Candidate Result"
+          :name="latest_election.positions[i].name"
       /></v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
         <v-btn
@@ -66,7 +66,10 @@
         <v-divider></v-divider
       ></v-col>
       <v-col cols="12" sm="12">
-        <ElectionTable :items="users.items" :headings="users.headings" />
+        <ElectionTable
+          :items="authorities.items"
+          :headings="authorities.headings"
+        />
         <v-divider></v-divider>
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
@@ -85,8 +88,14 @@
         </h2>
         <v-divider></v-divider
       ></v-col>
-      <v-col cols="12" sm="12" class="d-flex justify-center align-center">
-        <LogCard />
+      <v-col
+        cols="12"
+        sm="12"
+        class="d-flex justify-center align-center"
+        v-for="log in logs"
+        :key="log._id"
+      >
+        <LogCard :log="log" />
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
         <v-btn text color="deep-purple darken-2 " class="text-capitalize"
@@ -104,7 +113,8 @@
 import BarChart from "@/components/Chart/Bar.vue";
 import BaseTable from "@/components/Base/BaseTable.vue";
 import BaseLogCard from "@/components/Base/BaseLogCard.vue";
-import { timeAgo } from "@/utils/time.js";
+import store from "@/store/index.js";
+import axios from "@/services/axios.js";
 import {
   candidate_votes_by_student,
   election_result,
@@ -121,46 +131,41 @@ export default {
       candidate_votes_by_student,
       election_result,
       elections: {
-        items: [
-          {
-            createdAt: "2020-12-21T18:37:39.929Z",
-            _id: "5fe0eb7fb96e760fb879dcb6",
-            about: "br nayr sa mar ka lar",
-            startDate: "2021-01-15T17:30:00.000Z",
-            endDate: "2021-01-17T17:30:00.000Z",
-            type: "student",
-            name: "Student Union Election 2020",
-            slug: "student-union-election-2020",
-            raced: false,
-            id: "5fe0eb7fb96e760fb879dcb6",
-          },
-          {
-            createdAt: "2020-12-08T19:23:58.093Z",
-            _id: "5fcfd2d261ad52120c1ff2b3",
-            about: "Some details about studen union election 2020 ",
-            startDate: "2020-12-16T17:30:00.000Z",
-            endDate: "2020-12-17T17:30:00.000Z",
-            type: "student",
-            name: "Student Union Election 2020",
-            slug: "student-union-election-2020",
-            raced: true,
-            id: "5fcfd2d261ad52120c1ff2b3",
-          },
-        ],
+        items: [],
         headings: ["name", "startDate", "endDate", "raced"],
       },
-      users: {
-        items: [
-          {
-            name: "Kaung Htet Kyaw",
-            email: "kgsama@gmail.com",
-            role: "mod",
-            activity: timeAgo(new Date().getTime()),
-          },
-        ],
-        headings: ["name", "email", "role", "activity"],
+      authorities: {
+        items: [],
+        headings: ["name", "email", "role"],
       },
+      logs: [],
+      results: null,
+      latest_election: null,
     };
+  },
+  async beforeRouteEnter(to, from, next) {
+    let elections = store.state.election.elections;
+    let latest_results = store.state.election.latest_results;
+    console.log("alo");
+    console.log(latest_results);
+    if (elections.length == 0) {
+      elections = await store.dispatch("election/getElections");
+    }
+
+    if (!latest_results) {
+      latest_results = await store.dispatch("election/getLatestResults");
+    }
+    let authorities = await axios().get("/users/authorities?limit=10&page=1");
+    let logs = await axios().get("/logs?limit=10&page=1");
+    store.dispatch("UI/changeLoadingState", true);
+    // set the data after the DOM update
+    next((vm) => {
+      vm.elections.items = elections;
+      vm.authorities.items = authorities.data.data;
+      vm.logs = logs.data.data;
+      vm.results = latest_results;
+      vm.latest_election = store.state.election.latest_raced_election;
+    });
   },
 };
 </script>

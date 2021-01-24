@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <div class="d-flex flex-row align-center justify-center ml-12">
         <div class="d-none d-md-flex justify-centeer align-center">
-          <router-link :to="{ name: 'Newsletter' }">
+          <router-link :to="{ name: 'Dashboard' }">
             <a
               class=" mx-2 font-weight-medium black--text text--secondary workssan"
               >Dashboard</a

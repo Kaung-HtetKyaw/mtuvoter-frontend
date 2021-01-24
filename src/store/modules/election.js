@@ -6,6 +6,8 @@ export const namespaced = true;
 export const state = {
   elections: [],
   election: null,
+  latest_raced_election: null,
+  latest_results: null,
   page: 1,
   limit: 5,
   end: false,
@@ -17,6 +19,12 @@ export const mutations = {
   },
   FETCH_ELECTION(state, election) {
     state.election = election;
+  },
+  FETCH_LATEST_RACED_ELECTION(state, election) {
+    state.latest_raced_election = election;
+  },
+  FETCH_LATEST_RESULT(state, result) {
+    state.latest_results = result;
   },
   CREATE_ELECTION(state, election) {
     state.election = election;
@@ -80,6 +88,19 @@ export const actions = {
         showNoti("error", e.response.data.message);
       });
     return election;
+  },
+  async getLatestRacedElection({ commit }) {
+    const latest_election = await axios()
+      .get("/elections/latest-raced-election")
+      .then((res) => {
+        commit("FETCH_LATEST_RACED_ELECTION", res.data.data);
+        return res.data.data;
+      })
+      .catch((e) => {
+        console.log(e);
+        showNoti("error", "Error loading the latest raced election");
+      });
+    return latest_election;
   },
   async createElection({ commit }, { election }) {
     await axios()
@@ -210,6 +231,18 @@ export const actions = {
         showNoti("error", e.response.message);
       });
   },
+  // results
+  async getLatestResults({ commit, state, dispatch }) {
+    await dispatch("getLatestRacedElection");
+    const latest_result = await Promise.all(
+      state.latest_raced_election.positions.map((el) =>
+        getLatestRacedElectionResult(state.latest_raced_election._id, el._id)
+      )
+    );
+    console.log(latest_result);
+    commit("FETCH_LATEST_RESULT", latest_result);
+    return latest_result;
+  },
 };
 
 async function createCandidate(electionId, positionId, candidate) {
@@ -223,6 +256,15 @@ async function createCandidate(electionId, positionId, candidate) {
       console.log(res.data.data);
       return res.data.data;
     })
+    .catch((e) => {
+      console.log(e.response);
+      showNoti("error", "Error creating candidate");
+    });
+}
+async function getLatestRacedElectionResult(electionId, positionId) {
+  return await axios()
+    .get(`/ballots/elections/${electionId}/positions/${positionId}`)
+    .then((res) => res.data.data)
     .catch((e) => {
       console.log(e.response);
       showNoti("error", "Error creating candidate");

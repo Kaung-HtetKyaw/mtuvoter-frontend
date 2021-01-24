@@ -53,9 +53,11 @@ export default {
   },
   async beforeRouteEnter(to, from, next) {
     let elections = store.state.election.elections;
+
     if (elections.length == 0) {
       elections = await store.dispatch("election/getElections");
     }
+
     store.dispatch("UI/changeLoadingState", true);
     next();
   },

@@ -3,7 +3,11 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" v-for="heading in headings" :key="heading">
+          <th
+            class="text-left text-capitalize font-weight-bold text-subtitle-2"
+            v-for="heading in headings"
+            :key="heading"
+          >
             {{ heading }}
           </th>
         </tr>

@@ -7,17 +7,17 @@
         </div>
         <div class="px-2 ">
           <div class="text-body-2">
-            <span class="font-weight-bold pr-2 "
-              >kaunghtetkyaw02749@gmail.com:</span
+            <span class="font-weight-bold pr-2 ">{{ log.by }}:</span>
+            <span
+              :style="{ color: type_color[`${log.type}`].color }"
+              class="font-weight-medium text-capitalize"
+              >{{ log.type }}</span
             >
-            <span :style="{ color: create.color }" class="font-weight-medium"
-              >Create</span
-            >
-            election
-            <span class="resource">66a0ddfe</span>
+            {{ log.resource.split(" ")[0] }}
+            <span class="resource">{{ log.resource.split(" ")[1] }}</span>
           </div>
           <div class="text--secondary workssan text-caption my-1">
-            <span>01/01/2021</span> <span>at 1:45 PM</span>
+            <span>{{ new Date(`${log.createdAt}`).toLocaleString() }}</span>
           </div>
         </div>
       </v-col>
@@ -31,16 +31,24 @@
 <script>
 export default {
   name: "BaseLogCard",
+  props: {
+    log: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
-      create: {
-        color: "#00C853",
-      },
-      update: {
-        color: "#F57F17",
-      },
-      delete: {
-        color: "#F50057",
+      type_color: {
+        create: {
+          color: "#00C853",
+        },
+        update: {
+          color: "#F57F17",
+        },
+        delete: {
+          color: "#F50057",
+        },
       },
     };
   },
