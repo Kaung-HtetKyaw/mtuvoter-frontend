@@ -12,14 +12,17 @@
         sm="12"
         md="6"
         lg="6"
-        v-for="(item, i) in [1, 2, 3]"
-        :key="i"
+        v-for="(election, index) in elections"
+        :key="election.id"
+        v-observe-visibility="
+          index === elections.length - 1 ? loadElections : false
+        "
       >
-        <ElectionCard :stats="true" />
+        <ElectionCard :stats="true" :election="election" />
       </v-col>
 
       <v-col cols="12" sm="12" class="d-flex justify-center align-center">
-        <BaseLoader />
+        <BaseLoader v-if="loading" />
       </v-col>
     </v-row>
   </v-container>
@@ -28,16 +31,51 @@
 <script>
 import ElectionCard from "@/components/Election/ElectionCard.vue";
 import BaseLoader from "@/components/Base/BaseLoader.vue";
+import store from "@/store/index.js";
+import { mapState } from "vuex";
+
 export default {
   name: "Elections",
   components: {
     ElectionCard,
     BaseLoader,
   },
-  data() {
-    return {};
+  computed: {
+    ...mapState({
+      elections: (state) => state.election.elections,
+      end: (state) => state.election.end,
+    }),
   },
-  methods: {},
+  data() {
+    return {
+      loading: false,
+    };
+  },
+  async beforeRouteEnter(to, from, next) {
+    let elections = store.state.election.elections;
+    if (elections.length == 0) {
+      elections = await store.dispatch("election/getElections");
+    }
+    store.dispatch("UI/changeLoadingState", true);
+    next();
+  },
+
+  methods: {
+    async loadElections() {
+      if (!this.end) {
+        const vm = this;
+        this.loading = true;
+        await store
+          .dispatch("election/getElections")
+          .then(() => {
+            vm.loading = false;
+          })
+          .catch(() => {
+            vm.loading = false;
+          });
+      }
+    },
+  },
 };
 </script>
 

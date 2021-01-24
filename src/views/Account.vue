@@ -10,14 +10,14 @@
     <v-row>
       <v-container>
         <v-row class="my-6 account__section">
-          <v-col cols="12" sm="12" md="4">
+          <v-col cols="12" sm="12" md="4" class="text-center text-md-left">
             <h3 class="deep-purple--text darken-2 text-body-1 my-2">Profile</h3>
             <p class="text-body-2 text--secondary">
               Your email adderss is your identity on mtuvoter and is used to log
               in.
             </p>
           </v-col>
-          <v-col cols="12" sm="12" md="8">
+          <v-col cols="12" sm="12" md="8" class="d-flex justify-center">
             <div class="account__form">
               <div>
                 <h6
@@ -74,7 +74,7 @@
           </v-col>
         </v-row>
         <v-row class="my-6 account__section">
-          <v-col cols="12" sm="12" md="4">
+          <v-col cols="12" sm="12" md="4" class="text-center text-md-left">
             <h3 class="deep-purple--text darken-2 text-body-1 my-2">
               Password
             </h3>
@@ -83,7 +83,7 @@
               password
             </p>
           </v-col>
-          <v-col cols="12" sm="12" md="8">
+          <v-col cols="12" sm="12" md="8" class="d-flex justify-center">
             <div class="account__form">
               <div>
                 <h6
