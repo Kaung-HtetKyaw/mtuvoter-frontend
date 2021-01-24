@@ -146,8 +146,7 @@ export default {
   async beforeRouteEnter(to, from, next) {
     let elections = store.state.election.elections;
     let latest_results = store.state.election.latest_results;
-    console.log("alo");
-    console.log(latest_results);
+
     if (elections.length == 0) {
       elections = await store.dispatch("election/getElections");
     }
