@@ -15,7 +15,7 @@
       </v-col>
       <v-col cols="12" sm="12">
         <BarChart
-          :result="candidate_votes_by_student"
+          :result="candidate_result"
           :grouped_by="['student_type']"
           :seried_by="['vote_count']"
           name="Votes By Student type"
@@ -31,6 +31,8 @@ import {
   candidate_votes_by_student,
   election_result,
 } from "@/dev-data/result.js";
+import store from "@/store/index.js";
+import { mapState } from "vuex";
 
 export default {
   name: "Staticstics",
@@ -42,6 +44,21 @@ export default {
       candidate_votes_by_student,
       election_result,
     };
+  },
+  computed: {
+    ...mapState({
+      candidate_result: (state) => state.result.candidate_result,
+    }),
+  },
+  async beforeRouteEnter(to, from, next) {
+    const { election, position, candidate } = to.params;
+    await store.dispatch("result/getCandidateResultByStudentType", {
+      electionId: election,
+      positionId: position,
+      candidateId: candidate,
+    });
+    store.dispatch("UI/changeLoadingState", true);
+    next();
   },
 };
 </script>

@@ -67,7 +67,7 @@ export default [
     },
   },
   {
-    path: "/dashboard/elections/:election/candidates/:candidate/stats",
+    path: "/dashboard/elections/:election/positions/:position/candidates/:candidate/stats",
     name: "Dashboard-Staticstics-Candidate",
     component: () =>
       import(
