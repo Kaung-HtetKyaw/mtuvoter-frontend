@@ -260,7 +260,6 @@ export default {
       );
     }
     store.dispatch("UI/changeLoadingState", true);
-    console.log(election);
     next();
   },
 };

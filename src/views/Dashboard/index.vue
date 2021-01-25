@@ -19,7 +19,7 @@
         <v-btn
           :to="{
             name: 'Dashboard-Staticstics-Election',
-            params: { election: 'alo' },
+            params: { election: latest_election._id },
           }"
           :ripple="false"
           text
@@ -150,7 +150,6 @@ export default {
     if (elections.length == 0) {
       elections = await store.dispatch("election/getElections");
     }
-
     if (!latest_results) {
       latest_results = await store.dispatch("election/getLatestResults");
     }
