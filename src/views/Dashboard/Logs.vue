@@ -12,10 +12,15 @@
         sm="12"
         class="d-flex flex-column justify-center align-center"
       >
-        <LogCard v-for="i in 10" :key="i" />
+        <LogCard
+          v-for="(log, index) in logs"
+          :key="log._id"
+          :log="log"
+          v-observe-visibility="index === logs.length - 1 ? loadLogs : false"
+        />
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
-        <BaseLoader />
+        <BaseLoader v-if="loading" />
       </v-col>
     </v-row>
   </v-container>
@@ -24,11 +29,12 @@
 <script>
 import BaseLogCard from "@/components/Base/BaseLogCard.vue";
 import BaseLoader from "@/components/Base/BaseLoader.vue";
-import { timeAgo } from "@/utils/time.js";
 import {
   candidate_votes_by_student,
   election_result,
 } from "@/dev-data/result.js";
+import axios from "@/services/axios.js";
+import { showNoti } from "@/utils/noti.js";
 export default {
   name: "Dashboard",
   components: {
@@ -39,47 +45,38 @@ export default {
     return {
       candidate_votes_by_student,
       election_result,
-      elections: {
-        items: [
-          {
-            createdAt: "2020-12-21T18:37:39.929Z",
-            _id: "5fe0eb7fb96e760fb879dcb6",
-            about: "br nayr sa mar ka lar",
-            startDate: "2021-01-15T17:30:00.000Z",
-            endDate: "2021-01-17T17:30:00.000Z",
-            type: "student",
-            name: "Student Union Election 2020",
-            slug: "student-union-election-2020",
-            raced: false,
-            id: "5fe0eb7fb96e760fb879dcb6",
-          },
-          {
-            createdAt: "2020-12-08T19:23:58.093Z",
-            _id: "5fcfd2d261ad52120c1ff2b3",
-            about: "Some details about studen union election 2020 ",
-            startDate: "2020-12-16T17:30:00.000Z",
-            endDate: "2020-12-17T17:30:00.000Z",
-            type: "student",
-            name: "Student Union Election 2020",
-            slug: "student-union-election-2020",
-            raced: true,
-            id: "5fcfd2d261ad52120c1ff2b3",
-          },
-        ],
-        headings: ["name", "startDate", "endDate", "raced"],
-      },
-      users: {
-        items: [
-          {
-            name: "Kaung Htet Kyaw",
-            email: "kgsama@gmail.com",
-            role: "mod",
-            activity: timeAgo(new Date().getTime()),
-          },
-        ],
-        headings: ["name", "email", "role", "activity"],
-      },
+      page: 1,
+      limit: 10,
+      end: false,
+      loading: false,
+      logs: [],
     };
+  },
+  async created() {
+    await this.loadLogs();
+  },
+  methods: {
+    async loadLogs() {
+      const vm = this;
+      if (vm.end || vm.loading) {
+        return;
+      }
+      vm.loading = true;
+      await axios()
+        .get(`/logs?page=${vm.page}&limit=${vm.limit}`)
+        .then((res) => {
+          if (res.data.data.length === 0) {
+            vm.end = true;
+          }
+          vm.logs = vm.logs.concat(res.data.data);
+          vm.loading = false;
+          vm.page++;
+        })
+        .catch((e) => {
+          vm.loading = false;
+          showNoti("error", e.response.message);
+        });
+    },
   },
 };
 </script>

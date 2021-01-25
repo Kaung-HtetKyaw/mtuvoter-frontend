@@ -9,7 +9,9 @@
           <div class="text-body-2">
             <span class="font-weight-bold pr-2 ">{{ log.by }}:</span>
             <span
-              :style="{ color: type_color[`${log.type}`].color }"
+              :style="{
+                color: type_color[`${log.type}`].color || type_color.other,
+              }"
               class="font-weight-medium text-capitalize"
               >{{ log.type }}</span
             >
@@ -48,6 +50,9 @@ export default {
         },
         delete: {
           color: "#F50057",
+        },
+        other: {
+          color: "#5545A8",
         },
       },
     };
