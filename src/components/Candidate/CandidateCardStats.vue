@@ -5,8 +5,8 @@
         <div class="candidate__photo">
           <img
             class="borderedpicture"
-            src="/img/mtu-candidate.jpg"
-            alt="putyourpicturesalttexthere"
+            :src="candidate.photo"
+            :alt="candidate.name"
           />
         </div>
       </v-col>
@@ -16,22 +16,22 @@
         class="py-0 px-0 d-flex flex-column candidate__info justify-center align-center  text-center "
       >
         <h5 class="candidate__info__name text-h6 font-weight-bold underline">
-          ကျော်တိုးတိုးဟန်
+          {{ candidate.name }}
         </h5>
 
-        <span class="candidate__info__type d-block font-weight-bold"
-          >စတုတ္ထနှစ်</span
-        >
+        <span class="candidate__info__type d-block font-weight-bold">{{
+          yearMap[candidate.year] || yearMap["others"]
+        }}</span>
 
-        <span class="candidate__info__major d-block font-weight-bold"
-          >ကွန်ပျူတာအင်ဂျင်နီယာနှင့် သတင်းအချက်အလက်နည်းပညာ</span
-        >
+        <span class="candidate__info__major d-block font-weight-bold">{{
+          majorMap[candidate.major] || majorMap["CEIT"]
+        }}</span>
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
         <v-btn
           :to="{
             name: 'Dashboard-Staticstics-Candidate',
-            params: { election: 'alo', candidate: 'alo' },
+            params: { election: candidate._election, candidate: candidate._id },
           }"
           color="deep-purple darken-2"
           class="white--text text-capitalize"
@@ -45,22 +45,21 @@
 </template>
 
 <script>
+import { yearMap, majorMap } from "@/utils/constants.js";
 export default {
   name: "CandidateCard",
   components: {},
-  // props:{
-  //   candidate:{
-  //     type:Object,
-  //     required:true
-  //   }
-  // },
-  data() {
-    return {};
-  },
-  methods: {
-    alo() {
-      alert("alo");
+  props: {
+    candidate: {
+      type: Object,
+      required: true,
     },
+  },
+  data() {
+    return {
+      yearMap,
+      majorMap,
+    };
   },
 };
 </script>
