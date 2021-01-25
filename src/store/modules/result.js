@@ -14,6 +14,9 @@ export const mutations = {
   FETCH_RESULT_BY_STUDENT(state, result) {
     state.result_by_student = result;
   },
+  FETCH_CANDIDATE_RESULT_BY_STUDENT(state, result) {
+    state.candidate_result = result;
+  },
   INCREMENT_PAGE(state) {
     state.page++;
   },
@@ -44,6 +47,22 @@ export const actions = {
       .catch((e) => {
         console.log(e.response);
         showNoti("error", "Error Loading the results");
+      });
+  },
+  async getCandidateResultByStudentType(
+    { commit },
+    { electionId, positionId, candidateId }
+  ) {
+    await axios()
+      .get(
+        `ballots/candidate-vote-by-student/elections/${electionId}/positions/${positionId}/candidates/${candidateId}`
+      )
+      .then((res) => {
+        commit("FETCH_CANDIDATE_RESULT_BY_STUDENT", res.data.data);
+        return res.data.data;
+      })
+      .catch((e) => {
+        showNoti("error", e.response.message);
       });
   },
 };

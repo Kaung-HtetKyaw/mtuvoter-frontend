@@ -31,7 +31,11 @@
         <v-btn
           :to="{
             name: 'Dashboard-Staticstics-Candidate',
-            params: { election: candidate._election, candidate: candidate._id },
+            params: {
+              election: candidate._election,
+              candidate: candidate._id,
+              position: candidate._post,
+            },
           }"
           color="deep-purple darken-2"
           class="white--text text-capitalize"
