@@ -84,30 +84,7 @@
                     class="access-table__mod__wrapper px-4 px-md-8 my-3"
                     v-if="!not_found"
                   >
-                    <div
-                      class="access-table__mod px-6 d-flex flex-column flex-md-row justify-md-space-between align-md-center justify-center align-space-between"
-                    >
-                      <div class="mod--info">
-                        <div
-                          class="deep-purple--text darken-2 text-body-2 font-weight-bold text-decoration-underline"
-                        >
-                          {{ mod.email }}
-                        </div>
-                        <span class="text-caption">{{ mod.name }}</span
-                        ><span class="font-weight-bold mx-1 text-h4">.</span
-                        ><span class="text-capitalize">{{ mod.role }}</span>
-                      </div>
-                      <div class="mod--action">
-                        <v-btn
-                          color="red darken-2"
-                          class="white--text text-capitalize"
-                          depressed
-                          small
-                          :ripple="false"
-                          >Remove</v-btn
-                        >
-                      </div>
-                    </div>
+                    <BaseModCard :mod="mod" @remove-mod="removeMod" />
                   </div>
                   <v-divider></v-divider>
                 </div>
@@ -144,14 +121,17 @@
 <script>
 import BaseLoader from "@/components/Base/BaseLoader.vue";
 import AddMod from "@/components/Form/AddMod.vue";
+import BaseModCard from "@/components/Base/BaseModCard.vue";
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
+import { removeBy } from "@/utils/utils.js";
 
 export default {
   name: "Dashboard",
   components: {
     BaseLoader,
     AddMod,
+    BaseModCard,
   },
   data() {
     return {
@@ -225,6 +205,9 @@ export default {
       this.mods.unshift(user);
       this.singleMod = null;
       this.not_found = false;
+    },
+    removeMod(user) {
+      removeBy(this.mods, user._id, "_id");
     },
   },
 };
