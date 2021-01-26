@@ -10,7 +10,7 @@
             <span class="font-weight-bold pr-2 ">{{ log.by }}:</span>
             <span
               :style="{
-                color: type_color[`${log.type}`].color || type_color.other,
+                color: color,
               }"
               class="font-weight-medium text-capitalize"
               >{{ log.type }}</span
@@ -56,6 +56,13 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    color() {
+      return this.type_color[`${this.log.type}`]
+        ? this.type_color[`${this.log.type}`].color
+        : this.type_color.other.color;
+    },
   },
 };
 </script>
