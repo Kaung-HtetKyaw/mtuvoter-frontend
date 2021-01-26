@@ -122,6 +122,7 @@ export default {
     email: "",
     not_found: false,
     adding: false,
+    removing: false,
   }),
   methods: {
     async findUser() {
@@ -144,7 +145,7 @@ export default {
       const vm = this;
       vm.adding = true;
       await axios()
-        .patch(`/users/roles`, {
+        .post(`/users/roles`, {
           email: vm.email,
         })
         .then(() => {
