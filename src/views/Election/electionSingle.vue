@@ -84,7 +84,10 @@
           </div>
           <div>
             <router-link
-              :to="{ name: 'Election-Result', params: { election: 'alo' } }"
+              :to="{
+                name: 'Election-Result',
+                params: { election: $route.params.election },
+              }"
             >
               <h3 class="election__link py-2 deep-purple--text darken-2">
                 မဲရလဒ်များ

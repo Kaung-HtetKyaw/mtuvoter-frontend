@@ -39,13 +39,7 @@ export default {
     },
   },
   created() {
-    this.options.xaxis.categories = this.result.map((el) => {
-      return getNestedPropertyFromDotString(el, this.grouped_by);
-    });
-    this.series[0].data = this.result.map((el) =>
-      getNestedPropertyFromDotString(el, this.seried_by)
-    );
-    this.series[0].name = this.name;
+    this.changedResult();
   },
   data() {
     return {
@@ -64,6 +58,28 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    changedResult() {
+      this.options.xaxis.categories = this.result.map((el) => {
+        return getNestedPropertyFromDotString(el, this.grouped_by);
+      });
+      //* have to use this.$set instance method because vue cannot provide reactivity for changing array items and nested obj
+      this.$set(this.series, 0, {
+        name: this.name,
+        data: this.result.map((el) =>
+          getNestedPropertyFromDotString(el, this.seried_by)
+        ),
+      });
+    },
+  },
+  watch: {
+    result: {
+      deep: true,
+      handler() {
+        this.changedResult();
+      },
+    },
   },
 };
 </script>
