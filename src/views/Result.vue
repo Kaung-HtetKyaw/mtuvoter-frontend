@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mb-6">
     <v-row>
       <v-col cols="12" sm="12">
         <template>
@@ -28,71 +28,145 @@
         </template>
       </v-col>
     </v-row>
-    <v-row>
-      <v-btn @click="change">Increase Result</v-btn>
+    <v-row> <v-btn @click="change">Increase Result</v-btn></v-row>
+    <v-row v-if="!loading">
       <v-col
         cols="12"
         sm="12"
         md="6"
-        v-for="i in 2"
+        v-for="(result, i) in results"
         :key="i"
         class="d-flex flex-column justify-center align-center"
       >
         <BarChart
-          name="MTU Student Union Candidate"
+          :name="election.positions[i].name"
           :grouped_by="['candidate', 0, 'name']"
           :seried_by="['vote_count']"
-          :result="result"
+          :result="result.result"
         />
       </v-col>
+    </v-row>
+    <v-row class="loader" justify="center" align="center" v-else>
+      <BaseLoader />
     </v-row>
   </v-container>
 </template>
 
 <script>
+import axios from "@/services/axios.js";
+import { showNoti } from "@/utils/noti.js";
+import { mapState } from "vuex";
+import store from "@/store/index.js";
 import BarChart from "@/components/Chart/Bar.vue";
+import BaseLoader from "@/components/Base/BaseLoader.vue";
+import Pusher from "pusher-js";
 export default {
   name: "Result",
   components: {
     BarChart,
+    BaseLoader,
   },
   data() {
     return {
-      result: [
-        {
-          vote_count: 20,
-          candidate: [
-            {
-              name: "Kaung Htet Kyaw",
-            },
-          ],
-        },
-        {
-          vote_count: 30,
-          candidate: [
-            {
-              name: "Pyae Htoo Khant",
-            },
-          ],
-        },
-        {
-          vote_count: 44,
-          candidate: [
-            {
-              name: "Kyaw Toe Toe Han",
-            },
-          ],
-        },
-      ],
+      results: [],
+      loading: false,
     };
+  },
+  computed: {
+    ...mapState({
+      election: (state) => state.election.election,
+    }),
+  },
+  async beforeRouteEnter(to, from, next) {
+    let election = store.state.election.singleElection;
+    if (!election || election._id !== to.params.election) {
+      election = await store.dispatch(
+        "election/getElection",
+        to.params.election
+      );
+    }
+    store.dispatch("UI/changeLoadingState", true);
+    next();
+  },
+  async created() {
+    await this.loadResults();
+    this.subscribe();
   },
   methods: {
     change() {
-      let changedCandidate = Object.assign({}, this.result[0]);
-      changedCandidate.vote_count = changedCandidate.vote_count + 10;
-      this.$set(this.result, 0, changedCandidate);
+      this.addNewVote({
+        _election: this.$route.params.election,
+        _position: "5fe0ec60b96e760fb879dcba",
+        _candidate: "5fe0ec87b96e760fb879dcbb",
+      });
+    },
+    async loadResults() {
+      const vm = this;
+      vm.loading = true;
+      const positions = vm.election.positions.map((el) => el._id);
+      await Promise.all(positions.map((el) => vm.loadForOnePosition(el)))
+        .then((res) => {
+          vm.results = res;
+          vm.loading = false;
+        })
+        .catch(() => {
+          showNoti("error", "Error loading results");
+        });
+    },
+    async addNewVote(newVote) {
+      // get the position which new votes got added
+      let changedPosition = Object.assign(
+        {},
+        this.results.find((result) => result.position === newVote.position)
+      );
+      let changedPositionIndex = this.results.findIndex(
+        (result) => result.position === newVote.position
+      );
+
+      // get the candidate who got voted
+      let changedCandidate = changedPosition.result.find(
+        (el) => el.candidate[0]._id === newVote.candidate
+      );
+      changedCandidate.vote_count++;
+      let changedCandidateIndex = changedPosition.result.findIndex(
+        (el) => el.candidate[0]._id === newVote.candidate
+      );
+
+      // replace the candidate result with the new result
+      changedPosition.result.splice(changedCandidateIndex, 1, changedCandidate);
+      // replace with the position result which contain new votes
+      this.$set(this.results, changedPositionIndex, {
+        position: newVote.position,
+        result: changedPosition.result,
+      });
+    },
+    async subscribe() {
+      const vm = this;
+      let pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
+        cluster: process.env.VUE_APP_PUSHER_CLUSTER,
+      });
+      pusher.subscribe("vote-result");
+      pusher.bind("new-vote", (data) => {
+        vm.addNewVote(data);
+      });
+    },
+    async loadForOnePosition(positionId) {
+      const vm = this;
+      return await axios()
+        .get(`/ballots/elections/${vm.election._id}/positions/${positionId}`)
+        .then((res) => {
+          return { position: positionId, result: res.data.data };
+        })
+        .catch(() => {
+          showNoti("error", "Error Loading Results");
+        });
     },
   },
 };
 </script>
-<style></style>
+<style lang="scss" scoped>
+.loader {
+  height: 85vh;
+  width: 100%;
+}
+</style>

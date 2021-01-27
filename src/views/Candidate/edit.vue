@@ -158,7 +158,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     if (
       !store.state.election.election ||
-      store.state.election._id === to.params.candidate._election
+      store.state.election._id !== to.params.candidate._election
     ) {
       showNoti(
         "error",
