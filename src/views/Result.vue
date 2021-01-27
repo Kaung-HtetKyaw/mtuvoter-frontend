@@ -16,7 +16,10 @@
               If you haven't voted yet, please contribute to the community by
               voting
               <router-link
-                :to="{ name: 'Election', params: { election: 'alo' } }"
+                :to="{
+                  name: 'Election-Single',
+                  params: { election: $route.params.election },
+                }"
                 class="text-decoration-underline"
                 >Here
               </router-link>
@@ -26,6 +29,7 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-btn @click="change">Increase Result</v-btn>
       <v-col
         cols="12"
         sm="12"
@@ -34,7 +38,12 @@
         :key="i"
         class="d-flex flex-column justify-center align-center"
       >
-        <BarChart name="MTU Student Union Candidate" :result="result" />
+        <BarChart
+          name="MTU Student Union Candidate"
+          :grouped_by="['candidate', 0, 'name']"
+          :seried_by="['vote_count']"
+          :result="result"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -79,9 +88,9 @@ export default {
   },
   methods: {
     change() {
-      let newSeries = [...this.series];
-      newSeries[0].data[0] = newSeries[0].data[0] + 10;
-      this.series = newSeries;
+      let changedCandidate = Object.assign({}, this.result[0]);
+      changedCandidate.vote_count = changedCandidate.vote_count + 10;
+      this.$set(this.result, 0, changedCandidate);
     },
   },
 };
