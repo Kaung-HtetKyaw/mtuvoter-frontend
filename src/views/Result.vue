@@ -55,6 +55,10 @@
 <script>
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
+import {
+  convertInitialElectionDataToResult,
+  updateResults,
+} from "@/utils/chart.js";
 import { mapState } from "vuex";
 import store from "@/store/index.js";
 import BarChart from "@/components/Chart/Bar.vue";
@@ -89,6 +93,7 @@ export default {
     next();
   },
   async created() {
+    this.loading = true;
     await this.loadResults();
     this.subscribe();
   },
@@ -102,11 +107,15 @@ export default {
     },
     async loadResults() {
       const vm = this;
-      vm.loading = true;
+
       const positions = vm.election.positions.map((el) => el._id);
       await Promise.all(positions.map((el) => vm.loadForOnePosition(el)))
         .then((res) => {
-          vm.results = res;
+          let initial_result = convertInitialElectionDataToResult(
+            this.election.positions,
+            this.election.candidates
+          );
+          vm.results = updateResults(initial_result, res);
           vm.loading = false;
         })
         .catch(() => {
