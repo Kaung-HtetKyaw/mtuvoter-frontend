@@ -28,8 +28,15 @@
         </template>
       </v-col>
     </v-row>
-    <v-row> <v-btn @click="change">Increase Result</v-btn></v-row>
+
     <v-row v-if="!loading">
+      <v-col cols="12" sm="12" class="width-100">
+        <h1
+          class="text-capitalize title-underline text-h5 text-md-h5 text-lg-h5 font-weight-bold text-center pb-2"
+        >
+          {{ election.name }}
+        </h1>
+      </v-col>
       <v-col
         cols="12"
         sm="12"
@@ -98,13 +105,6 @@ export default {
     this.subscribe();
   },
   methods: {
-    change() {
-      this.addNewVote({
-        _election: this.$route.params.election,
-        _position: "5fe0ec60b96e760fb879dcba",
-        _candidate: "5fe0ec87b96e760fb879dcbb",
-      });
-    },
     async loadResults() {
       const vm = this;
 
