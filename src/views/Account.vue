@@ -164,6 +164,8 @@
                   :ripple="false"
                   color="deep-purple darken-2 text-capitalize"
                   class="white--text"
+                  :loading="forgetting_password"
+                  @click="forgotPassword"
                   >Forgot Password</v-btn
                 >
               </div>
@@ -184,7 +186,7 @@ import { mapState } from "vuex";
 import store from "@/store/index.js";
 import { convertToObjWithPropProvided } from "@/utils/utils.js";
 import { showNoti } from "@/utils/noti.js";
-
+import axios from "@/services/axios.js";
 export default {
   name: "Account",
   computed: {
@@ -200,6 +202,7 @@ export default {
       confirmedPassword: "",
       updating_account: false,
       updating_password: false,
+      forgetting_password: false,
     };
   },
   created() {
@@ -240,6 +243,23 @@ export default {
         .catch(() => {
           vm.updating_password = false;
           showNoti("error", "Error updating password");
+        });
+    },
+    async forgotPassword() {
+      const vm = this;
+      vm.forgetting_password = true;
+      await axios()
+        .post(`/users/forgot`, { email: vm.account.email })
+        .then(() => {
+          vm.forgetting_password = false;
+          showNoti(
+            "success",
+            "Password reset email has been sent to your email address"
+          );
+        })
+        .catch(() => {
+          vm.forgetting_password = false;
+          showNoti("error", "Something went wrong");
         });
     },
   },

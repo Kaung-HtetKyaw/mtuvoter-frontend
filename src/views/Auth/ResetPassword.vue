@@ -4,9 +4,11 @@
       <v-col
         cols="12"
         sm="12"
+        md="6"
+        offset-md="3"
         class="reset__wrapper d-flex justify-center align-center"
       >
-        <v-card class="elevation-0 pb-6 width-50 reset__form">
+        <v-card class="elevation-0 pb-6 width-100 reset__form">
           <v-card-title
             class="deep-purple darken-2 white--text d-flex justify-center"
             >Reset Password</v-card-title
