@@ -13,6 +13,7 @@ export const mutations = {
   SET_ME(state, user) {
     state.user = user;
   },
+  UPDATE_PASSWORD() {},
   UPDATE_ME(state, user) {
     state.user = user;
   },
@@ -64,6 +65,25 @@ export const actions = {
       .then((res) => {
         commit("UPDATE_ME", res.data.data);
         return res.data.data;
+      })
+      .catch((e) => {
+        showNoti("error", e.response.message);
+      });
+  },
+  async updatePassword(
+    { commit },
+    { email, oldPassword, newPassword, confirmedPassword }
+  ) {
+    await axios()
+      .patch(`/users/pass`, {
+        email,
+        oldPassword,
+        newPassword,
+        confirmedPassword,
+      })
+      .then((res) => {
+        commit("UPDATE_PASSWORD");
+        return res.data;
       })
       .catch((e) => {
         showNoti("error", e.response.message);

@@ -100,7 +100,13 @@
                 >
                   Current Password
                 </h6>
-                <v-text-field :height="10" outlined dense></v-text-field>
+                <v-text-field
+                  :height="10"
+                  outlined
+                  dense
+                  v-model="oldPassword"
+                  type="password"
+                ></v-text-field>
               </div>
               <div>
                 <h6
@@ -108,7 +114,13 @@
                 >
                   New Password
                 </h6>
-                <v-text-field :height="10" outlined dense></v-text-field>
+                <v-text-field
+                  :height="10"
+                  outlined
+                  dense
+                  v-model="newPassword"
+                  type="password"
+                ></v-text-field>
               </div>
               <div>
                 <h6
@@ -116,7 +128,13 @@
                 >
                   Confirm new password
                 </h6>
-                <v-text-field :height="10" outlined dense></v-text-field>
+                <v-text-field
+                  :height="10"
+                  outlined
+                  dense
+                  v-model="confirmedPassword"
+                  type="password"
+                ></v-text-field>
               </div>
               <div class="width-100 d-flex justify-end mb-4">
                 <v-btn
@@ -126,6 +144,8 @@
                   :ripple="false"
                   color="deep-purple darken-2 text-capitalize"
                   class="white--text"
+                  @click="updatePassword"
+                  :loading="updating_password"
                   >Update Password</v-btn
                 >
               </div>
@@ -172,12 +192,11 @@ export default {
   data() {
     return {
       account: {},
-      password: {
-        current: "",
-        new: "",
-        confirm: "",
-      },
+      oldPassword: "",
+      newPassword: "",
+      confirmedPassword: "",
       updating_account: false,
+      updating_password: false,
     };
   },
   created() {
@@ -199,6 +218,25 @@ export default {
         .catch(() => {
           vm.updating_account = false;
           showNoti("error", "Error updating the account");
+        });
+    },
+    async updatePassword() {
+      const vm = this;
+      vm.updating_password = true;
+      await store
+        .dispatch("user/updatePassword", {
+          email: vm.account.email,
+          oldPassword: vm.oldPassword,
+          newPassword: vm.newPassword,
+          confirmedPassword: vm.confirmedPassword,
+        })
+        .then(() => {
+          vm.updating_password = false;
+          showNoti("success", "Password has been updated successfully");
+        })
+        .catch(() => {
+          vm.updating_password = false;
+          showNoti("error", "Error updating password");
         });
     },
   },
