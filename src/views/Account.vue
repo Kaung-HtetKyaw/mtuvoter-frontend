@@ -25,7 +25,10 @@
                 >
                   Email address
                 </h6>
-                <p class="text-body-2 text--secondary" v-if="user.verified">
+                <p
+                  class="text-body-2 text--secondary"
+                  v-if="user && user.verified"
+                >
                   <v-icon small color="deep-purple darken-2"
                     >mdi-check-circle</v-icon
                   >

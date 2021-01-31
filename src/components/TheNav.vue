@@ -53,6 +53,11 @@
               >Dashboard</a
             ></router-link
           >
+          <router-link :to="{ name: 'Dashboard' }" v-if="!authenticated">
+            <a class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+              >Sign in</a
+            ></router-link
+          >
 
           <v-menu transition="slide-y-transition" bottom v-if="authenticated">
             <template v-slot:activator="{ on, attrs }">
