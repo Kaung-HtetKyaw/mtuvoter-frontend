@@ -5,7 +5,9 @@ export function convertInitialElectionDataToResult(positions, candidates) {
 export function convertDataToResult(position, candidates) {
   let result = {};
   result.position = position._id;
+  // filter out for the candidates who represent the position
   let matched_candidates = candidates.filter((el) => el._post === position._id);
+  // convert data to initial result
   result.result = matched_candidates.map((candidate) => {
     let candidate_result = {};
     candidate_result.vote_count = 0;

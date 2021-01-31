@@ -46,11 +46,25 @@
           >
         </v-list-item-content>
       </v-list-item>
+      <v-list-item key="sign_out" exact v-if="authenticated">
+        <v-list-item-content>
+          <v-btn
+            color="deep-purple darken-2"
+            class="white--text text-capitalize"
+            depressed
+            :ripple="false"
+            :loading="logging_out"
+            @click="signOut"
+            >Sign out</v-btn
+          >
+        </v-list-item-content>
+      </v-list-item>
     </transition-group>
   </div>
 </template>
 
 <script>
+import authMixin from "@/mixins/auth.js";
 const defaultItem = [
   {
     icon: "mdi-chart-bubble",
@@ -72,13 +86,19 @@ const defaultItem = [
 const authorityItem = [
   {
     icon: "mdi-account-tie",
-    title: "Admin Dashboard",
+    title: "Dashboard",
     to: { name: "Dashboard" },
+  },
+  {
+    icon: "mdi-account-cog",
+    title: "Account Setting",
+    to: { name: "Account" },
   },
 ];
 
 export default {
   name: "BaseNavigationDrawer",
+  mixins: [authMixin],
   computed: {
     items() {
       const vm = this;

@@ -47,6 +47,7 @@ export default {
         chart: {
           id: "vuechart-example",
         },
+        colors: ["#5545A8"],
         xaxis: {
           categories: [],
         },

@@ -45,11 +45,6 @@
       <v-spacer class=""></v-spacer>
       <div class="d-flex flex-row align-center justify-center">
         <div class="d-flex flex-row justify-centeer align-center">
-          <router-link :to="{ name: 'Account' }" v-if="!!user">
-            <a class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
-              >Account</a
-            ></router-link
-          >
           <router-link
             :to="{ name: 'Dashboard' }"
             v-if="!!user && user.role === 'admin'"
@@ -58,13 +53,76 @@
               >Dashboard</a
             ></router-link
           >
-
-          <router-link :to="{ name: 'Login' }" v-if="!user">
-            <a
-              class="d-none d-md-flex  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+          <router-link :to="{ name: 'Dashboard' }" v-if="!authenticated">
+            <a class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
               >Sign in</a
             ></router-link
           >
+
+          <v-menu transition="slide-y-transition" bottom v-if="authenticated">
+            <template v-slot:activator="{ on, attrs }">
+              <a
+                v-bind="attrs"
+                v-on="on"
+                class="  navbar-item--text mx-2 mx-md-4 font-weight-medium"
+                >Account</a
+              >
+            </template>
+            <v-card>
+              <v-list>
+                <v-list-item>
+                  <v-list-item-avatar>
+                    <img src="/img/user-avatar.png" alt="John" />
+                  </v-list-item-avatar>
+
+                  <v-list-item-content>
+                    <v-list-item-title
+                      >{{ userDetail.name }}
+                      <v-icon small color="deep-purple darken-2"
+                        >mdi-check-circle</v-icon
+                      >
+                    </v-list-item-title>
+                    <v-list-item-subtitle class="pt-2">{{
+                      userDetail.email
+                    }}</v-list-item-subtitle>
+                  </v-list-item-content>
+
+                  <v-list-item-action> </v-list-item-action>
+                </v-list-item>
+              </v-list>
+
+              <v-divider></v-divider>
+
+              <v-list class="px-2">
+                <v-list-item
+                  class="admin--text"
+                  router
+                  exact
+                  :to="{ name: 'Account' }"
+                >
+                  <v-list-item-action>
+                    <v-icon>mdi-account-cog</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title>Account Settings</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item class="admin--text" exact>
+                  <v-list-item-content>
+                    <v-btn
+                      color="deep-purple darken-2"
+                      class="white--text text-capitalize"
+                      depressed
+                      :ripple="false"
+                      @click="signOut"
+                      :loading="logging_out"
+                      >Sign out</v-btn
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-menu>
           <!-- 
           <v-btn
             elevation="0"
@@ -80,7 +138,7 @@
 
     <v-navigation-drawer bottom v-model="drawer" temporary fixed app>
       <v-list>
-        <UserDrawer />
+        <UserDrawer v-if="userDetail" />
         <BaseNavigationDrawer />
       </v-list>
     </v-navigation-drawer>
@@ -91,6 +149,7 @@
 import BaseNavigationDrawer from "@/components/Base/BaseNavigationDrawer.vue";
 import UserDrawer from "@/components/User/UserDrawer.vue";
 import { mapState } from "vuex";
+import authMixin from "@/mixins/auth.js";
 export default {
   name: "TheNav",
   components: {
@@ -98,6 +157,7 @@ export default {
     BaseNavigationDrawer,
     UserDrawer,
   },
+  mixins: [authMixin],
   computed: {
     ...mapState({
       user: (state) => state.user.user,
