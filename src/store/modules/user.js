@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from "@/services/axios.js";
+import { showNoti } from "@/utils/noti.js";
 
 export const namespaced = true;
 export const state = {
@@ -12,6 +13,9 @@ export const mutations = {
   SET_ME(state, user) {
     state.user = user;
   },
+  UPDATE_ME(state, user) {
+    state.user = user;
+  },
   // making sure the app will try to fetch the current user from jwt only for one time
   CHANGE_FETCH_STATE(state) {
     state.fetched = true;
@@ -20,9 +24,9 @@ export const mutations = {
 
 export const actions = {
   async login({ commit }, user) {
-    await axios
+    await axios()
       .post(
-        `${process.env.VUE_APP_BASE_API_URL}/users/login`,
+        `/users/login`,
         {
           ...user,
         },
@@ -41,8 +45,8 @@ export const actions = {
       });
   },
   async getMe({ commit }) {
-    await axios
-      .get(`${process.env.VUE_APP_BASE_API_URL}/users/me`, {
+    await axios()
+      .get(`/users/me`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -52,6 +56,27 @@ export const actions = {
       .catch((e) => {
         commit("CHANGE_FETCH_STATE");
         console.log(e.response);
+      });
+  },
+  async updateMe({ commit }, { user }) {
+    return await axios()
+      .patch(`/users/me`, { ...user })
+      .then((res) => {
+        commit("UPDATE_ME", res.data.data);
+        return res.data.data;
+      })
+      .catch((e) => {
+        showNoti("error", e.response.message);
+      });
+  },
+  async logOut({ commit }) {
+    await axios()
+      .get(`/users/logout`)
+      .then(() => {
+        commit("SET_ME", null);
+      })
+      .catch(() => {
+        showNoti("error", "Error logging out");
       });
   },
 };

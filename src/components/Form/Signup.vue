@@ -21,7 +21,15 @@
       <i class="fas fa-lock"></i>
       <input type="password" placeholder="Confirm password" />
     </div>
-    <input type="submit" class="btn" value="Sign up" />
+    <v-btn
+      rounded
+      large
+      class="white--text font-weight-bold px-12 my-4"
+      color="deep-purple darken-2"
+      depressed
+      :ripple="false"
+      >Sign Up</v-btn
+    >
   </form>
 </template>
 

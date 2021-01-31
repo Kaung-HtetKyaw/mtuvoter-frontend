@@ -14,14 +14,27 @@
       />
     </div>
 
-    <input
+    <!-- <input
       @click="login($event)"
       type="submit"
       value="Login"
       class="btn solid"
-    />
+    /> -->
+    <v-btn
+      rounded
+      large
+      class="white--text font-weight-bold px-12 my-4"
+      color="deep-purple darken-2"
+      depressed
+      :ripple="false"
+      :loading="loading"
+      @click="login($event)"
+      >Login</v-btn
+    >
     <router-link :to="{ name: 'Forgot-Password' }" exact>
-      <a class="text-decoration-underline my-3">Forgot password ?</a>
+      <a class="text-decoration-underline my-3 deep-purple--text darken-2"
+        >Forgot password ?</a
+      >
     </router-link>
   </form>
 </template>
@@ -34,21 +47,27 @@ export default {
   data() {
     return {
       account: {
-        email: "speed02749@gmail.com",
+        email: "",
         password: "",
       },
+      loading: false,
     };
   },
   methods: {
     async login(e) {
       e.preventDefault();
       const vm = this;
+      vm.loading = true;
       await store
         .dispatch("user/login", this.account)
         .then(() => {
+          vm.loading = false;
           vm.$router.push({ name: "Elections" });
         })
-        .catch(() => showNoti("error", "Something went wrong"));
+        .catch(() => {
+          vm.loading = false;
+          showNoti("error", "Something went wrong");
+        });
     },
   },
 };

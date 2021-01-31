@@ -25,11 +25,18 @@
                 >
                   Email address
                 </h6>
+                <p class="text-body-2 text--secondary" v-if="user.verified">
+                  <v-icon small color="deep-purple darken-2"
+                    >mdi-check-circle</v-icon
+                  >
+                  Your email address is verified
+                </p>
                 <v-text-field
-                  v-model="user.email"
+                  v-model="account.email"
                   :height="10"
                   outlined
                   dense
+                  :disabled="true"
                 ></v-text-field>
               </div>
               <div>
@@ -39,7 +46,7 @@
                   Name
                 </h6>
                 <v-text-field
-                  v-model="user.name"
+                  v-model="account.name"
                   :height="10"
                   outlined
                   dense
@@ -52,7 +59,7 @@
                   Student ID
                 </h6>
                 <v-text-field
-                  v-model="user.SID"
+                  v-model="account.SID"
                   :height="10"
                   outlined
                   dense
@@ -63,6 +70,8 @@
                 depressed
                 small
                 :ripple="false"
+                @click="updateMe"
+                :loading="updating_account"
                 color="deep-purple darken-2 text-capitalize"
                 class="white--text"
                 >Update Profile</v-btn
@@ -83,7 +92,7 @@
               password
             </p>
           </v-col>
-          <v-col cols="12" sm="12" md="8" class="d-flex justify-center">
+          <v-col cols="12" sm="12" md="8" class="d-flex  justify-center">
             <div class="account__form">
               <div>
                 <h6
@@ -109,14 +118,18 @@
                 </h6>
                 <v-text-field :height="10" outlined dense></v-text-field>
               </div>
-              <v-btn
-                depressed
-                small
-                :ripple="false"
-                color="deep-purple darken-2 text-capitalize"
-                class="white--text"
-                >Update Password</v-btn
-              >
+              <div class="width-100 d-flex justify-end mb-4">
+                <v-btn
+                  depressed
+                  block
+                  small
+                  :ripple="false"
+                  color="deep-purple darken-2 text-capitalize"
+                  class="white--text"
+                  >Update Password</v-btn
+                >
+              </div>
+
               <div class="width-100 d-flex flex-column justify-end my-3">
                 <p class="text-body-2 text--secondary">
                   You can reset password by clicking the following button and
@@ -133,6 +146,7 @@
               </div>
             </div>
           </v-col>
+
           <v-col cols="12" sm="12">
             <v-divider></v-divider>
           </v-col>
@@ -144,6 +158,9 @@
 
 <script>
 import { mapState } from "vuex";
+import store from "@/store/index.js";
+import { convertToObjWithPropProvided } from "@/utils/utils.js";
+import { showNoti } from "@/utils/noti.js";
 
 export default {
   name: "Account",
@@ -153,7 +170,37 @@ export default {
     }),
   },
   data() {
-    return {};
+    return {
+      account: {},
+      password: {
+        current: "",
+        new: "",
+        confirm: "",
+      },
+      updating_account: false,
+    };
+  },
+  created() {
+    this.account = { ...this.user };
+  },
+  methods: {
+    async updateMe() {
+      const vm = this;
+      vm.updating_account = true;
+      await store
+        .dispatch("user/updateMe", {
+          user: convertToObjWithPropProvided(vm.account, ["name"]),
+        })
+        .then((res) => {
+          console.log(res);
+          vm.updating_account = false;
+          showNoti("success", "Account has been updated successfully");
+        })
+        .catch(() => {
+          vm.updating_account = false;
+          showNoti("error", "Error updating the account");
+        });
+    },
   },
 };
 </script>
