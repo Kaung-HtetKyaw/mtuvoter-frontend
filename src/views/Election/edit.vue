@@ -100,6 +100,7 @@
 <script>
 import store from "@/store/index.js";
 import { showNoti } from "@/utils/noti.js";
+// import {convertIntlToMMDate} from '@/utils/time.js'
 import { mapState } from "vuex";
 export default {
   data() {
@@ -186,8 +187,9 @@ function convertStringDateToObjDateAndTime (stringDate) {
     date:"",
     time:""
   }
+
   objDate.date = new Date(stringDate).toISOString().substr(0,10);
-  objDate.time = new Date(stringDate).toISOString().split("T")[1].substr(0,5);
+  objDate.time = `${new Date(stringDate).getHours()}:${new Date(stringDate).getMinutes()}`;
   return objDate
 }
 </script>

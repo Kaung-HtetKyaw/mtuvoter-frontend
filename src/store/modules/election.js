@@ -103,7 +103,7 @@ export const actions = {
     return latest_election;
   },
   async createElection({ commit }, { election }) {
-    await axios()
+    return axios()
       .post(`/elections`, election)
       .then((res) => {
         commit("CREATE_ELECTION", res.data.data);

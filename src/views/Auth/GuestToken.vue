@@ -31,7 +31,7 @@
                         dense
                       ></v-text-field>
                       <div
-                        class="width-100 d-flex justify-center align-center no-result mb-4 py-3 rounded"
+                        class="width-100 d-flex justify-center align-center no-result mb-4 py-3 rounded font-weight-medium"
                       >
                         Guest Token:
                         <span class="ml-2 font-weight-bold">aslf3l4</span>
@@ -46,6 +46,8 @@
                         class="white--text text-capitalize"
                         depressed
                         :ripple="false"
+                        :loading='loading'
+                        @click="generateToken"
                         >Generate Token</v-btn
                       >
                     </div>
@@ -61,14 +63,36 @@
 </template>
 
 <script>
+import axios from "@/services/axios.js";
 export default {
   name: "GuestToken",
 
   data() {
     return {
       SID: "",
+      token:"",
+      showToken:false,
+      loading:false
     };
   },
+  methods:{
+    async generateToken() {
+      const vm = this;
+      vm.loading = true;
+      await axios().post(`/tokens`,{SID:vm.SID,_election:vm.$route.params.election})
+      .then(res => {
+        vm.loading = false;
+        console.log(res)
+      })
+      .catch(e=>{
+        vm.loading = false;
+        console.log(e.response);
+      })
+    },
+
+  }
+  
+
 };
 </script>
 

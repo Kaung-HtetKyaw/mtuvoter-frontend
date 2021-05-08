@@ -44,10 +44,18 @@ function pluralize(time, label) {
   return `${roundedTime} ${label}s`;
 }
 
-export function formatISODate(date) {
+export function convertMMToIntlDate(date) {
   let originalDate = new Date(date);
 
   originalDate.setHours(originalDate.getHours() - 6);
   originalDate.setMinutes(originalDate.getMinutes() - 30);
+  return originalDate;
+}
+
+export function convertIntlToMMDate(date) {
+  let originalDate = new Date(date);
+
+  originalDate.setHours(originalDate.getHours() + 6);
+  originalDate.setMinutes(originalDate.getMinutes() + 30);
   return originalDate;
 }

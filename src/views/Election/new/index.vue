@@ -36,6 +36,7 @@
                       width="100%"
                       v-model="start.date"
                       elevation="1"
+                      locale="my"
                     ></v-date-picker
                   ></v-col>
                   <v-col cols="12" sm="12" md="6"
@@ -44,6 +45,7 @@
                       v-model="start.time"
                       ampm-in-title
                       class="width-100"
+                      
                     ></v-time-picker
                   ></v-col>
                 </v-row>
@@ -61,6 +63,7 @@
                       width="100%"
                       v-model="end.date"
                       elevation="1"
+                      locale="my"
                     ></v-date-picker
                   ></v-col>
                   <v-col cols="12" sm="12" md="6"
@@ -96,7 +99,8 @@
 </template>
 
 <script>
-import store from "@/store/index.js";
+// import store from "@/store/index.js";
+// import {convertIntlToMMDate} from '@/utils/time.js'
 import { showNoti } from "@/utils/noti.js";
 export default {
   data() {
@@ -118,8 +122,8 @@ export default {
     election() {
       return {
         about: this.about,
-        startDate: `${this.start.date}T${this.start.time}`,
-        endDate: `${this.end.date}T${this.end.time}`,
+        startDate: new Date(`${this.start.date}T${this.start.time}`),
+        endDate: new Date(`${this.end.date}T${this.end.time}`),
         name: this.name,
       };
     },
@@ -139,16 +143,19 @@ export default {
           "Election end date must be greate than the election start date"
         );
       }
-      await store
-        .dispatch("election/createElection", { election: vm.election })
-        .then(() => {
-          vm.loading = false;
-          showNoti("success", "New election has been created successfully");
-        })
-        .catch(() => {
-          vm.loading = false;
-          showNoti("error", "Error creating new election");
-        });
+      console.log(this.election.startDate.toLocaleString());
+      console.log(this.election.endDate.toLocaleString());
+      // await store
+      //   .dispatch("election/createElection", { election: vm.election })
+      //   .then((res) => {
+      //     vm.loading = false;
+      //     console.log(res)
+      //     showNoti("success", "New election has been created successfully");
+      //   })
+      //   .catch(() => {
+      //     vm.loading = false;
+      //     showNoti("error", "Error creating new election");
+      //   });
     },
   },
 };

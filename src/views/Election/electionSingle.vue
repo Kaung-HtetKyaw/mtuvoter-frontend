@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <v-container class="election py-0 mb-16">
-    <v-row>
+    <v-row v-if="election.raced">
       <v-col cols="12" sm="12">
           <v-alert
           dismissible
@@ -35,7 +35,7 @@
         >
           As a moderator, you can generate guest token
           <router-link
-            :to="{ name: 'Guest-Token' }"
+            :to="{ name: 'Generate-Guest-Token', params:{election:election._id} }"
             class="text-decoration-underline font-weight-medium"
             >here for the guest users.
           </router-link>
