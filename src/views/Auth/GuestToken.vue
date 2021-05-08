@@ -22,22 +22,28 @@
                           Generate a guest login token for voting in an election
                         </p>
                       </div>
-                      <v-text-field
-                        outlined
-                        type="email"
-                        v-model="SID"
-                        label="Student ID"
+                      <v-text-field outlined type="number" v-model="SID" label="Student ID"
                         required
                         dense
+                        :disabled='loading'
+                        :rules="textRules"
+                        :loading="loading"
                       ></v-text-field>
                       <div
+                      v-if="loading || token"
                         class="width-100 d-flex justify-center align-center no-result mb-4 py-3 rounded font-weight-medium"
                       >
-                        Guest Token:
-                        <span class="ml-2 font-weight-bold">aslf3l4</span>
+                      <div v-if="!loading && token">Guest Token: <span class="ml-2 font-weight-bold">{{token}}</span></div>
+                      <div v-if="loading">Generating Guest Token .......</div>
                       </div>
                     </div>
-
+                    <div class="width-100 d-flex flex-column justify-center align-end mb-4" v-if="!loading && token">
+                      <v-btn v-clipboard="token" v-clipboard:success="clipboardSuccessHandler" :ripple="false" rounded  depressed small color="success" class="text-capitalize">
+                        {{copied?'Copied':'Copy token to clipboard'}}
+                        <v-icon v-if="!copied" small class="ml-1">mdi-file-document-multiple-outline</v-icon>
+                        <v-icon v-else small class="ml-1">mdi-checkbox-marked-circle</v-icon>
+                      </v-btn>
+                    </div>
                     <div
                       class="width-100 d-flex flex-column justify-center align-center"
                     >
@@ -64,15 +70,17 @@
 
 <script>
 import axios from "@/services/axios.js";
+import { showNoti } from "@/utils/noti.js";
+import {rules} from '@/mixins/validation-rules.js';
 export default {
   name: "GuestToken",
-
+  mixins:[rules],
   data() {
     return {
-      SID: "",
-      token:"",
-      showToken:false,
-      loading:false
+      SID: null,
+      token:null,
+      loading:false,
+      copied:false
     };
   },
   methods:{
@@ -82,17 +90,22 @@ export default {
       await axios().post(`/tokens`,{SID:vm.SID,_election:vm.$route.params.election})
       .then(res => {
         vm.loading = false;
-        console.log(res)
+        vm.token = res.data.vote_token
       })
-      .catch(e=>{
+      .catch((e)=>{
         vm.loading = false;
-        console.log(e.response);
+        if(e.response.data.message.includes("already in use")) {
+          showNoti("error","You already requested your vote token for your Student ID")
+          return;
+        }
+        showNoti("error","Error generating Guest token")
       })
     },
+    clipboardSuccessHandler() {
+      this.copied = true;
+    }
 
   }
-  
-
 };
 </script>
 
