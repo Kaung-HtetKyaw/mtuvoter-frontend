@@ -99,8 +99,7 @@
 </template>
 
 <script>
-// import store from "@/store/index.js";
-// import {convertIntlToMMDate} from '@/utils/time.js'
+import store from "@/store/index.js";
 import { showNoti } from "@/utils/noti.js";
 export default {
   data() {
@@ -143,19 +142,18 @@ export default {
           "Election end date must be greate than the election start date"
         );
       }
-      console.log(this.election.startDate.toLocaleString());
-      console.log(this.election.endDate.toLocaleString());
-      // await store
-      //   .dispatch("election/createElection", { election: vm.election })
-      //   .then((res) => {
-      //     vm.loading = false;
-      //     console.log(res)
-      //     showNoti("success", "New election has been created successfully");
-      //   })
-      //   .catch(() => {
-      //     vm.loading = false;
-      //     showNoti("error", "Error creating new election");
-      //   });
+      await store
+        .dispatch("election/createElection", { election: vm.election })
+        .then((res) => {
+          vm.loading = false;
+          showNoti("success", "New election has been created successfully");
+          vm.$router.replace({name:"Election-Single",params:{election:res._id}})
+        })
+        .catch((e) => {
+          vm.loading = false;
+          console.log(e)
+          showNoti("error", "Error creating new election");
+        });
     },
   },
 };

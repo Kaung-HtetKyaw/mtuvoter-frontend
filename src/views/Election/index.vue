@@ -11,12 +11,13 @@
           icon="mdi-information"
           class="text-body-2 text-md-subtitle-1"
         >
-          Create an election
+          You can  
           <router-link
             :to="{ name: 'Election-New' }"
             class="text-decoration-underline"
-            >Here
+            >create an election here
           </router-link>
+          or click the button from the bottom right of the page.
         </v-alert>
       </v-col>
     </v-row>
@@ -43,6 +44,11 @@
       >
         <ElectionCard :election="election" />
       </v-col>
+    </v-row>
+    <v-row>
+       <v-btn color="deep-purple darken-4" :ripple="false" class="white--text" :to='{name:"Election-New"}' dark large fixed bottom right fab>
+            <v-icon>mdi-plus</v-icon>
+        </v-btn>
     </v-row>
     <v-row class="my-6">
       <v-col

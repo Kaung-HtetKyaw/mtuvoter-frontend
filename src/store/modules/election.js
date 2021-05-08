@@ -107,11 +107,9 @@ export const actions = {
       .post(`/elections`, election)
       .then((res) => {
         commit("CREATE_ELECTION", res.data.data);
-        console.log(res.data.data);
         return res.data.data;
       })
       .catch((e) => {
-        console.log(e.response);
         showNoti("error", e.response.message);
       });
   },
