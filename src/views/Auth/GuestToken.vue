@@ -11,7 +11,7 @@
             <v-col cols="12" sm="12" md="6">
               <v-card class="elevation-0 pb-6 width-100 forgot__form">
                 <v-card-title
-                  class="deep-purple darken-2 white--text d-flex justify-center"
+                  class="deep-purple darken-4 white--text d-flex justify-center"
                   >Generate Guest Token</v-card-title
                 >
                 <v-card-text class="mt-6 px-1">
@@ -42,7 +42,7 @@
                       class="width-100 d-flex flex-column justify-center align-center"
                     >
                       <v-btn
-                        color="deep-purple darken-2"
+                        color="deep-purple darken-4"
                         class="white--text text-capitalize"
                         depressed
                         :ripple="false"

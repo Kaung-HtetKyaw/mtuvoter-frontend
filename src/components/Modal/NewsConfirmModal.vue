@@ -13,7 +13,7 @@
             icon
             dark
             depressed
-            color="deep-purple darken-2 rotate-45 my-2"
+            color="deep-purple darken-4 rotate-45 my-2"
             x-small
             @click="dialog = false"
           >
@@ -26,7 +26,7 @@
           class="px-4  px-lg-6 text-center d-flex justify-center align-center"
         >
           <span
-            class=" text-subtitle-1 text-center text-md-h6 font-weight-bold red--text darken-2"
+            class=" text-subtitle-1 text-center text-md-h6 font-weight-bold red--text darken-4"
             >Are you sure to delete this news ?</span
           >
 
@@ -40,7 +40,7 @@
         <v-card-text class="add-mod mt-6">
           <v-btn
             dense
-            color="red darken-2"
+            color="red darken-4"
             class="white--text text-capitalize mb-6"
             depressed
             block
@@ -51,7 +51,7 @@
           >
           <!-- <v-btn
             dense
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             class="text-capitalize"
             depressed
             block

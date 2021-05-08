@@ -110,7 +110,7 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done();
     }
   }
-  console.log(currentUser);
+  console.log("requires auth"+requiresAuth)
   // guard for the auth routes
   if (requiresAuth && !currentUser) {
     showNoti(

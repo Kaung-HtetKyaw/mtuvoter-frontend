@@ -37,7 +37,7 @@
               position: candidate._post,
             },
           }"
-          color="deep-purple darken-2"
+          color="deep-purple darken-4"
           class="white--text text-capitalize"
           depressed
           :ripple="false"

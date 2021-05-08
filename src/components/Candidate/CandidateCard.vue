@@ -40,34 +40,42 @@
             <div class="width-100">
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center"
+              
               >
-                <GuestLogin>
+                <GuestLogin :raced='raced'>
                   <template v-slot:default="{ activator }">
                     <v-btn
                       depressed
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       block
                       v-bind="activator.attrs"
                       v-on="activator.on"
                       class="white--text text-capitalize"
+                      :disabled="raced"
                       :ripple="false"
                       >Vote
                     </v-btn>
                   </template>
                 </GuestLogin>
               </div>
+              <div v-if="raced">
+                <p class="text-center text--secondary text-body-2 mt-1">This election has already been called raced.</p>
+                <p class="text-center text--secondary text-body-2 ">(You cannot remove and vote this candidate anymore)</p>
+              </div>
+              
+
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center my-3"
               >
                 <v-btn
                   depressed
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   block
                   text
                   class="white--text text-capitalize"
                   :ripple="false"
                   exact
-                  v-if="userDetail.role === 'admin'"
+                  v-if="authenticated && userDetail.role === 'admin'"
                   :to="{
                     name: 'Election-Candidate-Edit',
                     params: { candidate: candidate._id },
@@ -82,7 +90,7 @@
                   <template v-slot:default="{ activator }">
                     <v-btn
                       depressed
-                      color="red darken-2"
+                      color="red darken-4"
                       block
                       text
                       v-bind="activator.attrs"
@@ -90,7 +98,8 @@
                       class="white--text text-capitalize"
                       :ripple="false"
                       exact
-                      v-if="userDetail.role === 'admin'"
+                      v-if="authenticated && userDetail.role === 'admin'"
+                      :disabled="raced"
                       >Remove this candidate
                     </v-btn></template
                   >
@@ -120,17 +129,16 @@ export default {
       type: Object,
       required: true,
     },
+    raced:{
+      type:Boolean,
+      required:true
+    }
   },
   data() {
     return {
       yearMap,
       majorMap,
     };
-  },
-  methods: {
-    alo() {
-      alert("alo");
-    },
   },
 };
 </script>

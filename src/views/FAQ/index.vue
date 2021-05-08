@@ -4,7 +4,7 @@
       <v-col
         cols="12"
         sm="12"
-        class="d-flex flex-column justify-center align-center deep-purple--text darken-2"
+        class="d-flex flex-column justify-center align-center deep-purple--text darken-4"
       >
         <h1
           class="d-inline-block text-h6 text-md-h5 text-lg-h5 font-weight-bold workssan text-center faq--title py-2 mb-3"
@@ -22,7 +22,7 @@
         "
       >
         <v-btn
-          color="deep-purple darken-2"
+          color="deep-purple darken-4"
           class="white--text text-capitalize"
           small
           depressed

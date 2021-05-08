@@ -47,7 +47,7 @@ export default {
 // Variables
 $regal-blue: #034378;
 $san-juan: #2d4e68;
-$bermuda: #5545a8;
+$bermuda: #363A92;
 $white: #fff;
 $black: #000;
 $open-sans: "Open Sans", sans-serif;

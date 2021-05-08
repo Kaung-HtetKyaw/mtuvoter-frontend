@@ -42,7 +42,7 @@
           solo
           v-model="clonedNews.title"
           @change="emitNews"
-          class="text-h6 text-md-h5 font-weight-bold grey--text darken-2"
+          class="text-h6 text-md-h5 font-weight-bold grey--text darken-4"
         ></v-textarea>
       </div>
       <div>

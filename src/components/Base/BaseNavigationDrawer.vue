@@ -39,7 +39,7 @@
       >
         <v-list-item-content>
           <v-btn
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             class="white--text text-capitalize"
             depressed
             >Log in</v-btn
@@ -49,7 +49,7 @@
       <v-list-item key="sign_out" exact v-if="authenticated">
         <v-list-item-content>
           <v-btn
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             class="white--text text-capitalize"
             depressed
             :ripple="false"

@@ -3,7 +3,7 @@
     class="elevation-5 px-2 py-2 px-md-6 py-md-6 rounded chart__wrapper my-3 white"
   >
     <h2
-      class="result__title--candidate text-subtitle-1 my-3 deep-purple--text darken-2 workssan font-weight-medium text-center pb-4 font-weight-bold"
+      class="result__title--candidate text-subtitle-1 my-3 deep-purple--text darken-4 workssan font-weight-medium text-center pb-4 font-weight-bold"
     >
       {{ name }}
     </h2>
@@ -47,7 +47,7 @@ export default {
         chart: {
           id: "vuechart-example",
         },
-        colors: ["#5545A8"],
+        colors: ["#363A92"],
         xaxis: {
           categories: [],
         },

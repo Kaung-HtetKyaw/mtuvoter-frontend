@@ -4,7 +4,7 @@
       <v-col cols="12" sm="12" md="12" class="">
         <v-card class="elevation-2 pb-6">
           <v-card-title
-            class="deep-purple darken-2 white--text d-flex justify-center"
+            class="deep-purple darken-4 white--text d-flex justify-center"
             >Update FAQ Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
@@ -26,7 +26,7 @@
                 class="width-100 d-flex flex-column justify-center align-center"
               >
                 <v-btn
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   class="white--text text-capitalize"
                   block
                   depressed

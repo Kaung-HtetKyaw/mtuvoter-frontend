@@ -4,7 +4,7 @@
       <v-col cols="12" sm="12" md="12">
         <v-card class="elevation-1">
           <v-card-title
-            class="deep-purple darken-2 white--text d-flex justify-center"
+            class="deep-purple darken-4 white--text d-flex justify-center"
             >Enter Election Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
@@ -25,14 +25,14 @@
                 <v-row>
                   <v-col cols="12" sm="12" class="d-flex justify-center">
                     <h2
-                      class="deep-purple--text darken-2  text-center py-2 election-form__title"
+                      class="deep-purple--text darken-4  text-center py-2 election-form__title"
                     >
                       Choose Start Date
                     </h2>
                   </v-col>
                   <v-col cols="12" sm="12" md="6">
                     <v-date-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       width="100%"
                       v-model="start.date"
                       elevation="1"
@@ -40,7 +40,7 @@
                   ></v-col>
                   <v-col cols="12" sm="12" md="6"
                     ><v-time-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       v-model="start.time"
                       ampm-in-title
                       class="width-100"
@@ -50,14 +50,14 @@
                 <v-row>
                   <v-col cols="12" sm="12" class="d-flex justify-center">
                     <h2
-                      class="deep-purple--text darken-2  text-center py-2 election-form__title"
+                      class="deep-purple--text darken-4  text-center py-2 election-form__title"
                     >
                       Choose End Date
                     </h2>
                   </v-col>
                   <v-col cols="12" sm="12" md="6">
                     <v-date-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       width="100%"
                       v-model="end.date"
                       elevation="1"
@@ -65,7 +65,7 @@
                   ></v-col>
                   <v-col cols="12" sm="12" md="6"
                     ><v-time-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       v-model="end.time"
                       ampm-in-title
                       class="width-100"
@@ -75,7 +75,7 @@
                 <v-row>
                   <v-col cols="12" sm="12">
                     <v-btn
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       class="mr-4 white--text text-capitalize"
                       depressed
                       block

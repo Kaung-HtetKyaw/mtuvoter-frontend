@@ -10,7 +10,7 @@
       >
         <v-card class="elevation-0 pb-6 width-100 reset__form">
           <v-card-title
-            class="deep-purple darken-2 white--text d-flex justify-center"
+            class="deep-purple darken-4 white--text d-flex justify-center"
             >Reset Password</v-card-title
           >
           <v-card-text class="mt-6 px-1">
@@ -18,7 +18,7 @@
               <div>
                 <div>
                   <h6
-                    class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                    class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                   >
                     Email Address
                   </h6>
@@ -31,7 +31,7 @@
                 </div>
                 <div>
                   <h6
-                    class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                    class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                   >
                     New Password
                   </h6>
@@ -44,7 +44,7 @@
                 </div>
                 <div>
                   <h6
-                    class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                    class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                   >
                     Confirm new password
                   </h6>
@@ -61,7 +61,7 @@
                 class="width-100 d-flex flex-column justify-center align-center"
               >
                 <v-btn
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   class="white--text text-capitalize"
                   depressed
                   :ripple="false"

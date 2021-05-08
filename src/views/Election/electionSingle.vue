@@ -1,28 +1,45 @@
 /* eslint-disable */
 <template>
-  <v-container class="election py-0">
+  <v-container class="election py-0 mb-16">
+    <v-row>
+      <v-col cols="12" sm="12">
+          <v-alert
+          dismissible
+          color="red darken-4"
+          border="left"
+          elevation="2"
+          colored-border
+          icon="mdi-cloud-alert"
+          class="text-body-2 text-md-subtitle-1"
+          transition="scale-transition"
+        >
+          This election has already been called raced. You can see <router-link :to="{name:'Election-Result',params:{election:election._id}}" class="text-decoration-underline font-weight-medium">the results here.</router-link>
+        </v-alert>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col
         cols="12"
         sm="12"
-        v-if="userDetail.role === 'admin' || userDetail.role === 'mod'"
+        v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')"
       >
         <v-alert
           dismissible
-          color="deep-purple darken-2"
+          color="deep-purple darken-4"
           border="left"
           elevation="2"
           colored-border
           icon="mdi-information"
           class="text-body-2 text-md-subtitle-1"
+          transition="scale-transition"
         >
           As a moderator, you can generate guest token
           <router-link
             :to="{ name: 'Guest-Token' }"
-            class="text-decoration-underline"
-            >Here
+            class="text-decoration-underline font-weight-medium"
+            >here for the guest users.
           </router-link>
-          for the guest users.
+        
         </v-alert>
       </v-col>
     </v-row>
@@ -35,7 +52,7 @@
       >
         <div class="election__title--wrapper py-3">
           <h1
-            class="deep-purple--text darken-2 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
+            class="deep-purple--text darken-4 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
           >
             {{ election.name }}
           </h1>
@@ -49,14 +66,14 @@
         </div>
         <div class="width-100">
           <router-link
-            v-if="userDetail.role === 'admin'"
+            v-if="authenticated && userDetail.role === 'admin'"
             :to="{
               name: 'Election-New-Position',
               params: { election: election._id },
             }"
           >
             <v-btn
-              color="deep-purple darken-2"
+              color="deep-purple darken-4"
               class="white--text text-capitalize"
               depressed
               block
@@ -75,7 +92,7 @@
             :key="position._id"
           >
             <h3
-              class="election__link py-2 deep-purple--text darken-2"
+              class="election__link py-2 deep-purple--text darken-4"
               @click="$vuetify.goTo(`#position-${index}`)"
             >
               {{ position.name }}
@@ -89,7 +106,7 @@
                 params: { election: $route.params.election },
               }"
             >
-              <h3 class="election__link py-2 deep-purple--text darken-2">
+              <h3 class="election__link py-2 deep-purple--text darken-4">
                 မဲရလဒ်များ
               </h3></router-link
             >
@@ -98,14 +115,14 @@
           </div>
           <div class="width-100">
             <router-link
-              v-if="userDetail.role === 'admin'"
+              v-if="authenticated && userDetail.role === 'admin'"
               :to="{
                 name: 'Election-Edit',
                 params: { election: election._id },
               }"
             >
               <v-btn
-                color="deep-purple darken-2"
+                color="deep-purple darken-4"
                 class="white--text text-capitalize"
                 depressed
                 block
@@ -115,10 +132,10 @@
             >
           </div>
           <div class="width-100 mt-3">
-            <ElectionConfirmModal :id="election._id">
+            <ElectionConfirmModal :id="election._id" v-if="authenticated && userDetail.role === 'admin'">
               <template v-slot:default="{ activator }">
                 <v-btn
-                  color="red darken-2"
+                  color="red darken-4"
                   class="white--text text-capitalize"
                   depressed
                   block
@@ -143,7 +160,7 @@
       >
         <div class="election__title--wrapper py-3">
           <h1
-            class="deep-purple--text darken-2 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
+            class="deep-purple--text darken-4 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
           >
             {{ position.name }}
           </h1>
@@ -159,11 +176,11 @@
           >
             <v-btn
               depressed
-              color="deep-purple darken-2"
+              color="deep-purple darken-4"
               block
               class="white--text text-capitalize mb-3"
               :ripple="false"
-              v-if="userDetail.role === 'admin'"
+              v-if="authenticated && userDetail.role === 'admin'"
               :to="{
                 name: 'Election-Position-Edit',
                 params: { position: position._id },
@@ -172,11 +189,11 @@
             </v-btn>
             <v-btn
               depressed
-              color="deep-purple darken-2"
+              color="deep-purple darken-4"
               block
               class="white--text text-capitalize mb-3"
               :ripple="false"
-              v-if="userDetail.role === 'admin'"
+              v-if="authenticated && userDetail.role === 'admin'"
               :to="{
                 name: 'Election-New-Candidate',
                 params: {
@@ -190,14 +207,14 @@
               <template v-slot:default="{ activator }">
                 <v-btn
                   depressed
-                  color="red darken-2"
+                  color="red darken-4"
                   block
                   text
                   v-bind="activator.attrs"
                   v-on="activator.on"
                   class="white--text text-capitalize mb-3"
                   :ripple="false"
-                  v-if="userDetail.role === 'admin'"
+                  v-if="authenticated && userDetail.role === 'admin'"
                   >Remove this position
                 </v-btn>
               </template>
@@ -207,7 +224,7 @@
         <div class="candidates">
           <div class="election__title--wrapper py-3">
             <h2
-              class="deep-purple--text darken-2 text-h6 text-md-h6 text-lg-h6 font-weight-bold workssan election__title text-center text-md-left py-2"
+              class="deep-purple--text darken-4 text-h6 text-md-h6 text-lg-h6 font-weight-bold workssan election__title text-center text-md-left py-2"
             >
               ကိုယ်စားလှယ်လောင်းများ
             </h2>
@@ -223,7 +240,7 @@
                   )"
                   :key="candidate._id"
                 >
-                  <CandidateCard :candidate="candidate" />
+                  <CandidateCard :candidate="candidate" :raced="election.raced"/>
                   <v-divider></v-divider>
                 </v-col>
               </v-row>
@@ -265,6 +282,9 @@ export default {
     store.dispatch("UI/changeLoadingState", true);
     next();
   },
+  created() {
+    console.log(this.authenticated)
+  }
 };
 </script>
 
@@ -296,12 +316,15 @@ export default {
     line-height: 2.5;
   }
   &__link {
-    opacity: 0.7;
+    opacity: 0.9;
     cursor: pointer;
     //  border-bottom: 2px solid rgba(85, 69, 168, 0.3);
   }
 }
 .candidates {
   width: 100%;
+}
+.raced-banner{
+  height: 120px;
 }
 </style>

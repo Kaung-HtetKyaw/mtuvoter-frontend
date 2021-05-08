@@ -23,7 +23,7 @@
           }"
           :ripple="false"
           text
-          color="deep-purple darken-2 "
+          color="deep-purple darken-4 "
           class="text-capitalize"
           >See All Staticstics
           <v-icon small class="px-1"
@@ -49,7 +49,7 @@
         <v-btn
           :to="{ name: 'Dashboard-Elections' }"
           text
-          color="deep-purple darken-2 "
+          color="deep-purple darken-4 "
           class="text-capitalize"
           >See All Election
           <v-icon small class="px-1"
@@ -73,7 +73,7 @@
         <v-divider></v-divider>
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
-        <v-btn text color="deep-purple darken-2 " class="text-capitalize"
+        <v-btn text color="deep-purple darken-4 " class="text-capitalize"
           >See All Authorities
           <v-icon small class="px-1"
             >mdi-arrow-right-bold-circle-outline</v-icon
@@ -98,7 +98,7 @@
         <LogCard :log="log" />
       </v-col>
       <v-col cols="12" sm="12" class="d-flex justify-center">
-        <v-btn text color="deep-purple darken-2 " class="text-capitalize"
+        <v-btn text color="deep-purple darken-4 " class="text-capitalize"
           >See All Logs
           <v-icon small class="px-1"
             >mdi-arrow-right-bold-circle-outline</v-icon

@@ -5,7 +5,7 @@
         <div class="px-3">
           <v-alert
             dismissible
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             border="left"
             elevation="2"
             colored-border

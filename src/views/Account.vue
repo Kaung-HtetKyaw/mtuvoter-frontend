@@ -11,8 +11,8 @@
       <v-container>
         <v-row class="my-6 account__section">
           <v-col cols="12" sm="12" md="4" class="text-center text-md-left">
-            <h3 class="deep-purple--text darken-2 text-body-1 my-2">Profile</h3>
-            <p class="text-body-2 text--secondary">
+            <h3 class="deep-purple--text darken-4 text-body-1 my-2 font-weight-bold">Profile</h3>
+            <p class="text-body-2 ">
               Your email adderss is your identity on mtuvoter and is used to log
               in.
             </p>
@@ -21,7 +21,7 @@
             <div class="account__form">
               <div>
                 <h6
-                  class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                  class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                 >
                   Email address
                 </h6>
@@ -29,7 +29,7 @@
                   class="text-body-2 text--secondary"
                   v-if="user && user.verified"
                 >
-                  <v-icon small color="deep-purple darken-2"
+                  <v-icon small color="deep-purple darken-4"
                     >mdi-check-circle</v-icon
                   >
                   Your email address is verified
@@ -44,7 +44,7 @@
               </div>
               <div>
                 <h6
-                  class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                  class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                 >
                   Name
                 </h6>
@@ -57,7 +57,7 @@
               </div>
               <div>
                 <h6
-                  class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                  class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                 >
                   Student ID
                 </h6>
@@ -75,7 +75,7 @@
                 :ripple="false"
                 @click="updateMe"
                 :loading="updating_account"
-                color="deep-purple darken-2 text-capitalize"
+                color="deep-purple darken-4 text-capitalize"
                 class="white--text"
                 >Update Profile</v-btn
               >
@@ -87,10 +87,10 @@
         </v-row>
         <v-row class="my-6 account__section">
           <v-col cols="12" sm="12" md="4" class="text-center text-md-left">
-            <h3 class="deep-purple--text darken-2 text-body-1 my-2">
+            <h3 class="deep-purple--text darken-4 text-body-1 my-2 font-weight-bold">
               Password
             </h3>
-            <p class="text-body-2 text--secondary">
+            <p class="text-body-2 ">
               You have to log in again in other devices after changing you
               password
             </p>
@@ -99,7 +99,7 @@
             <div class="account__form">
               <div>
                 <h6
-                  class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                  class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                 >
                   Current Password
                 </h6>
@@ -113,7 +113,7 @@
               </div>
               <div>
                 <h6
-                  class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                  class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                 >
                   New Password
                 </h6>
@@ -127,7 +127,7 @@
               </div>
               <div>
                 <h6
-                  class="text-body-2 font-weight-medium deep-purple--text darken-2 mb-2"
+                  class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                 >
                   Confirm new password
                 </h6>
@@ -145,7 +145,7 @@
                   block
                   small
                   :ripple="false"
-                  color="deep-purple darken-2 text-capitalize"
+                  color="deep-purple darken-4 text-capitalize"
                   class="white--text"
                   @click="updatePassword"
                   :loading="updating_password"
@@ -162,7 +162,7 @@
                   depressed
                   small
                   :ripple="false"
-                  color="deep-purple darken-2 text-capitalize"
+                  color="deep-purple darken-4 text-capitalize"
                   class="white--text"
                   :loading="forgetting_password"
                   @click="forgotPassword"

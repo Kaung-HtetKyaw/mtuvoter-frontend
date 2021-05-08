@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <slot v-bind:activator="{ on, attrs }"></slot>
       </template>
-      <v-card class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6">
+      <v-card class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6" v-if="!userDetail">
         <div class="width-100 d-flex justify-end">
           <v-btn
             :ripple="false"
@@ -13,7 +13,7 @@
             icon
             dark
             depressed
-            color="deep-purple darken-2 rotate-45 my-2"
+            color="deep-purple darken-4 rotate-45 my-2"
             x-small
             @click="dialog = false"
           >
@@ -26,7 +26,7 @@
           class="px-2  px-lg-6 text-center d-flex justify-center align-center"
         >
           <span
-            class=" text-center text-body-1 text-md-h6 font-weight-bold deep-purple--text darken-2"
+            class=" text-center text-body-1 text-md-h6 font-weight-bold deep-purple--text darken-4"
             >You are not currently logged in</span
           >
         </v-card-title>
@@ -36,15 +36,13 @@
               <li>
                 If u already have an account,
                 <router-link
-                  class="text-decoration-underline deep-purple--text darken-2"
+                  class="text-decoration-underline deep-purple--text darken-4"
                   :to="{ name: 'Login' }"
-                  >Log in</router-link
+                  >Log in here.</router-link
                 >
-                here
               </li>
               <li>
-                If u have an problems with ur student email, please request the
-                admins for a voting token and enter below
+                If u forget your MTU student email, you can contact with the admins for the one time voting token and enter that voting token below
               </li>
             </ul>
           </div>
@@ -58,7 +56,7 @@
           ></v-text-field>
           <v-btn
             dense
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             class="white--text text-capitalize"
             depressed
             block
@@ -67,11 +65,62 @@
           >
         </v-card-text>
       </v-card>
+       <v-card class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6" v-else>
+        <div class="width-100 d-flex justify-end">
+          <v-btn
+            :ripple="false"
+            class="mx-2"
+            fab
+            icon
+            dark
+            depressed
+            color="deep-purple darken-4 rotate-45 my-2"
+            x-small
+            @click="dialog = false"
+          >
+            <v-icon dark class="rotate-45">
+              mdi-plus
+            </v-icon>
+          </v-btn>
+        </div>
+        <v-card-title
+          class="px-2  px-lg-6 text-center d-flex justify-center align-center"
+        >
+          <span
+            class=" text-center text-body-1 text-md-h6 font-weight-bold deep-purple--text darken-4"
+            >Are u sure to vote for this candidate?</span
+          >
+        </v-card-title>
+        <v-card-text class="px-4">
+          <div class="pl-0 pl-lg-3 my-2">
+            <ul class="text-body-2 auth-info">
+              <li>
+                You can vote only once for this postion of the election. So you need to be sure to vote for this candidate.
+              </li>
+            </ul>
+          </div>
+          <v-btn
+            dense
+            color="deep-purple darken-4"
+            class="white--text text-capitalize mt-4"
+            depressed
+            block
+            :ripple="false"
+            >Vote this candidate</v-btn
+          >
+        </v-card-text>
+      </v-card>
     </v-dialog>
   </v-row>
 </template>
 <script>
 export default {
+  props:{
+    raced:{
+      type:Boolean,
+      required:true
+    }
+  },
   data: () => ({
     dialog: false,
   }),

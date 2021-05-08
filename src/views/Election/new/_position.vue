@@ -5,7 +5,7 @@
         <div class="px-3">
           <v-alert
             dismissible
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             border="left"
             elevation="2"
             colored-border
@@ -28,7 +28,7 @@
       <v-col cols="12" sm="12" md="12">
         <v-card class="elevation-2 pb-6">
           <v-card-title
-            class="deep-purple darken-2 white--text d-flex justify-center"
+            class="deep-purple darken-4 white--text d-flex justify-center"
             >Enter Positions Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
@@ -50,7 +50,7 @@
                 class="width-100 d-flex flex-column justify-center align-center"
               >
                 <v-btn
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   class="white--text text-capitalize"
                   block
                   depressed

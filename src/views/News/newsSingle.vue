@@ -7,7 +7,7 @@
       <v-col cols="12" sm="12">
         <div class="mb-3 mb-md-6">
           <h1
-            class="deep-purple--text darken-2 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan news__title text-center text-md-left py-3"
+            class="deep-purple--text darken-4 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan news__title text-center text-md-left py-3"
           >
             {{ news.title }}
           </h1>
@@ -16,7 +16,7 @@
               depressed
               block
               :to="{ name: 'News-Edit', params: { news: news._id } }"
-              color="deep-purple darken-2"
+              color="deep-purple darken-4"
               :ripple="false"
               class="white--text text-capitalize"
               >Update the news</v-btn
@@ -29,7 +29,7 @@
                   depressed
                   block
                   text
-                  color="red darken-2"
+                  color="red darken-4"
                   v-bind="activator.attrs"
                   v-on="activator.on"
                   :ripple="false"
