@@ -88,12 +88,12 @@
           class="my-6 text-body-2 text-md-subtitle-1 text-center text-md-left"
         >
           <div
-            v-for="(position, index) in election.positions"
+            v-for="(position, position_index) in election.positions"
             :key="position._id"
           >
             <h3
               class="election__link py-2 deep-purple--text darken-4"
-              @click="$vuetify.goTo(`#position-${index}`)"
+              @click="$vuetify.goTo(`#position-${position_index}`)"
             >
               {{ position.name }}
             </h3>
@@ -150,13 +150,13 @@
         </div>
       </v-col>
     </v-row>
-    <v-row v-for="(position, index) in election.positions" :key="position._id">
+    <v-row v-for="(position, position_index) in election.positions" :key="position._id">
       <v-col
         cols="12"
         sm="12"
         md="9"
         class="d-flex flex-column justify-center align-start"
-        :id="'position-' + index"
+        :id="'position-' + position_index"
       >
         <div class="election__title--wrapper py-3">
           <h1
@@ -240,7 +240,7 @@
                   )"
                   :key="candidate._id"
                 >
-                  <CandidateCard :candidate="candidate" :raced="election.raced"/>
+                  <CandidateCard :candidate="candidate" :voted="vote_status[position_index].status" :raced="election.raced"/>
                   <v-divider></v-divider>
                 </v-col>
               </v-row>
@@ -257,6 +257,7 @@ import CandidateCard from "@/components/Candidate/CandidateCard.vue";
 import PositionConfirmModal from "@/components/Modal/PositionConfirmModal.vue";
 import ElectionConfirmModal from "@/components/Modal/ElectionConfirmModal.vue";
 import store from "@/store/index.js";
+import axios from '@/services/axios.js'
 import { mapState } from "vuex";
 export default {
   name: "Election",
@@ -264,6 +265,11 @@ export default {
     CandidateCard,
     PositionConfirmModal,
     ElectionConfirmModal,
+  },
+  data() {
+    return {
+      vote_status:[]
+    }
   },
   computed: {
     ...mapState({
@@ -282,8 +288,43 @@ export default {
     store.dispatch("UI/changeLoadingState", true);
     next();
   },
-  created() {
-    console.log(this.authenticated)
+  async created() {
+    await this.setVoteStatuses();
+  },
+  methods:{
+    async setVoteStatuses() {
+      const vm = this;
+      vm.setDefaultVoteStatus();
+      await vm.election.positions.map(el=>vm.setVoteStatus(el._id))
+    },
+    async setVoteStatus(position) {
+      const vm = this;
+      let vote_status = vm.vote_status.find(el=>el.position===position);
+
+      await this.fetchVoteStatus(position)
+      .then((res)=>{
+        vote_status.status = res.data.data;
+        console.log(vm.election._id)
+        console.log(position)
+        console.log(res.data)
+        console.log("**********")
+
+      })
+      .catch((e)=>{
+        console.log(e.response)
+        vote_status.status = false;
+      })
+    },
+    async fetchVoteStatus(positionId) {
+      return axios().get(`/users/vote-status/elections/${this.election._id}/positions/${positionId}`)
+    },
+    setDefaultVoteStatus() {
+      const vm = this;
+      const positions = vm.election.positions;
+      positions.forEach((el) => {
+        vm.vote_status.push({position:el._id,status:false})
+      })
+    }
   }
 };
 </script>

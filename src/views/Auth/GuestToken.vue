@@ -22,7 +22,7 @@
                           Generate a guest login token for voting in an election
                         </p>
                       </div>
-                      <v-text-field outlined type="number" v-model="SID" label="Student ID"
+                      <v-text-field outlined type="text" v-model="SID" label="Student ID"
                         required
                         dense
                         :disabled='loading'

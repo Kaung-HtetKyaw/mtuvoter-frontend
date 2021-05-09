@@ -99,13 +99,21 @@
               </li>
             </ul>
           </div>
+          <v-select
+            :items="yearArray"
+            label="Select your current attending year"
+            dense
+            v-model="year"
+            class="mt-4"
+            outlined></v-select>
           <v-btn
             dense
             color="deep-purple darken-4"
-            class="white--text text-capitalize mt-4"
+            class="white--text text-capitalize mt-0"
             depressed
             block
             :ripple="false"
+            @click='vote'
             >Vote this candidate</v-btn
           >
         </v-card-text>
@@ -114,16 +122,42 @@
   </v-row>
 </template>
 <script>
+import { yearArray } from "@/utils/constants.js";
+// import axios from '@/services/axios.js'
 export default {
   props:{
     raced:{
       type:Boolean,
       required:true
+    },
+    candidate:{
+      type:Object,
+      required:true
+    },
+    electionId:{
+      type:String,
+      require:true
     }
   },
   data: () => ({
     dialog: false,
+    yearArray,
+    year:null,
+    loading:false
   }),
+  methods:{
+    async vote() {
+      const vm = this;
+      vm.loading = true;
+      let payload = {
+        election:vm.electionId,
+        candidate:vm.candidate._id,
+        postition:vm.candidate._post,
+        student_type:vm.year
+      }
+      console.log(payload)
+    }
+  }
 };
 </script>
 <style lang="scss">

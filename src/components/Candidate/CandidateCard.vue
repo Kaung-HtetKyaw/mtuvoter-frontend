@@ -42,7 +42,7 @@
                 class="d-flex flex-column flex-md-row justify-center align-center"
               
               >
-                <GuestLogin :raced='raced'>
+                <Vote :raced='raced' :candidate="candidate" :electionId="candidate._election">
                   <template v-slot:default="{ activator }">
                     <v-btn
                       depressed
@@ -51,16 +51,20 @@
                       v-bind="activator.attrs"
                       v-on="activator.on"
                       class="white--text text-capitalize"
-                      :disabled="raced"
+                      :disabled="voted || raced"
                       :ripple="false"
                       >Vote
                     </v-btn>
                   </template>
-                </GuestLogin>
+                </Vote>
               </div>
               <div v-if="raced">
                 <p class="text-center text--secondary text-body-2 mt-1">This election has already been called raced.</p>
-                <p class="text-center text--secondary text-body-2 ">(You cannot remove and vote this candidate anymore)</p>
+            
+              </div>
+              <div v-if="!raced && voted">
+                <p class="text-center text--secondary text-body-2 mt-1">You have already voted for this position of the election.</p>
+            
               </div>
               
 
@@ -114,14 +118,14 @@
 </template>
 
 <script>
-import GuestLogin from "@/components/Form/GuestLogin.vue";
+import Vote from "@/components/Form/Vote.vue";
 import ConfirmModal from "@/components/Modal/CandidateConfirmModal.vue";
 import { yearMap, majorMap } from "@/utils/constants.js";
 
 export default {
   name: "CandidateCard",
   components: {
-    GuestLogin,
+    Vote,
     ConfirmModal,
   },
   props: {
@@ -130,6 +134,10 @@ export default {
       required: true,
     },
     raced:{
+      type:Boolean,
+      required:true
+    },
+    voted:{
       type:Boolean,
       required:true
     }
