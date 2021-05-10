@@ -9,7 +9,7 @@
   >
     <div>
       <p
-        class="mb-0 text-body-2 font-weight-medium darken-2"
+        class="mb-0 text-body-2 font-weight-medium darken-4"
         :class="{
           'deep-purple--text': noti.type === 'success',
           'red--text': noti.type === 'error',
@@ -27,7 +27,7 @@
         icon
         dark
         depressed
-        color="deep-purple darken-2 rotate-45 my-2"
+        color="deep-purple darken-4 rotate-45 my-2"
         x-small
         v-bind="attrs"
         @click="snackbar = false"

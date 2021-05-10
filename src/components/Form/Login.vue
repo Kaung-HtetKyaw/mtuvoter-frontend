@@ -3,7 +3,7 @@
     <h2 class="title">Sign in</h2>
     <div class="input-field">
       <i class="fas fa-user"></i>
-      <input v-model="account.email" type="email" placeholder="Username" />
+      <input v-model="account.email" type="email" placeholder="Email" />
     </div>
     <div class="input-field">
       <i class="fas fa-lock"></i>
@@ -24,7 +24,7 @@
       rounded
       large
       class="white--text font-weight-bold px-12 my-4"
-      color="deep-purple darken-2"
+      color="deep-purple darken-4"
       depressed
       :ripple="false"
       :loading="loading"
@@ -32,7 +32,7 @@
       >Login</v-btn
     >
     <router-link :to="{ name: 'Forgot-Password' }" exact>
-      <a class="text-decoration-underline my-3 deep-purple--text darken-2"
+      <a class="text-decoration-underline my-3 deep-purple--text darken-4"
         >Forgot password ?</a
       >
     </router-link>

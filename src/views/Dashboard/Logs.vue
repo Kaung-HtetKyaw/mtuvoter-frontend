@@ -3,7 +3,7 @@
     <v-row class="white admin--border px-3 my-4">
       <v-col cols="12" sm="12"
         ><h2 class="text-body-1 py-3 font-weight-medium text-center">
-          Log Feed
+          Logs Feed
         </h2>
         <v-divider></v-divider
       ></v-col>
@@ -56,8 +56,9 @@ export default {
     await this.loadLogs();
   },
   methods: {
-    async loadLogs() {
+    async loadLogs(isVisible) {
       const vm = this;
+      console.log(isVisible)
       if (vm.end || vm.loading) {
         return;
       }
@@ -65,8 +66,11 @@ export default {
       await axios()
         .get(`/logs?page=${vm.page}&limit=${vm.limit}`)
         .then((res) => {
-          if (res.data.data.length === 0) {
+          console.log(res.data.data.length)
+          if (vm.logs.length > 0 && res.data.data.length === 0) {
             vm.end = true;
+            vm.loading = false;
+            return;
           }
           vm.logs = vm.logs.concat(res.data.data);
           vm.loading = false;

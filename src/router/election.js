@@ -83,4 +83,13 @@ export default [
       layout: defaultLayout,
     },
   },
+  {
+    path:"/elections/:election/guest",
+    name:"Generate-Guest-Token",
+    component: () =>
+    import(
+      /* webpackChunkName: "reset-password" */ "../views/Auth/GuestToken.vue"
+    ),
+    
+  }
 ];

@@ -4,7 +4,7 @@
       <v-col
         cols="12"
         sm="12"
-        class="d-flex flex-column justify-center align-center deep-purple--text darken-2"
+        class="d-flex flex-column justify-center align-center deep-purple--text darken-4"
       >
         <h1 class="d-inline-block elections--title">Latest News</h1>
       </v-col>
@@ -13,7 +13,7 @@
       <v-col
         cols="12"
         sm="12"
-        class="workssan d-flex justify-center align-center deep-purple--text darken-2"
+        class="workssan d-flex justify-center align-center deep-purple--text darken-4"
         v-for="i in 3"
         :key="i"
       >

@@ -3,9 +3,9 @@
     <v-card color="white" outlined class="px-3 py-3  news-form">
       <v-tabs
         v-model="tab"
-        slider-color="deep-purple darken-2"
+        slider-color="deep-purple darken-4"
         background-color="transparent"
-        color="deep-purple darken-2"
+        color="deep-purple darken-4"
         grow
       >
         <v-tab v-for="item in tabItems" :key="item.title" :ripple="false">{{

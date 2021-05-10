@@ -5,7 +5,7 @@
         <div class="px-3">
           <v-alert
             dismissible
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             border="left"
             elevation="2"
             colored-border
@@ -26,7 +26,7 @@
         <div class="px-3">
           <v-alert
             dismissible
-            color="deep-purple darken-2"
+            color="deep-purple darken-4"
             border="left"
             elevation="2"
             colored-border
@@ -49,12 +49,12 @@
       <v-col cols="12" sm="12" md="12">
         <v-card class="elevation-2 pb-6">
           <v-card-title
-            class="deep-purple darken-2 white--text d-flex justify-center"
+            class="deep-purple darken-4 white--text d-flex justify-center"
             >Enter Candidates Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
             <v-form ref="form" class="px-2">
-              <div v-for="i in candidates.length" :key="i">
+              <div v-for="i in candidates.length" :key="i" class="width-100">
                 <div class="width-100 d-flex justify-end">
                   <v-btn
                     v-if="i - 1 > 0"
@@ -63,7 +63,7 @@
                     fab
                     dark
                     depressed
-                    color="deep-purple darken-2 rotate-45 my-2"
+                    color="deep-purple darken-4 rotate-45 my-2"
                     x-small
                     @click="removeCandidate(i - 1)"
                   >
@@ -77,12 +77,6 @@
                   label="Enter Candidate name"
                   required
                   v-model="candidates[i - 1].name"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  label="Enter Candidate email"
-                  required
-                  v-model="candidates[i - 1].email"
                 ></v-text-field>
                 <v-text-field
                   outlined
@@ -122,7 +116,7 @@
                   class="mx-2 mb-6"
                   fab
                   dark
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   @click="addCandidate"
                 >
                   <v-icon dark>
@@ -130,7 +124,7 @@
                   </v-icon>
                 </v-btn>
                 <v-btn
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   class="white--text text-capitalize"
                   block
                   depressed
@@ -232,10 +226,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user-photo {
   .v-input__prepend-outer {
     display: none !important;
   }
+}
+.v-text-field{
+  width:100%;
 }
 </style>

@@ -4,18 +4,20 @@
       <v-col cols="12" sm="12" md="12">
         <v-card class="elevation-1">
           <v-card-title
-            class="deep-purple darken-2 white--text d-flex justify-center"
+            class="deep-purple darken-4 white--text d-flex justify-center"
             >Update Election Details</v-card-title
           >
           <v-card-text class="mt-6 px-1">
             <v-form ref="form" class="px-2">
               <v-text-field
+                class="width-100"
                 outlined
                 label="Election's name"
                 required
                 v-model="name"
               ></v-text-field>
               <v-textarea
+               class="width-100"
                 outlined
                 label="Provide Election's information briefly"
                 required
@@ -25,14 +27,14 @@
                 <v-row>
                   <v-col cols="12" sm="12" class="d-flex justify-center">
                     <h2
-                      class="deep-purple--text darken-2  text-center py-2 election-form__title"
+                      class="deep-purple--text darken-4  text-center py-2 election-form__title"
                     >
                       Choose Start Date
                     </h2>
                   </v-col>
                   <v-col cols="12" sm="12" md="6">
                     <v-date-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       width="100%"
                       v-model="start.date"
                       elevation="1"
@@ -40,7 +42,7 @@
                   ></v-col>
                   <v-col cols="12" sm="12" md="6"
                     ><v-time-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       v-model="start.time"
                       ampm-in-title
                       class="width-100"
@@ -50,14 +52,14 @@
                 <v-row>
                   <v-col cols="12" sm="12" class="d-flex justify-center">
                     <h2
-                      class="deep-purple--text darken-2  text-center py-2 election-form__title"
+                      class="deep-purple--text darken-4  text-center py-2 election-form__title"
                     >
                       Choose End Date
                     </h2>
                   </v-col>
                   <v-col cols="12" sm="12" md="6">
                     <v-date-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       width="100%"
                       v-model="end.date"
                       elevation="1"
@@ -65,7 +67,7 @@
                   ></v-col>
                   <v-col cols="12" sm="12" md="6"
                     ><v-time-picker
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       v-model="end.time"
                       ampm-in-title
                       class="width-100"
@@ -75,7 +77,7 @@
                 <v-row>
                   <v-col cols="12" sm="12">
                     <v-btn
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       class="mr-4 white--text text-capitalize"
                       depressed
                       block
@@ -98,6 +100,7 @@
 <script>
 import store from "@/store/index.js";
 import { showNoti } from "@/utils/noti.js";
+// import {convertIntlToMMDate} from '@/utils/time.js'
 import { mapState } from "vuex";
 export default {
   data() {
@@ -150,6 +153,9 @@ export default {
   created() {
     this.about = this.originalElection.about;
     this.name = this.originalElection.name;
+    this.start= convertStringDateToObjDateAndTime(this.originalElection.startDate);
+    this.end = convertStringDateToObjDateAndTime(this.originalElection.endDate);
+    
   },
   methods: {
     async updateElection() {
@@ -175,6 +181,17 @@ export default {
     },
   },
 };
+
+function convertStringDateToObjDateAndTime (stringDate) {
+  let objDate={
+    date:"",
+    time:""
+  }
+
+  objDate.date = new Date(stringDate).toISOString().substr(0,10);
+  objDate.time = `${new Date(stringDate).getHours()}:${new Date(stringDate).getMinutes()}`;
+  return objDate
+}
 </script>
 
 <style lang="scss" scoped>

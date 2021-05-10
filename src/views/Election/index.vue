@@ -4,19 +4,20 @@
       <v-col cols="12" sm="12">
         <v-alert
           dismissible
-          color="deep-purple darken-2"
+          color="deep-purple darken-4"
           border="left"
           elevation="2"
           colored-border
           icon="mdi-information"
           class="text-body-2 text-md-subtitle-1"
         >
-          Create an election
+          You can  
           <router-link
             :to="{ name: 'Election-New' }"
             class="text-decoration-underline"
-            >Here
+            >create an election here
           </router-link>
+          or click the button from the bottom right of the page.
         </v-alert>
       </v-col>
     </v-row>
@@ -24,7 +25,7 @@
       <v-col
         cols="12"
         sm="12"
-        class="d-flex flex-column justify-center align-center deep-purple--text darken-2"
+        class="d-flex flex-column justify-center align-center deep-purple--text darken-4"
       >
         <h1 class="d-inline-block elections--title">Elections</h1>
       </v-col>
@@ -43,6 +44,11 @@
       >
         <ElectionCard :election="election" />
       </v-col>
+    </v-row>
+    <v-row>
+       <v-btn color="deep-purple darken-4" :ripple="false" class="white--text" :to='{name:"Election-New"}' dark large fixed bottom right fab>
+            <v-icon>mdi-plus</v-icon>
+        </v-btn>
     </v-row>
     <v-row class="my-6">
       <v-col

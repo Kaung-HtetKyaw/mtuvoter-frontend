@@ -40,7 +40,7 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" />
         </svg>
       </summary>
-      <p class="my-3 deep-purple--text lighten-3">
+      <p class="my-3 deep-purple--text lighten-3 font-weight-bold">
         {{ faq.answer }}
       </p>
     </details>
@@ -51,7 +51,7 @@
       "
     >
       <v-btn
-        color="deep-purple darken-2"
+        color="deep-purple darken-4"
         class="white--text text-capitalize"
         depressed
         small
@@ -62,7 +62,7 @@
       <FAQConfirmModal :id="faq._id">
         <template v-slot:default="{ activator }">
           <v-btn
-            color="red darken-2"
+            color="red darken-4"
             text
             class="white--text text-capitalize"
             depressed

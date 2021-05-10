@@ -7,7 +7,7 @@
         </v-avatar>
         <v-list-item-title class="ml-4 body-1">
           {{ userDetail.name }}
-          <v-icon small color="deep-purple darken-2">mdi-check-circle</v-icon>
+          <v-icon small color="deep-purple darken-4">mdi-check-circle</v-icon>
         </v-list-item-title>
       </v-list-item>
       <v-divider class="my-2"></v-divider>

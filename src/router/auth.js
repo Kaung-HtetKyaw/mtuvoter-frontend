@@ -32,12 +32,4 @@ export default [
       layout: plainLayout,
     },
   },
-  {
-    path: "/guest",
-    name: "Guest-Token",
-    component: () =>
-      import(
-        /* webpackChunkName: "reset-password" */ "../views/Auth/GuestToken.vue"
-      ),
-  },
 ];

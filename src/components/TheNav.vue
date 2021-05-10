@@ -78,7 +78,7 @@
                   <v-list-item-content>
                     <v-list-item-title
                       >{{ userDetail.name }}
-                      <v-icon small color="deep-purple darken-2"
+                      <v-icon small color="deep-purple darken-4"
                         >mdi-check-circle</v-icon
                       >
                     </v-list-item-title>
@@ -110,7 +110,7 @@
                 <v-list-item class="admin--text" exact>
                   <v-list-item-content>
                     <v-btn
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       class="white--text text-capitalize"
                       depressed
                       :ripple="false"
@@ -126,7 +126,7 @@
           <!-- 
           <v-btn
             elevation="0"
-            class="d-none d-md-flex  deep-purple darken-2 white--text text-capitalize mx-2 font-weight-medium"
+            class="d-none d-md-flex  deep-purple darken-4 white--text text-capitalize mx-2 font-weight-medium"
             >Create account</v-btn
           >
           <slot name="search"></slot> -->
@@ -193,7 +193,7 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        background-color: #5545a7;
+        background-color: #363A92;
         transition: all 0.2s ease-in;
       }
       &:hover {

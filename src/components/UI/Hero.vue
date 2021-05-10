@@ -6,7 +6,7 @@
           class="workssan hero-wrapper d-flex flex-column justify-center align-center align-md-start deep-purple--text darken-4 "
         >
           <div class="hero-title text-h6 py-4">
-            <h1 class="text-center text-md-left workssan ">
+            <h1 class="text-center text-md-left workssan deep-purple--text darken-4">
               Let's Change Something .
             </h1>
           </div>
@@ -50,7 +50,7 @@ export default {
 <style lang="scss" scoped>
 $bg: #f3f8fa;
 $white: #fff;
-$deep-purple: #6a4db7;
+$deep-purple: #363A92;
 
 @mixin transition(
   $property: all,
@@ -92,7 +92,7 @@ $deep-purple: #6a4db7;
       width: 100%;
     }
     li {
-      color: #ccc;
+      color: #aaa;
       height: 45px;
       margin-bottom: 45px;
       display: block;
@@ -105,7 +105,7 @@ $deep-purple: #6a4db7;
         bottom: -10px;
         left: 0%;
         transform: translate(0%, -50%);
-        background-color: #6a4db7;
+        background-color: #363A92;
       }
     }
   }

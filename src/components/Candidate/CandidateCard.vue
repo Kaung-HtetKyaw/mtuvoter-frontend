@@ -40,34 +40,48 @@
             <div class="width-100">
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center"
+              
               >
-                <GuestLogin>
+                <Vote @voted="voted=true" :raced='election.raced' :candidate="candidate" :electionId="election._id">
                   <template v-slot:default="{ activator }">
                     <v-btn
                       depressed
-                      color="deep-purple darken-2"
+                      color="deep-purple darken-4"
                       block
                       v-bind="activator.attrs"
                       v-on="activator.on"
                       class="white--text text-capitalize"
+                      :disabled="voted || election.raced || !election.started"
                       :ripple="false"
-                      >Vote
+                      >{{voted?"Voted":"Vote"}}
                     </v-btn>
                   </template>
-                </GuestLogin>
+                </Vote>
               </div>
+              <div v-if="election.raced">
+                <p class="text-center text--secondary text-body-2 mt-1">This election has already been called raced.</p>
+            
+              </div>
+              <div v-if="election.started && !election.raced && voted">
+                <p class="text-center text--secondary text-body-2 mt-1">You have already voted for this position of the election.</p>
+              </div>
+              <div v-if="!election.started">
+                 <p class="text-center text--secondary text-body-2 mt-1">This election has not yet started.</p>
+              </div>
+              
+
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center my-3"
               >
                 <v-btn
                   depressed
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   block
                   text
                   class="white--text text-capitalize"
                   :ripple="false"
                   exact
-                  v-if="userDetail.role === 'admin'"
+                  v-if="authenticated && userDetail.role === 'admin'"
                   :to="{
                     name: 'Election-Candidate-Edit',
                     params: { candidate: candidate._id },
@@ -82,7 +96,7 @@
                   <template v-slot:default="{ activator }">
                     <v-btn
                       depressed
-                      color="red darken-2"
+                      color="red darken-4"
                       block
                       text
                       v-bind="activator.attrs"
@@ -90,7 +104,8 @@
                       class="white--text text-capitalize"
                       :ripple="false"
                       exact
-                      v-if="userDetail.role === 'admin'"
+                      v-if="authenticated && userDetail.role === 'admin'"
+                      :disabled="election.raced"
                       >Remove this candidate
                     </v-btn></template
                   >
@@ -105,14 +120,14 @@
 </template>
 
 <script>
-import GuestLogin from "@/components/Form/GuestLogin.vue";
+import Vote from "@/components/Form/Vote.vue";
 import ConfirmModal from "@/components/Modal/CandidateConfirmModal.vue";
 import { yearMap, majorMap } from "@/utils/constants.js";
 
 export default {
   name: "CandidateCard",
   components: {
-    GuestLogin,
+    Vote,
     ConfirmModal,
   },
   props: {
@@ -120,18 +135,28 @@ export default {
       type: Object,
       required: true,
     },
+    election:{
+      type:Object,
+      required:true
+    },
+    vote_status:{
+      type:Boolean,
+      required:true
+    }
   },
   data() {
     return {
       yearMap,
       majorMap,
+      voted:false
     };
   },
-  methods: {
-    alo() {
-      alert("alo");
-    },
-  },
+  created() {
+    // can't overwirte the prop
+    // so, make data properties for later case of overwriting
+    this.voted = this.vote_status
+    console.log(this.vote_status)
+  }
 };
 </script>
 

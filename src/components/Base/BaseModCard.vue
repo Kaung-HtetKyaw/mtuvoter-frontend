@@ -4,7 +4,7 @@
   >
     <div class="mod--info">
       <div
-        class="deep-purple--text darken-2 text-body-2 font-weight-bold text-decoration-underline"
+        class="deep-purple--text darken-4 text-body-2 font-weight-bold text-decoration-underline"
       >
         {{ mod.email }}
       </div>
@@ -14,7 +14,7 @@
     </div>
     <div class="mod--action">
       <v-btn
-        color="red darken-2"
+        color="red darken-4"
         class="white--text text-capitalize"
         depressed
         small

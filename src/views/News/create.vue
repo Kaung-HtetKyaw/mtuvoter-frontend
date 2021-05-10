@@ -13,7 +13,7 @@
               <div class="px-3">
                 <v-alert
                   dismissible
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   border="left"
                   elevation="2"
                   colored-border
@@ -42,9 +42,9 @@
             >
               <v-tabs
                 v-model="tab"
-                slider-color="deep-purple darken-2"
+                slider-color="deep-purple darken-4"
                 background-color="transparent"
-                color="deep-purple darken-2"
+                color="deep-purple darken-4"
                 grow
               >
                 <v-tab
@@ -81,7 +81,7 @@
           <v-col cols="12" sm="12" class="d-flex justify-center align-center">
             <v-btn
               depressed
-              color="deep-purple darken-2"
+              color="deep-purple darken-4"
               class="white--text text-capitalize"
               :loading="loading"
               @click="createNews"

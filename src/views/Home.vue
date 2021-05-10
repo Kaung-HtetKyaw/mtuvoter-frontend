@@ -3,10 +3,10 @@
     <div class="d-flex flex-column justify-center align-center">
       <Hero />
     </div>
-    <div class="deep-purple darken-2 white--text">
+    <div class="deep-purple darken-4 white--text">
       <ElectionOverview :elections="elections" />
     </div>
-    <div class="deep-purple--text darken-2">
+    <div class="deep-purple--text darken-4">
       <NewsOverview :news="news" />
     </div>
   </div>

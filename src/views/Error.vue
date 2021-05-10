@@ -3,7 +3,7 @@
     <h1 class="line-1 anim-typewriter my-3">404 Page Not Found</h1>
     <v-btn
       color="white"
-      class="deep-purple--text darken-2 text-capitalize"
+      class="deep-purple--text darken-4 text-capitalize"
       depressed
       to="/"
       >Back to home</v-btn

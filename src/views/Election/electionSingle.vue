@@ -1,245 +1,270 @@
 /* eslint-disable */
 <template>
-  <v-container class="election py-0">
-    <v-row>
-      <v-col
-        cols="12"
-        sm="12"
-        v-if="userDetail.role === 'admin' || userDetail.role === 'mod'"
-      >
-        <v-alert
-          dismissible
-          color="deep-purple darken-2"
-          border="left"
-          elevation="2"
-          colored-border
-          icon="mdi-information"
-          class="text-body-2 text-md-subtitle-1"
+  <div>
+    <v-container v-if="loading">
+      <Loader/>
+    </v-container>
+    <v-container class="election py-0 mb-16" v-else>
+      <v-row v-if="election.raced">
+        <v-col cols="12" sm="12">
+            <v-alert
+            dismissible
+            color="red darken-4"
+            border="left"
+            elevation="2"
+            colored-border
+            icon="mdi-cloud-alert"
+            class="text-body-2 text-md-subtitle-1"
+            transition="scale-transition"
+          >
+            This election has already been called raced. You can see <router-link :to="{name:'Election-Result',params:{election:election._id}}" class="text-decoration-underline font-weight-medium">the results here.</router-link>
+          </v-alert>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="12"
+          v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod') && election.started && !election.raced"
         >
-          As a moderator, you can generate guest token
-          <router-link
-            :to="{ name: 'Guest-Token' }"
-            class="text-decoration-underline"
-            >Here
-          </router-link>
-          for the guest users.
-        </v-alert>
-      </v-col>
-    </v-row>
-    <v-row class="flex-column-reverse flex-md-row">
-      <v-col
-        cols="12"
-        sm="12"
-        md="9"
-        class="d-flex flex-column justify-center align-start"
-      >
-        <div class="election__title--wrapper py-3">
-          <h1
-            class="deep-purple--text darken-2 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
+          <v-alert
+            dismissible
+            color="deep-purple darken-4"
+            border="left"
+            elevation="2"
+            colored-border
+            icon="mdi-information"
+            class="text-body-2 text-md-subtitle-1"
+            transition="scale-transition"
           >
-            {{ election.name }}
-          </h1>
-        </div>
-        <div
-          class="election__content font-weight-medium my-4 font-weight-bold px-1"
-        >
-          <p>
-            {{ election.about }}
-          </p>
-        </div>
-        <div class="width-100">
-          <router-link
-            v-if="userDetail.role === 'admin'"
-            :to="{
-              name: 'Election-New-Position',
-              params: { election: election._id },
-            }"
-          >
-            <v-btn
-              color="deep-purple darken-2"
-              class="white--text text-capitalize"
-              depressed
-              block
-              :ripple="false"
-              >Add position to this election</v-btn
-            ></router-link
-          >
-        </div>
-      </v-col>
-      <v-col cols="12" sm="12" md="3">
-        <div
-          class="my-6 text-body-2 text-md-subtitle-1 text-center text-md-left"
-        >
-          <div
-            v-for="(position, index) in election.positions"
-            :key="position._id"
-          >
-            <h3
-              class="election__link py-2 deep-purple--text darken-2"
-              @click="$vuetify.goTo(`#position-${index}`)"
-            >
-              {{ position.name }}
-            </h3>
-            <v-divider class="my-2"></v-divider>
-          </div>
-          <div>
+            As a moderator, you can generate guest token
             <router-link
-              :to="{
-                name: 'Election-Result',
-                params: { election: $route.params.election },
-              }"
+              :to="{ name: 'Generate-Guest-Token', params:{election:election._id} }"
+              class="text-decoration-underline font-weight-medium"
+              >here for the guest users.
+            </router-link>
+          
+          </v-alert>
+        </v-col>
+      </v-row>
+      <v-row class="flex-column-reverse flex-md-row">
+        <v-col
+          cols="12"
+          sm="12"
+          md="9"
+          class="d-flex flex-column justify-center align-start"
+        >
+          <div class="election__title--wrapper py-3">
+            <h1
+              class="deep-purple--text darken-4 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
             >
-              <h3 class="election__link py-2 deep-purple--text darken-2">
-                မဲရလဒ်များ
-              </h3></router-link
-            >
-
-            <v-divider class="my-2"></v-divider>
+              {{ election.name }}
+            </h1>
+          </div>
+          <div
+            class="election__content font-weight-medium my-4 font-weight-bold px-1"
+          >
+            <p>
+              {{ election.about }}
+            </p>
           </div>
           <div class="width-100">
             <router-link
-              v-if="userDetail.role === 'admin'"
+              v-if="authenticated && userDetail.role === 'admin'"
               :to="{
-                name: 'Election-Edit',
+                name: 'Election-New-Position',
                 params: { election: election._id },
               }"
             >
               <v-btn
-                color="deep-purple darken-2"
+                color="deep-purple darken-4"
                 class="white--text text-capitalize"
                 depressed
                 block
                 :ripple="false"
-                >Edit this election</v-btn
+                >Add position to this election</v-btn
               ></router-link
             >
           </div>
-          <div class="width-100 mt-3">
-            <ElectionConfirmModal :id="election._id">
-              <template v-slot:default="{ activator }">
+        </v-col>
+        <v-col cols="12" sm="12" md="3">
+          <div
+            class="my-6 text-body-2 text-md-subtitle-1 text-center text-md-left"
+          >
+            <div
+              v-for="(position, position_index) in election.positions"
+              :key="position._id"
+            >
+              <h3
+                class="election__link py-2 deep-purple--text darken-4"
+                @click="$vuetify.goTo(`#position-${position_index}`)"
+              >
+                {{ position.name }}
+              </h3>
+              <v-divider class="my-2"></v-divider>
+            </div>
+            <div>
+              <router-link
+                :to="{
+                  name: 'Election-Result',
+                  params: { election: $route.params.election },
+                }"
+              >
+                <h3 class="election__link py-2 deep-purple--text darken-4">
+                  မဲရလဒ်များ
+                </h3></router-link
+              >
+
+              <v-divider class="my-2"></v-divider>
+            </div>
+            <div class="width-100">
+              <router-link
+                v-if="authenticated && userDetail.role === 'admin'"
+                :to="{
+                  name: 'Election-Edit',
+                  params: { election: election._id },
+                }"
+              >
                 <v-btn
-                  color="red darken-2"
+                  color="deep-purple darken-4"
                   class="white--text text-capitalize"
                   depressed
                   block
-                  v-bind="activator.attrs"
-                  v-on="activator.on"
                   :ripple="false"
-                  >Delete this election</v-btn
-                >
-              </template>
-            </ElectionConfirmModal>
+                  >Edit this election</v-btn
+                ></router-link
+              >
+            </div>
+            <div class="width-100 mt-3">
+              <ElectionConfirmModal :id="election._id" v-if="authenticated && userDetail.role === 'admin'">
+                <template v-slot:default="{ activator }">
+                  <v-btn
+                    color="red darken-4"
+                    class="white--text text-capitalize"
+                    depressed
+                    block
+                    v-bind="activator.attrs"
+                    v-on="activator.on"
+                    :ripple="false"
+                    >Delete this election</v-btn
+                  >
+                </template>
+              </ElectionConfirmModal>
+            </div>
           </div>
-        </div>
-      </v-col>
-    </v-row>
-    <v-row v-for="(position, index) in election.positions" :key="position._id">
-      <v-col
-        cols="12"
-        sm="12"
-        md="9"
-        class="d-flex flex-column justify-center align-start"
-        :id="'position-' + index"
-      >
-        <div class="election__title--wrapper py-3">
-          <h1
-            class="deep-purple--text darken-2 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
-          >
-            {{ position.name }}
-          </h1>
-        </div>
-        <div class=" election__content font-weight-bold my-4 width-100">
-          <div class="position__description">
-            <p>
-              {{ position.description }}
-            </p>
-          </div>
-          <div
-            class="d-flex flex-column  justify-center align-center my-3 width-100"
-          >
-            <v-btn
-              depressed
-              color="deep-purple darken-2"
-              block
-              class="white--text text-capitalize mb-3"
-              :ripple="false"
-              v-if="userDetail.role === 'admin'"
-              :to="{
-                name: 'Election-Position-Edit',
-                params: { position: position._id },
-              }"
-              >Update this position
-            </v-btn>
-            <v-btn
-              depressed
-              color="deep-purple darken-2"
-              block
-              class="white--text text-capitalize mb-3"
-              :ripple="false"
-              v-if="userDetail.role === 'admin'"
-              :to="{
-                name: 'Election-New-Candidate',
-                params: {
-                  position: position._id,
-                  election: $route.params.election,
-                },
-              }"
-              >Add Candidates to this position
-            </v-btn>
-            <PositionConfirmModal :id="position._id">
-              <template v-slot:default="{ activator }">
-                <v-btn
-                  depressed
-                  color="red darken-2"
-                  block
-                  text
-                  v-bind="activator.attrs"
-                  v-on="activator.on"
-                  class="white--text text-capitalize mb-3"
-                  :ripple="false"
-                  v-if="userDetail.role === 'admin'"
-                  >Remove this position
-                </v-btn>
-              </template>
-            </PositionConfirmModal>
-          </div>
-        </div>
-        <div class="candidates">
+        </v-col>
+      </v-row>
+      <v-row v-for="(position, position_index) in election.positions" :key="position._id">
+        <v-col
+          cols="12"
+          sm="12"
+          md="9"
+          class="d-flex flex-column justify-center align-start"
+          :id="'position-' + position_index"
+        >
           <div class="election__title--wrapper py-3">
-            <h2
-              class="deep-purple--text darken-2 text-h6 text-md-h6 text-lg-h6 font-weight-bold workssan election__title text-center text-md-left py-2"
+            <h1
+              class="deep-purple--text darken-4 text-h5 text-md-h5 text-lg-h5 font-weight-bold workssan election__title text-center text-md-left py-2"
             >
-              ကိုယ်စားလှယ်လောင်းများ
-            </h2>
+              {{ position.name }}
+            </h1>
           </div>
-          <div>
-            <v-container>
-              <v-row>
-                <v-col
-                  cols="12"
-                  sm="12"
-                  v-for="candidate in election.candidates.filter(
-                    (el) => el._post === position._id
-                  )"
-                  :key="candidate._id"
-                >
-                  <CandidateCard :candidate="candidate" />
-                  <v-divider></v-divider>
-                </v-col>
-              </v-row>
-            </v-container>
+          <div class=" election__content font-weight-bold my-4 width-100">
+            <div class="position__description">
+              <p>
+                {{ position.description }}
+              </p>
+            </div>
+            <div
+              class="d-flex flex-column  justify-center align-center my-3 width-100"
+            >
+              <v-btn
+                depressed
+                color="deep-purple darken-4"
+                block
+                class="white--text text-capitalize mb-3"
+                :ripple="false"
+                v-if="authenticated && userDetail.role === 'admin'"
+                :to="{
+                  name: 'Election-Position-Edit',
+                  params: { position: position._id },
+                }"
+                >Update this position
+              </v-btn>
+              <v-btn
+                depressed
+                color="deep-purple darken-4"
+                block
+                class="white--text text-capitalize mb-3"
+                :ripple="false"
+                v-if="authenticated && userDetail.role === 'admin'"
+                :to="{
+                  name: 'Election-New-Candidate',
+                  params: {
+                    position: position._id,
+                    election: $route.params.election,
+                  },
+                }"
+                >Add Candidates to this position
+              </v-btn>
+              <PositionConfirmModal :id="position._id">
+                <template v-slot:default="{ activator }">
+                  <v-btn
+                    depressed
+                    color="red darken-4"
+                    block
+                    text
+                    v-bind="activator.attrs"
+                    v-on="activator.on"
+                    class="white--text text-capitalize mb-3"
+                    :ripple="false"
+                    v-if="authenticated && userDetail.role === 'admin'"
+                    >Remove this position
+                  </v-btn>
+                </template>
+              </PositionConfirmModal>
+            </div>
           </div>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+          <div class="candidates">
+            <div class="election__title--wrapper py-3">
+              <h2
+                class="deep-purple--text darken-4 text-h6 text-md-h6 text-lg-h6 font-weight-bold workssan election__title text-center text-md-left py-2"
+              >
+                ကိုယ်စားလှယ်လောင်းများ
+              </h2>
+            </div>
+            <div>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="12"
+                    v-for="candidate in election.candidates.filter(
+                      (el) => el._post === position._id
+                    )"
+                    :key="candidate._id"
+                  >
+                    <CandidateCard :candidate="candidate" :vote_status="vote_status[position_index].status" :election="election"/>
+                    <v-divider></v-divider>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+
 </template>
 
 <script>
 import CandidateCard from "@/components/Candidate/CandidateCard.vue";
 import PositionConfirmModal from "@/components/Modal/PositionConfirmModal.vue";
 import ElectionConfirmModal from "@/components/Modal/ElectionConfirmModal.vue";
+import Loader from '@/components/UI/LoadingScreen.vue'
 import store from "@/store/index.js";
+import axios from '@/services/axios.js'
 import { mapState } from "vuex";
 export default {
   name: "Election",
@@ -247,6 +272,13 @@ export default {
     CandidateCard,
     PositionConfirmModal,
     ElectionConfirmModal,
+    Loader
+  },
+  data() {
+    return {
+      vote_status:[],
+      loading:true
+    }
   },
   computed: {
     ...mapState({
@@ -265,6 +297,45 @@ export default {
     store.dispatch("UI/changeLoadingState", true);
     next();
   },
+  async created() {
+    await this.setVoteStatuses();
+  },
+  methods:{
+    async setVoteStatuses() {
+      const vm = this;
+      vm.setDefaultVoteStatus();
+      await Promise.all(vm.election.positions.map(el=>vm.setVoteStatus(el._id)))
+      .then(()=>{
+        vm.loading = false
+      })
+      .catch(()=>{
+        vm.loading=false
+      })
+    },
+    async setVoteStatus(position) {
+      const vm = this;
+      let vote_status = vm.vote_status.find(el=>el.position===position);
+
+      await this.fetchVoteStatus(position)
+      .then((res)=>{
+        vote_status.status = res.data.data;
+      })
+      .catch((e)=>{
+        console.log(e.response)
+        vote_status.status = false;
+      })
+    },
+    async fetchVoteStatus(positionId) {
+      return axios().get(`/users/vote-status/elections/${this.election._id}/positions/${positionId}`)
+    },
+    setDefaultVoteStatus() {
+      const vm = this;
+      const positions = vm.election.positions;
+      positions.forEach((el) => {
+        vm.vote_status.push({position:el._id,status:false})
+      })
+    }
+  }
 };
 </script>
 
@@ -296,12 +367,15 @@ export default {
     line-height: 2.5;
   }
   &__link {
-    opacity: 0.7;
+    opacity: 0.9;
     cursor: pointer;
     //  border-bottom: 2px solid rgba(85, 69, 168, 0.3);
   }
 }
 .candidates {
   width: 100%;
+}
+.raced-banner{
+  height: 120px;
 }
 </style>

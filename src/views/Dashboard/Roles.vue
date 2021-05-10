@@ -10,7 +10,7 @@
             <AddMod @add-mod="addMod">
               <template v-slot:default="{ activator }">
                 <v-btn
-                  color="deep-purple darken-2"
+                  color="deep-purple darken-4"
                   depressed
                   class="white--text text-capitalize "
                   small
@@ -50,7 +50,7 @@
                   >
                     <div class="mod--info">
                       <div
-                        class="deep-purple--text darken-2 text-body-2 font-weight-bold text-decoration-underline"
+                        class="deep-purple--text darken-4 text-body-2 font-weight-bold text-decoration-underline"
                       >
                         {{ singleMod.email }}
                       </div>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="mod--action">
                       <v-btn
-                        color="red darken-2"
+                        color="red darken-4"
                         class="white--text text-capitalize"
                         depressed
                         small
@@ -99,7 +99,7 @@
               <AddMod @add-mod="addMod">
                 <template v-slot:default="{ activator }">
                   <v-btn
-                    color="deep-purple darken-2"
+                    color="deep-purple darken-4"
                     depressed
                     class="white--text text-capitalize "
                     small

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" sm="12" class="px-3 px-md-0 d-flex justify-center">
         <h2
-          class="text-h5 news-overview--title workssan d-inline-block font-weight-medium"
+          class="text-h5 news-overview--title workssan d-inline-block font-weight-medium deep-purple--text darken-4"
         >
           Latest News
         </h2>
@@ -46,7 +46,7 @@ export default {
 <style lang="scss" scoped>
 $bg: #f3f8fa;
 $white: #fff;
-$deep-purple: #6a4db7;
+$deep-purple: #363A92;
 
 @mixin transition(
   $property: all,
@@ -63,7 +63,7 @@ $deep-purple: #6a4db7;
       content: "";
       width: 50%;
       height: 2px;
-      background-color: #5545a8;
+      background-color: #363A92;
       position: absolute;
       bottom: 0;
       left: 0;

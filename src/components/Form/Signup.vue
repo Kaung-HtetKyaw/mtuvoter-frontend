@@ -25,7 +25,7 @@
       rounded
       large
       class="white--text font-weight-bold px-12 my-4"
-      color="deep-purple darken-2"
+      color="deep-purple darken-4"
       depressed
       :ripple="false"
       >Sign Up</v-btn

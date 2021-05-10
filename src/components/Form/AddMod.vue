@@ -13,7 +13,7 @@
             icon
             dark
             depressed
-            color="deep-purple darken-2 rotate-45 my-2"
+            color="deep-purple darken-4 rotate-45 my-2"
             x-small
             @click="clearData"
           >
@@ -26,7 +26,7 @@
           class="px-2   px-lg-6 text-center d-flex justify-center align-center"
         >
           <span
-            class=" text-subtitle-1 text-center text-md-h6 font-weight-bold deep-purple--text darken-2"
+            class=" text-subtitle-1 text-center text-md-h6 font-weight-bold deep-purple--text darken-4"
             >Add a Moerator for MTU Voter</span
           >
         </v-card-title>
@@ -58,7 +58,7 @@
               >
                 <div class="mod--info">
                   <div
-                    class="deep-purple--text darken-2 text-body-2 font-weight-bold text-decoration-underline"
+                    class="deep-purple--text darken-4 text-body-2 font-weight-bold text-decoration-underline"
                   >
                     {{ user.email }}
                   </div>
@@ -70,7 +70,7 @@
             </div>
             <v-btn
               dense
-              color="deep-purple darken-2"
+              color="deep-purple darken-4"
               class="white--text text-capitalize"
               depressed
               block

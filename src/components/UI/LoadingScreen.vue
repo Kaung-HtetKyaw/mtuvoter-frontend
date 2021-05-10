@@ -15,7 +15,9 @@ export default {};
 <style lang="scss" scoped>
 .loading__wrapper {
   position: absolute;
-  width: 100%;
+  width: 100vw;
+  top:0;
+  left:0;
   z-index: 1000;
   display: flex;
   height: 100vh;

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="white--text footer deep-purple darken-2">
+  <v-container fluid class="white--text footer deep-purple darken-4">
     <v-row>
       <v-container>
         <v-row class="flex-column-reverse flex-md-row">
@@ -32,7 +32,7 @@
                 block
                 elevation="0"
                 :ripple="false"
-                class="deep-purple--text darken-2 workssan"
+                class="deep-purple--text darken-4 workssan"
                 >Subscribe</v-btn
               >
               <p class="workssan footer-copyright text-center my-2">
