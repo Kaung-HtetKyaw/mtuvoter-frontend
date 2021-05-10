@@ -59,7 +59,7 @@
             ></router-link
           >
 
-          <v-menu transition="slide-y-transition" bottom v-if="authenticated">
+          <v-menu transition="slide-y-transition"  bottom v-if="authenticated">
             <template v-slot:activator="{ on, attrs }">
               <a
                 v-bind="attrs"

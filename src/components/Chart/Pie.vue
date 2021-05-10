@@ -10,58 +10,48 @@
     <apexchart
       type="pie"
       :options="chartOptions"
-      :height="400"
+      :height="350"
       :series="series"
     ></apexchart>
   </div>
 </template>
 
 <script>
-import { getNestedPropertyFromDotString } from "@/utils/utils.js";
+// import { getNestedPropertyFromDotString } from "@/utils/utils.js";
 export default {
   name: "BarChart",
   props: {
-    result: {
-      type: Array,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
     },
-    grouped_by: {
-      type: Array,
-      required: true,
+    pie_labels:{
+      type:Array,
+      required:true
     },
-    seried_by: {
-      type: Array,
-      required: true,
-    },
+    series:{
+      type:Array,
+      required:true
+    }
   },
   created() {
-    this.chartOptions.labels = this.result.map((el) =>
-      getNestedPropertyFromDotString(el, this.grouped_by)
-    );
-    this.series = this.result.map((el) =>
-      getNestedPropertyFromDotString(el, this.seried_by)
-    );
+    this.chartOptions.labels = this.pie_labels;
   },
   data() {
     return {
-      series: [],
+
       chartOptions: {
         chart: {
           width: 380,
           height: 800,
           type: "pie",
         },
-        labels: ["Kyaw Toe Toe Han", "Zay Yar Min Htin", "Nyi Thet Naing"],
+        labels: [],
         responsive: [
           {
             breakpoint: 480,
             options: {
               chart: {
-                width: 200,
               },
               legend: {
                 position: "bottom",

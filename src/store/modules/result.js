@@ -30,6 +30,7 @@ export const actions = {
     )
       .then((res) => {
         commit("FETCH_RESULT_BY_POSITIONS", res);
+        
       })
       .catch((e) => {
         console.error(e.response);

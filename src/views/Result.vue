@@ -111,6 +111,7 @@ export default {
       const positions = vm.election.positions.map((el) => el._id);
       await Promise.all(positions.map((el) => vm.loadForOnePosition(el)))
         .then((res) => {
+          console.log(res)
           let initial_result = convertInitialElectionDataToResult(
             this.election.positions,
             this.election.candidates
