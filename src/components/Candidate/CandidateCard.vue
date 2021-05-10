@@ -42,7 +42,7 @@
                 class="d-flex flex-column flex-md-row justify-center align-center"
               
               >
-                <Vote :raced='raced' :candidate="candidate" :electionId="candidate._election">
+                <Vote @voted="voted=true" :raced='election.raced' :candidate="candidate" :electionId="election._id">
                   <template v-slot:default="{ activator }">
                     <v-btn
                       depressed
@@ -51,20 +51,22 @@
                       v-bind="activator.attrs"
                       v-on="activator.on"
                       class="white--text text-capitalize"
-                      :disabled="voted || raced"
+                      :disabled="voted || election.raced || !election.started"
                       :ripple="false"
-                      >Vote
+                      >{{voted?"Voted":"Vote"}}
                     </v-btn>
                   </template>
                 </Vote>
               </div>
-              <div v-if="raced">
+              <div v-if="election.raced">
                 <p class="text-center text--secondary text-body-2 mt-1">This election has already been called raced.</p>
             
               </div>
-              <div v-if="!raced && voted">
+              <div v-if="election.started && !election.raced && voted">
                 <p class="text-center text--secondary text-body-2 mt-1">You have already voted for this position of the election.</p>
-            
+              </div>
+              <div v-if="!election.started">
+                 <p class="text-center text--secondary text-body-2 mt-1">This election has not yet started.</p>
               </div>
               
 
@@ -103,7 +105,7 @@
                       :ripple="false"
                       exact
                       v-if="authenticated && userDetail.role === 'admin'"
-                      :disabled="raced"
+                      :disabled="election.raced"
                       >Remove this candidate
                     </v-btn></template
                   >
@@ -133,11 +135,11 @@ export default {
       type: Object,
       required: true,
     },
-    raced:{
-      type:Boolean,
+    election:{
+      type:Object,
       required:true
     },
-    voted:{
+    vote_status:{
       type:Boolean,
       required:true
     }
@@ -146,8 +148,15 @@ export default {
     return {
       yearMap,
       majorMap,
+      voted:false
     };
   },
+  created() {
+    // can't overwirte the prop
+    // so, make data properties for later case of overwriting
+    this.voted = this.vote_status
+    console.log(this.vote_status)
+  }
 };
 </script>
 

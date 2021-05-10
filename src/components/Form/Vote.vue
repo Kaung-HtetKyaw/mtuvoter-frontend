@@ -49,11 +49,18 @@
 
           <v-text-field
             outlined
-            label="Enter Guest Token"
+            label="Enter Vote Token"
             required
             dense
+            v-model="token"
             class="pt-2"
           ></v-text-field>
+          <v-select
+            :items="yearArray"
+            label="Select your current attending year"
+            dense
+            v-model="year"
+            outlined></v-select>
           <v-btn
             dense
             color="deep-purple darken-4"
@@ -61,7 +68,9 @@
             depressed
             block
             :ripple="false"
-            >Log in as guest</v-btn
+            :loading="voting"
+            @click="guestVote"
+            >Vote this candidate</v-btn
           >
         </v-card-text>
       </v-card>
@@ -113,6 +122,7 @@
             depressed
             block
             :ripple="false"
+            :loading="voting"
             @click='vote'
             >Vote this candidate</v-btn
           >
@@ -123,7 +133,8 @@
 </template>
 <script>
 import { yearArray } from "@/utils/constants.js";
-// import axios from '@/services/axios.js'
+import axios from '@/services/axios.js';
+import {showNoti} from '@/utils/noti.js'
 export default {
   props:{
     raced:{
@@ -143,19 +154,66 @@ export default {
     dialog: false,
     yearArray,
     year:null,
-    loading:false
+    token:null,
+    voting:false,
+    checking_vote_token:false,
+    guest_voting:false
   }),
   methods:{
     async vote() {
       const vm = this;
-      vm.loading = true;
+      vm.voting = true;
       let payload = {
         election:vm.electionId,
         candidate:vm.candidate._id,
-        postition:vm.candidate._post,
+        position:vm.candidate._post,
         student_type:vm.year
       }
-      console.log(payload)
+      await axios().post(`/vote`,payload)
+      .then(()=>{
+        showNoti("success","Thank you for your constribution");
+        vm.$emit("voted");
+        vm.voting = false
+      })
+      .catch((e)=>{
+        console.log(e.response)
+        vm.voting = false
+        if(e.response.data.message) {
+          showNoti("error",e.response.data.message)
+        } else {
+          showNoti("error","Something went wrong")
+        }
+
+      })
+    },
+    async guestVote() {
+      const vm = this;
+      vm.voting = true;
+      return await vm.guestLogin()
+      .then(async ()=>{
+        vm.voting = false;
+        vm.dialog = false;
+        vm.token = null;
+        return await vm.vote()
+      })
+      .catch((e)=>{
+        vm.voting = false
+        vm.dialog = false;
+        vm.token = null;
+        if(e.response.data.message) {
+          showNoti("error",e.response.data.message)
+        } else {
+          showNoti("error","Something went wrong");
+        }
+      })
+
+    },
+    async guestLogin() {
+      const vm = this;
+      return axios().post(`/users/guest`,{
+        vote_token:vm.token,
+        _election:vm.electionId
+      })
     }
   }
 };
