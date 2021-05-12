@@ -30,6 +30,19 @@ export const mutations = {
     removeBy(state.news, newsId, "_id");
     state.singleNews = null;
   },
+  CHANGE_PUBLISHED_FLAG(state, news){
+    if(state.news.length>0) {
+      replaceBy(state.news,news,"_id")
+    }
+    if(state.singleNews._id === news._id) {
+      state.singleNews.published = news.published
+    }
+  },
+  CLEAR_NEWS(state) {
+    state.news = [];
+    state.page = 1;
+    state.end = false;
+  },
   INCREMENT_PAGE(state) {
     state.page++;
   },
@@ -92,6 +105,26 @@ export const actions = {
         showNoti("error", e.response.message);
       });
   },
+  // change published flag to true if it was false previously and vice versa
+  async changePublishedFlag({state,commit},{newsId}) {
+    let wasPublished = state.singleNews.published;
+    let route = `/news/${newsId}/${wasPublished?'unpublish':'publish'}`;
+    return axios().patch(route)
+    .then((res) => {
+      commit('CHANGE_PUBLISHED_FLAG',res.data.data);
+      return res.data.data;
+    })
+    .catch(e=>{
+      if(e.response.data.message) {
+        showNoti('error',e.response.data.message)
+      } else {
+        showNoti('error','Something went wrong')
+      }
+    })
+  },
+  clearNews({commit}) {
+    commit('CLEAR_NEWS')
+  }
 };
 export const getters = {
   getNewsByID: (state) => (id) => {

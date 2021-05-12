@@ -1,6 +1,18 @@
 <template>
   <v-container class="news-card-2">
     <router-link :to="{ name: 'News-Single', params: { news: news._id } }">
+      <v-row class='my-1'>
+          <v-chip
+            outlined
+            v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')"
+            small
+            class="ma-2"
+            color="deep-purple darken-4 white--text my-3 font-weight-bold"
+          >
+            {{news.published ? "Published":"Unpublished"}}
+            <v-icon v-if="news.published" x-small class="ml-1">mdi-check-circle</v-icon>
+          </v-chip>
+      </v-row>
       <v-row class="flex-column-reverse flex-md-row">
         <v-col cols="12" sm="12" md="10">
           <h2 class="text-decoration-underline my-2 news-card-2__title">

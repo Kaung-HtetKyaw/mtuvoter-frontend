@@ -24,7 +24,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async login({ commit }, user) {
+  async login({ commit,dispatch }, user) {
     await axios()
       .post(
         `/users/login`,
@@ -38,6 +38,8 @@ export const actions = {
       .then((res) => {
         commit("LOGIN", res.data.data);
         commit("CHANGE_FETCH_STATE");
+        dispatch('election/clearElections',null,{root:true})
+        dispatch('news/clearNews',null,{root:true})
         return res.data.data;
       })
       .catch((e) => {
@@ -89,11 +91,14 @@ export const actions = {
         showNoti("error", e.response.message);
       });
   },
-  async logOut({ commit }) {
+  async logOut({ commit,dispatch }) {
     await axios()
       .get(`/users/logout`)
       .then(() => {
         commit("SET_ME", null);
+        // clear the elections for authenticated user
+        dispatch("election/clearElections",null,{root:true})
+        dispatch('news/clearNews',null,{root:true})
       })
       .catch(() => {
         showNoti("error", "Error logging out");

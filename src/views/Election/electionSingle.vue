@@ -135,6 +135,18 @@
                 ></router-link
               >
             </div>
+            <div class="width-100 my-3" v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')">
+                <v-btn
+                  color="deep-purple darken-4"
+                  class="white--text text-capitalize"
+                  depressed
+                  block
+                  :ripple="false"
+                  @click="changePublishedFlag"
+                  :loading='changing_published_flag'
+                  >{{election.published? "Unpublish this election": "Publish this election"}}</v-btn
+                >
+            </div>
             <div class="width-100 mt-3">
               <ElectionConfirmModal :id="election._id" v-if="authenticated && userDetail.role === 'admin'">
                 <template v-slot:default="{ activator }">
@@ -266,6 +278,7 @@ import Loader from '@/components/UI/LoadingScreen.vue'
 import store from "@/store/index.js";
 import axios from '@/services/axios.js'
 import { mapState } from "vuex";
+import {showNoti} from '@/utils/noti.js'
 export default {
   name: "Election",
   components: {
@@ -277,7 +290,8 @@ export default {
   data() {
     return {
       vote_status:[],
-      loading:true
+      loading:true,
+      changing_published_flag:false
     }
   },
   computed: {
@@ -334,6 +348,20 @@ export default {
       positions.forEach((el) => {
         vm.vote_status.push({position:el._id,status:false})
       })
+    },
+
+    async changePublishedFlag() {
+      const vm = this;
+      vm.changing_published_flag = true;
+      await store.dispatch('election/changePublishedFlag',{electionId:vm.election._id})
+      .then((res)=>{
+        vm.changing_published_flag = false;
+        showNoti('success',`This election has been ${res.published ? 'published' : 'unpublished'}`)
+      })
+      .catch(()=>{
+        vm.changing_published_flag = false;
+      })
+      
     }
   }
 };

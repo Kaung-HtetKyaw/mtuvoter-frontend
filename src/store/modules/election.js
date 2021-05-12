@@ -54,6 +54,20 @@ export const mutations = {
   DELETE_POSITION(state, positionId) {
     removeBy(state.election.positions, positionId, "_id");
   },
+  CHANGE_PUBLISHED_FLAG(state, election){
+    if(state.elections.length>0) {
+      replaceBy(state.elections,election,"_id")
+    }
+    if(state.election._id === election._id) {
+      state.election.published = election.published
+    }
+
+  },
+  CLEAR_ELECTIONS(state) {
+    state.end = false;
+    state.page = 1;
+    state.elections = []
+  },
   INCREMENT_PAGE(state) {
     state.page++;
   },
@@ -114,7 +128,6 @@ export const actions = {
       });
   },
   async updateElection({ commit }, { election }) {
-    console.log(election);
     await axios()
       .patch(`/elections/${election._id}`, election)
       .then((res) => {
@@ -138,7 +151,6 @@ export const actions = {
     { commit },
     { electionId, positionId, formData, candidate }
   ) {
-    console.log(electionId, positionId, candidate);
     const updatedCandidate = await axios()
       .patch(
         `/elections/${electionId}/positions/${positionId}/candidates/${candidate._id}`,
@@ -173,7 +185,6 @@ export const actions = {
     return newCandidates;
   },
   async removeCandidate({ commit, getters }, { candidateId }) {
-    console.log(candidateId);
     const { _election, _position } = getters.getCandidateById(candidateId);
     await axios()
       .delete(
@@ -195,7 +206,6 @@ export const actions = {
       .catch((e) => {
         showNoti("error", e.response.message);
       });
-    console.log(newPosition);
     return newPosition;
   },
   async updatePosition({ commit }, { position }) {
@@ -205,7 +215,6 @@ export const actions = {
         position
       )
       .then((res) => {
-        console.log(res.data.data);
         commit("UPDATE_POSITION", res.data.data);
         return res.data.data;
       })
@@ -237,10 +246,29 @@ export const actions = {
         getLatestRacedElectionResult(state.latest_raced_election._id, el._id)
       )
     );
-    console.log(latest_result);
     commit("FETCH_LATEST_RESULT", latest_result);
     return latest_result;
   },
+  // change published flag to true if it was false previously and vice versa
+  async changePublishedFlag({state,commit},{electionId}) {
+    let wasPublished = state.election.published;
+    let route = `/elections/${electionId}/${wasPublished?'unpublish':'publish'}`;
+    return axios().patch(route)
+    .then((res) => {
+      commit('CHANGE_PUBLISHED_FLAG',res.data.data);
+      return res.data.data;
+    })
+    .catch(e=>{
+      if(e.response.data.message) {
+        showNoti('error',e.response.data.message)
+      } else {
+        showNoti('error','Something went wrong')
+      }
+    })
+  },
+  clearElections({commit}) {
+    commit('CLEAR_ELECTIONS')
+  }
 };
 
 async function createCandidate(electionId, positionId, candidate) {
@@ -251,11 +279,9 @@ async function createCandidate(electionId, positionId, candidate) {
       { withCredentials: true }
     )
     .then((res) => {
-      console.log(res.data.data);
       return res.data.data;
     })
-    .catch((e) => {
-      console.log(e.response);
+    .catch(() => {
       showNoti("error", "Error creating candidate");
     });
 }
@@ -283,4 +309,7 @@ export const getters = {
   getPositionById: (state) => (id) => {
     return state.election.positions.find((el) => el._id === id);
   },
+  getElectionById: (state) => (id) => {
+    return state.elections.find(el=>el._id===id)
+  }
 };

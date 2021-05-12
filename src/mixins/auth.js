@@ -17,6 +17,8 @@ export default {
           vm.logging_out = false;
           if (vm.$route.name !== "Elections") {
             vm.$router.push({ name: "Elections" });
+          } else {
+            vm.$router.push({name:"Home"})
           }
         })
         .catch(() => {

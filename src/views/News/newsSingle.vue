@@ -22,6 +22,20 @@
               >Update the news</v-btn
             >
           </div>
+          <div class="width-100 mt-6 mb-3" 
+          v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')"
+          >
+            <v-btn
+              depressed
+              block
+              color="deep-purple darken-4"
+              :ripple="false"
+              class="white--text text-capitalize"
+              @click="changePublishedFlag"
+              :loading='changing_published_flag'
+              >{{news.published?'Unpublish':'Publish'}} the news</v-btn
+            >
+          </div>
           <div class="width-100 mb-6">
             <NewsConfirmModal :id="news._id">
               <template v-slot:default="{ activator }">
@@ -69,6 +83,7 @@ import store from "@/store/index.js";
 import { mapState } from "vuex";
 import Markdown from "@/components/Base/BaseMarkdown.vue";
 import NewsConfirmModal from "@/components/Modal/NewsConfirmModal.vue";
+import {showNoti} from '@/utils/noti.js'
 export default {
   name: "News-Single",
   components: {
@@ -81,7 +96,9 @@ export default {
     }),
   },
   data() {
-    return {};
+    return {
+      changing_published_flag:false
+    };
   },
 
   async beforeRouteEnter(to, from, next) {
@@ -97,6 +114,20 @@ export default {
       news = await store.dispatch("news/getSingleNews", id);
     }
     next();
+  },
+  methods:{
+    async changePublishedFlag() {
+      const vm = this;
+      vm.changing_published_flag = true;
+      await store.dispatch('news/changePublishedFlag',{newsId:vm.news._id})
+      .then((res)=>{
+        vm.changing_published_flag = false;
+        showNoti('success',`This news has been ${res.published ? 'published' : 'unpublished'}`)
+      })
+      .catch(()=>{
+        vm.changing_published_flag = false;
+      })
+    }
   },
   watch: {
     news(value) {
