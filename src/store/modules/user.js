@@ -17,6 +17,9 @@ export const mutations = {
   UPDATE_ME(state, user) {
     state.user = user;
   },
+  CHANGE_SUBSCRIBED_FLAG(state,flag) {
+    state.user.subscribed = flag;
+  },
   // making sure the app will try to fetch the current user from jwt only for one time
   CHANGE_FETCH_STATE(state) {
     state.fetched = true;
@@ -104,5 +107,21 @@ export const actions = {
         showNoti("error", "Error logging out");
       });
   },
+
+  async changeSubscribedFlag({commit},wasSubscribed) {
+    let route = `/users/me/${wasSubscribed?'unsubscribe':'subscribe'}`;
+    return axios().patch(route)
+    .then((res)=> {
+      commit('CHANGE_SUBSCRIBED_FLAG',res.data.data.subscribed);
+      return res.data.data;
+    })
+    .catch((e)=>{
+      if(e.response.data.message) {
+        showNoti('error',e.response.data.message)
+      } else {
+        showNoti('error','Something went wrong')
+      }
+    })
+  }
 };
 export const getters = {};

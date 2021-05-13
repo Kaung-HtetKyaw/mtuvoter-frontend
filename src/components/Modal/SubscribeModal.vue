@@ -45,6 +45,8 @@
                 depressed
                 block
                 :ripple="false"
+                :loading='loading'
+                @click="changeSubscribedFlag"
                 >Subscribe</v-btn
             >
             </v-card-text>
@@ -96,7 +98,9 @@
                 class="white--text text-capitalize mt-0"
                 depressed
                 block
+                :loading='loading'
                 :ripple="false"
+                @click="changeSubscribedFlag"
                 >Unsubscribe here</v-btn
             >
             </v-card-text>
@@ -157,10 +161,31 @@
 </template>
 
 <script>
+import store from '@/store/index.js'
+import {showNoti} from '@/utils/noti.js'
 export default {
     data() {
         return {
-            dialog:false
+            dialog:false,
+            loading:false
+        }
+    },
+    methods:{
+        async changeSubscribedFlag() {
+            const vm = this;
+            vm.loading = true;
+            await store.dispatch('user/changeSubscribedFlag',vm.userDetail.subscribed)
+            .then((res)=>{
+                vm.loading = false;
+                showNoti('success',`You have ${res.subscribed?'subscribed':'unsubscribed'} to our newsletter.`)
+            })
+            .catch((e)=>{
+                if(e.response.data.message) {
+                    showNoti('error',e.response.data.message)
+                } else {
+                    showNoti('error','Something went wrong');
+                }
+            })
         }
     }
 }
