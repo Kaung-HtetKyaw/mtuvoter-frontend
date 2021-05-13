@@ -10,6 +10,9 @@ export const mutations = {
   LOGIN(state, user) {
     state.user = user;
   },
+  SIGNUP(state,user) {
+    state.user = user;
+  },
   SET_ME(state, user) {
     state.user = user;
   },
@@ -28,7 +31,8 @@ export const mutations = {
 
 export const actions = {
   async login({ commit,dispatch }, user) {
-    await axios()
+    commit("CHANGE_FETCH_STATE");
+    return axios()
       .post(
         `/users/login`,
         {
@@ -39,16 +43,33 @@ export const actions = {
         }
       )
       .then((res) => {
+        if(res.data.message) {
+          return res.data;
+        }
         commit("LOGIN", res.data.data);
-        commit("CHANGE_FETCH_STATE");
         dispatch('election/clearElections',null,{root:true})
         dispatch('news/clearNews',null,{root:true})
         return res.data.data;
       })
-      .catch((e) => {
-        commit("CHANGE_FETCH_STATE");
-        console.log(e);
-      });
+  },
+  async signup({ commit,dispatch }, user) {
+    commit("CHANGE_FETCH_STATE");
+    await axios()
+      .post(
+        `/users/signup`,
+        {
+          ...user,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        commit("SIGNUP", res.data.data);
+        dispatch('election/clearElections',null,{root:true})
+        dispatch('news/clearNews',null,{root:true})
+        return res.data.data;
+      })
   },
   async getMe({ commit }) {
     await axios()
@@ -90,9 +111,6 @@ export const actions = {
         commit("UPDATE_PASSWORD");
         return res.data;
       })
-      .catch((e) => {
-        showNoti("error", e.response.message);
-      });
   },
   async logOut({ commit,dispatch }) {
     await axios()
