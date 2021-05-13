@@ -1,7 +1,7 @@
 <template>
   <v-container class="news__wrapper">
-    <v-row v-if="!news">
-      <h1>Loading.....</h1>
+    <v-row v-if="!news" class="loading-wrapper d-flex justify-center align-center" >
+      <BaseLoader/>
     </v-row>
     <v-row v-else>
       <v-col cols="12" sm="12">
@@ -84,11 +84,13 @@ import { mapState } from "vuex";
 import Markdown from "@/components/Base/BaseMarkdown.vue";
 import NewsConfirmModal from "@/components/Modal/NewsConfirmModal.vue";
 import {showNoti} from '@/utils/noti.js'
+import BaseLoader from '@/components/Base/BaseLoader.vue';
 export default {
   name: "News-Single",
   components: {
     "vue-markdown": Markdown,
     NewsConfirmModal,
+    BaseLoader
   },
   computed: {
     ...mapState({
@@ -111,7 +113,7 @@ export default {
     }
 
     if (!news) {
-      news = await store.dispatch("news/getSingleNews", id);
+      news = await store.dispatch("news/getSingleNews", id)
     }
     next();
   },
@@ -158,5 +160,9 @@ export default {
     width: 100%;
     height: 300px;
   }
+}
+.loading-wrapper {
+  width:100%;
+  height:100vh;
 }
 </style>

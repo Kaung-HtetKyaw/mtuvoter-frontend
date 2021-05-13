@@ -68,7 +68,13 @@ export const actions = {
       .then((res) => {
         commit("FETCH_SINGLE_NEWS", res.data.data);
       })
-      .catch(() => showNoti("error", "Error loading news. Please try again."));
+      .catch((e) => {
+        if(e.response.data.message) {
+          showNoti("error", e.response.data.message)
+        } else {
+          showNoti("error", "Error loading news. Please try again.")
+        }
+      });
     return news;
   },
   async createNews({ commit }, { news }) {

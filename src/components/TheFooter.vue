@@ -28,16 +28,19 @@
           <v-col cols="12" sm="12" md="6">
             <h2 class="text-center">Subscribe to ours Newsletter</h2>
             <div class="my-2 btn--subscribe">
-              <v-btn
-                block
-                elevation="0"
-                :ripple="false"
-                class="deep-purple--text darken-4 workssan"
-                >Subscribe</v-btn
-              >
-              <p class="workssan footer-copyright text-center my-2">
-                You have to be logged in to subscribe
-              </p>
+              <SubscribeModal>
+                <template v-slot:default="{ activator }">
+                  <v-btn
+                    block
+                    elevation="0"
+                    v-bind="activator.attrs"
+                    v-on="activator.on"
+                    :ripple="false"
+                    class="deep-purple--text darken-4 workssan"
+                    >Subscribe
+                  </v-btn>
+                </template>
+              </SubscribeModal>
             </div>
           </v-col>
         </v-row>
@@ -45,8 +48,13 @@
     </v-row>
   </v-container>
 </template>
+
 <script>
+import SubscribeModal from '@/components/Modal/SubscribeModal.vue'
 export default {
+  components:{
+    SubscribeModal
+  },
   data: () => ({}),
 };
 </script>

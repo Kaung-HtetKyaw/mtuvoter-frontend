@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div>
-    <v-container v-if="loading">
+    <v-container v-if="loading || !election" class="loading-wrapper d-flex justify-center align-center">
       <Loader/>
     </v-container>
     <v-container class="election py-0 mb-16" v-else>
@@ -274,7 +274,7 @@
 import CandidateCard from "@/components/Candidate/CandidateCard.vue";
 import PositionConfirmModal from "@/components/Modal/PositionConfirmModal.vue";
 import ElectionConfirmModal from "@/components/Modal/ElectionConfirmModal.vue";
-import Loader from '@/components/UI/LoadingScreen.vue'
+import Loader from '@/components/Base/BaseLoader.vue'
 import store from "@/store/index.js";
 import axios from '@/services/axios.js'
 import { mapState } from "vuex";
@@ -405,5 +405,9 @@ export default {
 }
 .raced-banner{
   height: 120px;
+}
+.loading-wrapper {
+  width:100%;
+  height:100vh;
 }
 </style>
