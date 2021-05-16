@@ -27,7 +27,9 @@
           <v-sheet
             height="150px"
             :style="{
-              backgroundImage: `url(/img/mtu-img.jpg)`,
+              backgroundImage: `url(${news.photo?news.photo:'/img/mtuvoter.png'})`,
+              backgroundPosition:'center',
+              backgroundSize:'contain'
             }"
             class="news-card-2__img"
           ></v-sheet>

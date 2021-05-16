@@ -3,7 +3,11 @@
     <router-link :to="{ name: 'News-Single',params:{news:news._id} }" tag="div">
       <div class="row">
         <div class="example-1 card ">
-          <div class="wrapper ">
+          <div class="wrapper " :style="{
+            backgroundImage:`url(${news.photo?news.photo:'/img/mtuvoter.png'})`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+          }">
             <div class="date">
               <span class="day">{{ new Date(news.createdAt).getDay() }}</span>
               <span class="month">{{
@@ -127,7 +131,7 @@ a {
 // First example styles
 .example-1 {
   .wrapper {
-    background: url("/img/mtu-img.jpg");
+  // background: url("/img/mtu-img.jpg");
     background-size: cover;
   }
   .date {

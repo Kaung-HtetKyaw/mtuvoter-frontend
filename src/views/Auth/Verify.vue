@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import BaseLoader from '@/components/Base/BaseLoader.vue';
+const BaseLoader = () => import('@/components/Base/BaseLoader.vue')
 import axios from '@/services/axios.js';
-
 export default {
     components:{
         BaseLoader

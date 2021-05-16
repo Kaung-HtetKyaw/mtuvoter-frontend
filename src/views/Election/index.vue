@@ -71,8 +71,8 @@
 </template>
 
 <script>
-import ElectionCard from "@/components/Election/ElectionCard.vue";
-import BaseLoader from "@/components/Base/BaseLoader.vue";
+const ElectionCard = () => import("@/components/Election/ElectionCard.vue");
+const BaseLoader = () => import("@/components/Election/ElectionCard.vue")
 import { mapState } from "vuex";
 import store from "@/store/index.js";
 

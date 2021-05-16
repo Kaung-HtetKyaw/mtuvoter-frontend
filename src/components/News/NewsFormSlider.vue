@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import NewsForm from "@/components/Form/NewsForm";
-import NewsPreview from "@/components/News/NewsPreview";
+const NewsForm= () => import("@/components/Form/NewsForm")
+const NewsPreview= () => import("@/components/News/NewsPreview")
 
 export default {
   name: "NewsFormSlider",

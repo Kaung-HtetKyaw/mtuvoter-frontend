@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import SubscribeModal from '@/components/Modal/SubscribeModal.vue'
+const SubscribeModal = () => import('@/components/Modal/SubscribeModal.vue')
 export default {
   components:{
     SubscribeModal

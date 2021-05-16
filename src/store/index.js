@@ -12,7 +12,8 @@ import * as log from './modules/log';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+  },
   mutations: {},
   actions: {},
   modules: { notification, user, UI, election, news, faq, result, log },

@@ -119,9 +119,9 @@
 </template>
 
 <script>
-import BaseLoader from "@/components/Base/BaseLoader.vue";
-import AddMod from "@/components/Form/AddMod.vue";
-import BaseModCard from "@/components/Base/BaseModCard.vue";
+const BaseLoader= () => import("@/components/Base/BaseLoader.vue");
+const AddMod= () => import("@/components/Form/AddMod.vue");
+const BaseModCard= () => import("@/components/Base/BaseModCard.vue");
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
 import { removeBy } from "@/utils/utils.js";

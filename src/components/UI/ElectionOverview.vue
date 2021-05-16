@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ElectionCard from "@/components/Election/ElectionCard.vue";
+const ElectionCard = () => import("@/components/Election/ElectionCard.vue")
 
 export default {
   name: "ElectionOverview",

@@ -97,8 +97,8 @@
 </template>
 
 <script>
-import BarChart from "@/components/Chart/Bar.vue";
-import CandidateCard from "@/components/Candidate/CandidateCardStats.vue";
+const BarChart= () => import("@/components/Chart/Bar.vue");
+const CandidateCard= () => import("@/components/Candidate/CandidateCardStats.vue");
 import {
   candidate_votes_by_student,
   election_result,

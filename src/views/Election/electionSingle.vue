@@ -271,10 +271,10 @@
 </template>
 
 <script>
-import CandidateCard from "@/components/Candidate/CandidateCard.vue";
-import PositionConfirmModal from "@/components/Modal/PositionConfirmModal.vue";
-import ElectionConfirmModal from "@/components/Modal/ElectionConfirmModal.vue";
-import Loader from '@/components/Base/BaseLoader.vue'
+const  CandidateCard= () => import("@/components/Candidate/CandidateCard.vue");
+const  PositionConfirmModal= () => import("@/components/Modal/PositionConfirmModal.vue");
+const  ElectionConfirmModal= () => import("@/components/Modal/ElectionConfirmModal.vue");
+const  Loader= () => import('@/components/Base/BaseLoader.vue');
 import store from "@/store/index.js";
 import axios from '@/services/axios.js'
 import { mapState } from "vuex";

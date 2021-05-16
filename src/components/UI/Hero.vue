@@ -36,7 +36,11 @@
           </div>
         </div></v-col
       >
-      <v-col cols="12" sm="0" md="6" class="py-0 px-0 hero-image"> </v-col>
+      <v-col cols="12" sm="0" md="6" class="py-0 px-0 hero-image" 
+      :style="{
+        backgroundImage:`url(/img/pinky-finger.png)`
+      }"
+      > </v-col>
     </v-row>
   </v-container>
 </template>
@@ -70,7 +74,7 @@ $deep-purple: #363A92;
   }
   &-image {
     width: 100%;
-    background: url("/img/pinky-finger.png");
+    // background: url("@/assets/img/pinky-finger.png");
     background-size: fit;
     background-position: center top;
     background-repeat: no-repeat;

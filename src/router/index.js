@@ -4,6 +4,7 @@ import NProgress from "nprogress";
 
 import NotFound from "@/views/Error.vue";
 
+
 // routes
 import electionRoutes from "./election";
 import newsRoutes from "./news";
@@ -21,6 +22,7 @@ import { showNoti } from "@/utils/noti.js";
 // layouts
 const defaultLayout = () => import("@/layouts/default.vue");
 const errorLayout = () => import("@/layouts/error.vue");
+const Home = () => import(/* webpackChunkName: "home" */ "../views/Home.vue");
 
 const options = {
   latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
@@ -35,16 +37,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
-    meta: {
-      layout: defaultLayout,
-    },
-  },
-
-  {
-    path: "/test",
-    name: "Test",
-    component: () => import(/* webpackChunkName: "test" */ "../views/Test.vue"),
+    component: Home,
     meta: {
       layout: defaultLayout,
     },

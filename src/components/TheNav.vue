@@ -146,8 +146,8 @@
 </template>
 <script>
 // import BaseSearch from "@/components/BaseSearch.vue";
-import BaseNavigationDrawer from "@/components/Base/BaseNavigationDrawer.vue";
-import UserDrawer from "@/components/User/UserDrawer.vue";
+const  BaseNavigationDrawer= () => import("@/components/Base/BaseNavigationDrawer.vue")
+const UserDrawer = () => import("@/components/User/UserDrawer.vue")
 import { mapState } from "vuex";
 import authMixin from "@/mixins/auth.js";
 export default {

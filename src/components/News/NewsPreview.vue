@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import MarkDown from "@/components/Base/BaseMarkdown";
+const MarkDown = () => import("@/components/Base/BaseMarkdown")
 export default {
   components: {
     "vue-markdown": MarkDown,

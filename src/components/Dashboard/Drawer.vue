@@ -4,7 +4,7 @@
       <router-link :to="{ name: 'Home' }" class="router-link">
         <v-list-item class="d-flex justify-center align-center">
           <v-avatar size="40">
-            <img src="/img/avatar-default.png" alt="John Doe" />
+            <img src="/img/user-avatar.png" alt="John Doe" />
           </v-avatar>
           <v-list-item-title class="ml-4 body-1 admin--text">
             <span class="d-block text-caption">Logged in as</span>

@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import FAQConfirmModal from "@/components/Modal/FAQConfirmModal.vue";
+const FAQConfirmModal = () => import("@/components/Modal/FAQConfirmModal.vue")
 export default {
   name: "BaseAccordion",
   components: {

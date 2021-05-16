@@ -45,6 +45,11 @@
         <BaseAccordion :faq="faq" />
       </v-col>
     </v-row>
+      <v-row>
+        <v-btn color="deep-purple darken-4" :ripple="false" class="white--text" :to='{name:"FAQ-New"}' dark large fixed bottom right fab>
+              <v-icon>mdi-plus</v-icon>
+          </v-btn>
+      </v-row>
     <v-row class="my-6">
       <v-col
         cols="12"
@@ -58,8 +63,8 @@
   </v-container>
 </template>
 <script>
-import BaseAccordion from "@/components/Base/BaseAccordion.vue";
-import BaseLoader from "@/components/Base/BaseLoader.vue";
+const BaseAccordion = () => import("@/components/Base/BaseAccordion.vue")
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue")
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 
