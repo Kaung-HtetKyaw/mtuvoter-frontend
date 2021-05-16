@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import NotiBar from "@/components/Base/BaseNotification.vue";
+const NotiBar = () => import("@/components/Base/BaseNotification.vue")
 import { mapState } from "vuex";
 export default {
   components: {

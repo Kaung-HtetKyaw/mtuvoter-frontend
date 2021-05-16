@@ -110,9 +110,9 @@
 </template>
 
 <script>
-import BarChart from "@/components/Chart/Bar.vue";
-import BaseTable from "@/components/Base/BaseTable.vue";
-import BaseLogCard from "@/components/Base/BaseLogCard.vue";
+const BarChart= () => import("@/components/Chart/Bar.vue");
+const BaseTable= () => import("@/components/Base/BaseTable.vue");
+const BaseLogCard= () => import("@/components/Base/BaseLogCard.vue");
 import store from "@/store/index.js";
 import axios from "@/services/axios.js";
 import {

@@ -10,12 +10,18 @@ export const mutations = {
   LOGIN(state, user) {
     state.user = user;
   },
+  SIGNUP(state,user) {
+    state.user = user;
+  },
   SET_ME(state, user) {
     state.user = user;
   },
   UPDATE_PASSWORD() {},
   UPDATE_ME(state, user) {
     state.user = user;
+  },
+  CHANGE_SUBSCRIBED_FLAG(state,flag) {
+    state.user.subscribed = flag;
   },
   // making sure the app will try to fetch the current user from jwt only for one time
   CHANGE_FETCH_STATE(state) {
@@ -24,8 +30,9 @@ export const mutations = {
 };
 
 export const actions = {
-  async login({ commit }, user) {
-    await axios()
+  async login({ commit,dispatch }, user) {
+    commit("CHANGE_FETCH_STATE");
+    return axios()
       .post(
         `/users/login`,
         {
@@ -36,14 +43,33 @@ export const actions = {
         }
       )
       .then((res) => {
+        if(res.data.message) {
+          return res.data;
+        }
         commit("LOGIN", res.data.data);
-        commit("CHANGE_FETCH_STATE");
+        dispatch('election/clearElections',null,{root:true})
+        dispatch('news/clearNews',null,{root:true})
         return res.data.data;
       })
-      .catch((e) => {
-        commit("CHANGE_FETCH_STATE");
-        console.log(e);
-      });
+  },
+  async signup({ commit,dispatch }, user) {
+    commit("CHANGE_FETCH_STATE");
+    await axios()
+      .post(
+        `/users/signup`,
+        {
+          ...user,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        commit("SIGNUP", res.data.data);
+        dispatch('election/clearElections',null,{root:true})
+        dispatch('news/clearNews',null,{root:true})
+        return res.data.data;
+      })
   },
   async getMe({ commit }) {
     await axios()
@@ -85,19 +111,35 @@ export const actions = {
         commit("UPDATE_PASSWORD");
         return res.data;
       })
-      .catch((e) => {
-        showNoti("error", e.response.message);
-      });
   },
-  async logOut({ commit }) {
+  async logOut({ commit,dispatch }) {
     await axios()
       .get(`/users/logout`)
       .then(() => {
         commit("SET_ME", null);
+        // clear the elections for authenticated user
+        dispatch("election/clearElections",null,{root:true})
+        dispatch('news/clearNews',null,{root:true})
       })
       .catch(() => {
         showNoti("error", "Error logging out");
       });
   },
+
+  async changeSubscribedFlag({commit},wasSubscribed) {
+    let route = `/users/me/${wasSubscribed?'unsubscribe':'subscribe'}`;
+    return axios().patch(route)
+    .then((res)=> {
+      commit('CHANGE_SUBSCRIBED_FLAG',res.data.data.subscribed);
+      return res.data.data;
+    })
+    .catch((e)=>{
+      if(e.response.data.message) {
+        showNoti('error',e.response.data.message)
+      } else {
+        showNoti('error','Something went wrong')
+      }
+    })
+  }
 };
 export const getters = {};

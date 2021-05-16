@@ -29,6 +29,17 @@
             Soon
           </v-chip>
           <v-divider></v-divider>
+          <v-chip
+            v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')"
+            small
+            outlined
+            class="ma-2"
+            color="deep-purple darken-4 white--text my-3 font-weight-bold"
+          >
+            {{election.published ? "Published":"Unpublished"}}
+            <v-icon v-if="election.published" x-small class="ml-1">mdi-check-circle</v-icon>
+          </v-chip>
+          <v-divider></v-divider>
           <v-card-title class="election-title  font-weight-bold text-center">{{
             election.name
           }}</v-card-title>

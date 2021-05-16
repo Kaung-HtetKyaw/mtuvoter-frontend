@@ -32,4 +32,15 @@ export default [
       layout: plainLayout,
     },
   },
+  {
+    path: "/verify/:token",
+    name: "Verify",
+    component: () =>
+      import(
+        /* webpackChunkName: "verify" */ "../views/Auth/Verify.vue"
+      ),
+    meta: {
+      layout: plainLayout,
+    },  
+  }
 ];

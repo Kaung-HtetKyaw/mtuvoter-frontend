@@ -1,6 +1,8 @@
 <template>
   <form action="#" class="sign-in-form">
     <h2 class="title">Sign in</h2>
+    <p v-if="error" class="red--text font-weight-medium">{{error}}</p>
+    <p v-if="info" class="success--text font-weight-medium">{{info}}</p>
     <div class="input-field">
       <i class="fas fa-user"></i>
       <input v-model="account.email" type="email" placeholder="Email" />
@@ -51,6 +53,8 @@ export default {
         password: "",
       },
       loading: false,
+      error:null,
+      info:null
     };
   },
   methods: {
@@ -58,15 +62,25 @@ export default {
       e.preventDefault();
       const vm = this;
       vm.loading = true;
+      vm.error = null;
       await store
         .dispatch("user/login", this.account)
-        .then(() => {
+        .then((res) => {
+          console.log(res)
           vm.loading = false;
+          if(res.message) {
+            vm.info = res.message;
+            return;
+          }
           vm.$router.push({ name: "Elections" });
         })
-        .catch(() => {
+        .catch((e) => {
           vm.loading = false;
-          showNoti("error", "Something went wrong");
+          if(e.response.data.message) {
+            vm.error  = e.response.data.message
+          } else {
+            showNoti("error", "Something went wrong");
+          }
         });
     },
   },

@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Layout from "@/layouts/AppLayout.vue";
-import NotificationContainer from "@/components/Base/BaseNotiContainer.vue";
+const Layout = () => import("@/layouts/AppLayout.vue");
+const NotificationContainer = () => import("@/components/Base/BaseNotiContainer.vue");
 
 export default {
   name: "App",

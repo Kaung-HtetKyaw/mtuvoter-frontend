@@ -50,7 +50,7 @@
 </template>
 <script>
 // import BaseSearch from "@/components/BaseSearch.vue";
-import AdminDrawer from "@/components/Dashboard/Drawer.vue";
+const AdminDrawer = () => import("@/components/Dashboard/Drawer.vue")
 export default {
   name: "TheNav",
   components: {

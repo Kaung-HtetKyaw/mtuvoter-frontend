@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import BarChart from "@/components/Chart/Bar.vue";
-import PieChart from '@/components/Chart/Pie.vue';
-import BaseLoader from '@/components/Base/BaseLoader.vue'
+const BarChart = () => import("@/components/Chart/Bar.vue")
+const PieChart = () => import('@/components/Chart/Pie.vue')
+const BaseLoader = () => import('@/components/Base/BaseLoader.vue')
 import {
   candidate_votes_by_student,
   election_result,

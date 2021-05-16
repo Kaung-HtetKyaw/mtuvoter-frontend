@@ -238,9 +238,11 @@ export default {
         })
         .then(() => {
           vm.updating_password = false;
-          showNoti("success", "Password has been updated successfully");
+          showNoti("success", "Password has been updated successfully. Please log in again with your new password.");
+          vm.$router.push({name:'Login'})
         })
-        .catch(() => {
+        .catch((e) => {
+          console.log(e.response)
           vm.updating_password = false;
           showNoti("error", "Error updating password");
         });

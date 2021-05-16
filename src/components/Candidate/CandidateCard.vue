@@ -120,8 +120,8 @@
 </template>
 
 <script>
-import Vote from "@/components/Form/Vote.vue";
-import ConfirmModal from "@/components/Modal/CandidateConfirmModal.vue";
+const Vote = () => import("@/components/Form/Vote.vue")
+const ConfirmModal = () => import("@/components/Modal/CandidateConfirmModal.vue")
 import { yearMap, majorMap } from "@/utils/constants.js";
 
 export default {

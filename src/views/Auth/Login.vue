@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import LoginForm from "@/components/Form/Login.vue";
-import SignUpForm from "@/components/Form/Signup.vue";
+const LoginForm = () => import("@/components/Form/Login.vue")
+const SignUpForm = () => import("@/components/Form/Signup.vue")
 export default {
   name: "Auth",
   components: {

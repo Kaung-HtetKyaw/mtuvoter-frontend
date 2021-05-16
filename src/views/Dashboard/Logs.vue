@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import BaseLogCard from "@/components/Base/BaseLogCard.vue";
-import BaseLoader from "@/components/Base/BaseLoader.vue";
+const BaseLogCard= () => import("@/components/Base/BaseLogCard.vue");
+const BaseLoader= () => import("@/components/Base/BaseLoader.vue");
 import {
   candidate_votes_by_student,
   election_result,
