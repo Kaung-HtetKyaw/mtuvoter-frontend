@@ -1,4 +1,5 @@
 import axios from "axios";
+console.log(process.env.VUE_APP_BASE_API_URL)
 export default (isForm) => {
   const options = {
     withCredentials: true,
