@@ -75,10 +75,10 @@ function setDefaultLayout(routes) {
   });
   return result;
 }
-
+const baseUrl = process.env.NODE_ENV === 'production'? process.env.BASE_URL_PROD:process.env.BASE_URL;
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  base: baseUrl,
   scrollBehavior() {
     return { x: 0, y: 0 };
   },
