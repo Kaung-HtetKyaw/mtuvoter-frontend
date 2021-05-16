@@ -2,7 +2,7 @@ import axios from "axios";
 export default (isForm) => {
   const options = {
     withCredentials: true,
-    baseURL: VUE_APP_BASE_API_URL
+    baseURL: process.env.VUE_APP_BASE_API_URL
   };
   if (isForm) {
     options.headers = {
