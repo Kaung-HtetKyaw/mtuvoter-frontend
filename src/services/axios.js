@@ -2,7 +2,7 @@ import axios from "axios";
 export default (isForm) => {
   const options = {
     withCredentials: true,
-    baseURL: `${process.env.VUE_APP_BASE_API_URL}`,
+    baseURL: `https://practical-mestorf-eaedc4.netlify.app`,
   };
   if (isForm) {
     options.headers = {
