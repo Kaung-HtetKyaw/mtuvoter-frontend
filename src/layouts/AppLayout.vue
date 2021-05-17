@@ -15,19 +15,19 @@ import { mapState } from "vuex";
 export default {
   name: "AppLayout",
   components: {
-    LoadingScreen,
+    LoadingScreen
   },
   computed: {
     ...mapState({
-      loading: (state) => state.UI.loading,
-    }),
+      loading: state => state.UI.loading
+    })
   },
 
   data() {
     return {
-      layout: DefaultLayout,
+      layout: DefaultLayout
     };
-  },
+  }
 };
 </script>
 

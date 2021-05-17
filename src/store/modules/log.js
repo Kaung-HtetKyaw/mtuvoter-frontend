@@ -7,7 +7,7 @@ export const state = {
   logs: [],
   page: 1,
   limit: 10,
-  end: false,
+  end: false
 };
 export const mutations = {
   FETCH_LOGS(state, logs) {
@@ -17,14 +17,14 @@ export const mutations = {
 
   INCREMENT_PAGE(state) {
     state.page++;
-  },
+  }
 };
 
 export const actions = {
   async getLogs({ commit, state }, query = "") {
     const logs = await axios()
       .get(`/logs?page=${state.page}&limit=${state.limit}&${query}`)
-      .then((res) => {
+      .then(res => {
         commit("FETCH_LOGS", res.data.data);
         commit("INCREMENT_PAGE");
         return res.data.data;
@@ -33,6 +33,6 @@ export const actions = {
         showNoti("error", "Error loading Logs. Please reload and try again.");
       });
     return logs;
-  },
+  }
 };
 export const getters = {};

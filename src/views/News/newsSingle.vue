@@ -1,7 +1,10 @@
 <template>
   <v-container class="news__wrapper">
-    <v-row v-if="!news" class="loading-wrapper d-flex justify-center align-center" >
-      <BaseLoader/>
+    <v-row
+      v-if="!news"
+      class="loading-wrapper d-flex justify-center align-center"
+    >
+      <BaseLoader />
     </v-row>
     <v-row v-else>
       <v-col cols="12" sm="12">
@@ -22,8 +25,12 @@
               >Update the news</v-btn
             >
           </div>
-          <div class="width-100 mt-6 mb-3" 
-          v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')"
+          <div
+            class="width-100 mt-6 mb-3"
+            v-if="
+              authenticated &&
+                (userDetail.role === 'admin' || userDetail.role === 'mod')
+            "
           >
             <v-btn
               depressed
@@ -32,8 +39,8 @@
               :ripple="false"
               class="white--text text-capitalize"
               @click="changePublishedFlag"
-              :loading='changing_published_flag'
-              >{{news.published?'Unpublish':'Publish'}} the news</v-btn
+              :loading="changing_published_flag"
+              >{{ news.published ? "Unpublish" : "Publish" }} the news</v-btn
             >
           </div>
           <div class="width-100 mb-6">
@@ -66,7 +73,7 @@
                 :style="{
                   backgroundImage: `url(${news.photo})`,
                   backgroundSize: 'contain',
-                  backgroundPosition: 'center',
+                  backgroundPosition: 'center'
                 }"
                 class="news__cover"
               ></div
@@ -83,8 +90,8 @@ import store from "@/store/index.js";
 import { mapState } from "vuex";
 import Markdown from "@/components/Base/BaseMarkdown.vue";
 import NewsConfirmModal from "@/components/Modal/NewsConfirmModal.vue";
-import {showNoti} from '@/utils/noti.js'
-const BaseLoader = () => import('@/components/Base/BaseLoader.vue')
+import { showNoti } from "@/utils/noti.js";
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
 export default {
   name: "News-Single",
   components: {
@@ -94,18 +101,18 @@ export default {
   },
   computed: {
     ...mapState({
-      news: (state) => state.news.singleNews,
-    }),
+      news: state => state.news.singleNews
+    })
   },
   data() {
     return {
-      changing_published_flag:false
+      changing_published_flag: false
     };
   },
 
   async beforeRouteEnter(to, from, next) {
     let id = to.params.news;
-    let news = store.state.news.news.find((el) => el._id === to);
+    let news = store.state.news.news.find(el => el._id === to);
     // check for already fetched as a single
     if (!news) {
       if (store.state.news.singleNews && store.state.news.singleNews._id === id)
@@ -113,29 +120,33 @@ export default {
     }
 
     if (!news) {
-      news = await store.dispatch("news/getSingleNews", id)
+      news = await store.dispatch("news/getSingleNews", id);
     }
     next();
   },
-  methods:{
+  methods: {
     async changePublishedFlag() {
       const vm = this;
       vm.changing_published_flag = true;
-      await store.dispatch('news/changePublishedFlag',{newsId:vm.news._id})
-      .then((res)=>{
-        vm.changing_published_flag = false;
-        showNoti('success',`This news has been ${res.published ? 'published' : 'unpublished'}`)
-      })
-      .catch(()=>{
-        vm.changing_published_flag = false;
-      })
+      await store
+        .dispatch("news/changePublishedFlag", { newsId: vm.news._id })
+        .then(res => {
+          vm.changing_published_flag = false;
+          showNoti(
+            "success",
+            `This news has been ${res.published ? "published" : "unpublished"}`
+          );
+        })
+        .catch(() => {
+          vm.changing_published_flag = false;
+        });
     }
   },
   watch: {
     news(value) {
       console.log(value);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -162,7 +173,7 @@ export default {
   }
 }
 .loading-wrapper {
-  width:100%;
-  height:100vh;
+  width: 100%;
+  height: 100vh;
 }
 </style>

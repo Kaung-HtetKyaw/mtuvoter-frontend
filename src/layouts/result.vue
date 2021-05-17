@@ -24,8 +24,8 @@ export default {
   components: {
     TheNav,
     TheFooter,
-    BaseSearch,
-  },
+    BaseSearch
+  }
 };
 </script>
 

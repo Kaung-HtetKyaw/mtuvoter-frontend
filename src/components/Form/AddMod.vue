@@ -109,11 +109,11 @@
 <script>
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue")
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
 export default {
   name: "AddMod",
   components: {
-    BaseLoader,
+    BaseLoader
   },
   data: () => ({
     dialog: false,
@@ -122,7 +122,7 @@ export default {
     email: "",
     not_found: false,
     adding: false,
-    removing: false,
+    removing: false
   }),
   methods: {
     async findUser() {
@@ -130,13 +130,13 @@ export default {
       vm.loading = true;
       await axios()
         .get(`/users?email=${vm.email}`)
-        .then((res) => {
+        .then(res => {
           vm.user = res.data.data[0];
           vm.loading = false;
           if (!res.data.data[0]) vm.not_found = true;
           console.log(res.data.data[0]);
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e.response);
           showNoti("error", "Error finding the user");
         });
@@ -146,7 +146,7 @@ export default {
       vm.adding = true;
       await axios()
         .post(`/users/roles`, {
-          email: vm.email,
+          email: vm.email
         })
         .then(() => {
           vm.adding = false;
@@ -155,7 +155,7 @@ export default {
           showNoti("success", "New Moderator has been added successfully");
           vm.clearData();
         })
-        .catch((e) => {
+        .catch(e => {
           vm.adding = false;
           showNoti("error", e.response.message);
         });
@@ -166,8 +166,8 @@ export default {
       this.user = null;
       this.not_found = false;
       this.email = "";
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

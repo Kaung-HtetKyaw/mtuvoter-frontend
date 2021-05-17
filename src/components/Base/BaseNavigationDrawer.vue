@@ -70,30 +70,30 @@ const defaultItem = [
     icon: "mdi-chart-bubble",
     title: "Elections",
     to: { name: "Elections" },
-    auth: false,
+    auth: false
   },
   {
     icon: "mdi-account-group",
     title: "Newsletter",
-    to: { name: "Newsletter" },
+    to: { name: "Newsletter" }
   },
   {
     icon: "mdi-account-group",
     title: "FAQ",
-    to: { name: "FAQ" },
-  },
+    to: { name: "FAQ" }
+  }
 ];
 const authorityItem = [
   {
     icon: "mdi-account-tie",
     title: "Dashboard",
-    to: { name: "Dashboard" },
+    to: { name: "Dashboard" }
   },
   {
     icon: "mdi-account-cog",
     title: "Account Setting",
-    to: { name: "Account" },
-  },
+    to: { name: "Account" }
+  }
 ];
 
 export default {
@@ -107,41 +107,41 @@ export default {
             {
               icon: "mdi-newspaper-variant-outline",
               title: "Create new Article",
-              to: { name: "new" },
+              to: { name: "new" }
             },
             {
               icon: "#",
               title: "Tags",
-              to: "/t",
+              to: "/t"
             },
             {
               icon: "mdi-format-list-bulleted",
               title: "Saved",
-              to: { name: "by-saved", params: { by: vm.user.uid } },
+              to: { name: "by-saved", params: { by: vm.user.uid } }
             },
             {
               icon: "mdi-cog",
               title: "Settings",
-              to: { name: "by-settings", params: { by: vm.user.uid } },
+              to: { name: "by-settings", params: { by: vm.user.uid } }
             },
             {
               icon: "mdi-account-group",
               title: "Topics",
-              to: { name: "topics" },
+              to: { name: "topics" }
             },
             {
               icon: "mdi-account-multiple-plus",
               title: "Create new Topic",
-              to: { name: "topics-new" },
-            },
+              to: { name: "topics-new" }
+            }
           ]
         : defaultItem;
     },
     authorityItem() {
       const user = this.userDetail;
       return user ? (user.role === "admin" ? authorityItem : []) : [];
-    },
-  },
+    }
+  }
 };
 </script>
 

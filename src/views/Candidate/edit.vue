@@ -39,8 +39,8 @@
                 name: 'Election-Position-Edit',
                 params: {
                   election: candidate._election,
-                  position: candidate._post,
-                },
+                  position: candidate._post
+                }
               }"
               class="text-decoration-underline px-1"
               >here</router-link
@@ -130,16 +130,16 @@ export default {
     return {
       candidate: { name: "", promise: "", photo: "", year: "" },
       yearArray: yearArray,
-      loading: false,
+      loading: false
     };
   },
   computed: {
     ...mapState({
-      election: (state) => state.election.election,
+      election: state => state.election.election
     }),
     originalCandidate() {
       return this.election.candidates.find(
-        (el) => el._id === this.$route.params.candidate
+        el => el._id === this.$route.params.candidate
       );
     },
     electionId() {
@@ -147,7 +147,7 @@ export default {
     },
     positionId() {
       return this.candidate._post;
-    },
+    }
   },
   beforeRouteEnter(to, from, next) {
     if (
@@ -181,7 +181,7 @@ export default {
           electionId: vm.electionId,
           positionId: vm.positionId,
           formData,
-          candidate: vm.candidate,
+          candidate: vm.candidate
         })
         .then(() => {
           vm.loading = false;
@@ -190,8 +190,8 @@ export default {
         .catch(() => {
           vm.loading = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

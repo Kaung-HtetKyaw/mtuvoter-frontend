@@ -19,7 +19,7 @@
         <v-btn
           :to="{
             name: 'Dashboard-Staticstics-Election',
-            params: { election: latest_election._id },
+            params: { election: latest_election._id }
           }"
           :ripple="false"
           text
@@ -110,21 +110,21 @@
 </template>
 
 <script>
-const BarChart= () => import("@/components/Chart/Bar.vue");
-const BaseTable= () => import("@/components/Base/BaseTable.vue");
-const BaseLogCard= () => import("@/components/Base/BaseLogCard.vue");
+const BarChart = () => import("@/components/Chart/Bar.vue");
+const BaseTable = () => import("@/components/Base/BaseTable.vue");
+const BaseLogCard = () => import("@/components/Base/BaseLogCard.vue");
 import store from "@/store/index.js";
 import axios from "@/services/axios.js";
 import {
   candidate_votes_by_student,
-  election_result,
+  election_result
 } from "@/dev-data/result.js";
 export default {
   name: "Dashboard",
   components: {
     BarChart,
     ElectionTable: BaseTable,
-    LogCard: BaseLogCard,
+    LogCard: BaseLogCard
   },
   data() {
     return {
@@ -132,15 +132,15 @@ export default {
       election_result,
       elections: {
         items: [],
-        headings: ["name", "startDate", "endDate", "raced"],
+        headings: ["name", "startDate", "endDate", "raced"]
       },
       authorities: {
         items: [],
-        headings: ["name", "email", "role"],
+        headings: ["name", "email", "role"]
       },
       logs: [],
       results: null,
-      latest_election: null,
+      latest_election: null
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -157,14 +157,14 @@ export default {
     let logs = await axios().get("/logs?limit=10&page=1");
     store.dispatch("UI/changeLoadingState", true);
     // set the data after the DOM update
-    next((vm) => {
+    next(vm => {
       vm.elections.items = elections;
       vm.authorities.items = authorities.data.data;
       vm.logs = logs.data.data;
       vm.results = latest_results;
       vm.latest_election = store.state.election.latest_raced_election;
     });
-  },
+  }
 };
 </script>
 

@@ -11,7 +11,7 @@
 export default {
   data: () => {
     return {
-      isloaded: false,
+      isloaded: false
     };
   },
   mounted() {
@@ -20,7 +20,7 @@ export default {
       console.log("loaded");
       vm.isloaded = true;
     });
-  },
+  }
 };
 </script>
 

@@ -34,8 +34,8 @@
             params: {
               election: candidate._election,
               candidate: candidate._id,
-              position: candidate._post,
-            },
+              position: candidate._post
+            }
           }"
           color="deep-purple darken-4"
           class="white--text text-capitalize"
@@ -56,15 +56,15 @@ export default {
   props: {
     candidate: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       yearMap,
-      majorMap,
+      majorMap
     };
-  },
+  }
 };
 </script>
 

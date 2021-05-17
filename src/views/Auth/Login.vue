@@ -39,13 +39,13 @@
 </template>
 
 <script>
-const LoginForm = () => import("@/components/Form/Login.vue")
-const SignUpForm = () => import("@/components/Form/Signup.vue")
+const LoginForm = () => import("@/components/Form/Login.vue");
+const SignUpForm = () => import("@/components/Form/Signup.vue");
 export default {
   name: "Auth",
   components: {
     LoginForm,
-    SignUpForm,
+    SignUpForm
   },
   mounted() {
     const sign_in_btn = document.querySelector("#sign-in-btn");
@@ -58,7 +58,7 @@ export default {
     sign_in_btn.addEventListener("click", () => {
       container.classList.remove("sign-up-mode");
     });
-  },
+  }
 };
 </script>
 

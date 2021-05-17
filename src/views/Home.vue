@@ -12,8 +12,8 @@
   </div>
 </template>
 <script>
-const Hero = () => import("@/components/UI/Hero.vue")
-const ElectionOverview = () => import("@/components/UI/ElectionOverview.vue")
+const Hero = () => import("@/components/UI/Hero.vue");
+const ElectionOverview = () => import("@/components/UI/ElectionOverview.vue");
 const NewsOverview = () => import("@/components/UI/NewsOverview.vue");
 import store from "@/store/index.js";
 export default {
@@ -21,12 +21,12 @@ export default {
   components: {
     Hero,
     ElectionOverview,
-    NewsOverview,
+    NewsOverview
   },
   data() {
     return {
       elections: [],
-      news: [],
+      news: []
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -40,11 +40,11 @@ export default {
       news = await store.dispatch("news/getNews");
     }
     store.dispatch("UI/changeLoadingState", true);
-    next((vm) => {
+    next(vm => {
       vm.elections = elections;
       vm.news = news;
     });
-  },
+  }
 };
 </script>
 

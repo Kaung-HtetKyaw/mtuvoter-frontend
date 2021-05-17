@@ -7,8 +7,8 @@ export default [
     component: () =>
       import(/* webpackChunkName: "news" */ "../views/News/index.vue"),
     meta: {
-      layout: defaultLayout,
-    },
+      layout: defaultLayout
+    }
   },
   {
     path: "/news/publish",
@@ -16,8 +16,8 @@ export default [
     component: () =>
       import(/* webpackChunkName: "news-publish" */ "../views/News/create.vue"),
     meta: {
-      layout: defaultLayout,
-    },
+      layout: defaultLayout
+    }
   },
   {
     path: "/news/:news",
@@ -27,8 +27,8 @@ export default [
         /* webpackChunkName: "news-single" */ "../views/News/newsSingle.vue"
       ),
     meta: {
-      layout: defaultLayout,
-    },
+      layout: defaultLayout
+    }
   },
   {
     path: "/news/:news/edit",
@@ -36,7 +36,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "news-eidt" */ "../views/News/edit.vue"),
     meta: {
-      layout: defaultLayout,
-    },
-  },
+      layout: defaultLayout
+    }
+  }
 ];

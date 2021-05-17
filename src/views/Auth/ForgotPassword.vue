@@ -65,14 +65,14 @@
 export default {
   data() {
     return {
-      email: "",
+      email: ""
     };
   },
   methods: {
     sendResetLink() {
       this.$router.push({ name: "Reset-Password" });
-    },
-  },
+    }
+  }
 };
 </script>
 

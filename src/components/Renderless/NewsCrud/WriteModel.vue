@@ -4,31 +4,31 @@ export default {
     type: {
       type: String,
       required: true,
-      validator: (v) => {
+      validator: v => {
         return ["create", "update", "delete"].includes(v);
-      },
+      }
     },
     id: {
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
       baseUrl: `https://kgnatours.herokuapp.com/api/v1/news/`,
       loading: false,
-      data: null,
+      data: null
     };
   },
   methods: {
     async writeNews(type, ...params) {
       this.loading = true;
       await this.axios[type](...params)
-        .then((res) => {
+        .then(res => {
           this.data = res.data;
           this.$emit("success", this.data);
           this.loading = false;
         })
-        .catch((e) => {
+        .catch(e => {
           this.$emit("error", e);
           this.loading = false;
         });
@@ -41,7 +41,7 @@ export default {
     },
     update(id, data) {
       return this.writeNews("patch", `${this.baseUrl}/${id}`, data);
-    },
+    }
   },
   render() {
     return this.$scopedSlots.default({
@@ -49,9 +49,9 @@ export default {
       loading: this.loading,
       create: this.create,
       update: this.update,
-      destroy: this.destroy,
+      destroy: this.destroy
     });
-  },
+  }
 };
 </script>
 

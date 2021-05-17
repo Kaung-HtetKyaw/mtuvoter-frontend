@@ -50,23 +50,23 @@
 </template>
 <script>
 // import BaseSearch from "@/components/BaseSearch.vue";
-const AdminDrawer = () => import("@/components/Dashboard/Drawer.vue")
+const AdminDrawer = () => import("@/components/Dashboard/Drawer.vue");
 export default {
   name: "TheNav",
   components: {
     // BaseSearch,
-    AdminDrawer,
+    AdminDrawer
   },
   data: () => ({
     drawer: false,
-    group: null,
+    group: null
   }),
 
   watch: {
     group() {
       this.drawer = false;
-    },
-  },
+    }
+  }
 };
 </script>
 

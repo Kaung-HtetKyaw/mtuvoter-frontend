@@ -5,6 +5,6 @@ export default [
     component: () =>
       import(
         /* webpackChunkName: "election-edit" */ "../views/Position/edit.vue"
-      ),
-  },
+      )
+  }
 ];

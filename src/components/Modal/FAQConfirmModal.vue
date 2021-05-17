@@ -69,12 +69,12 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data: () => ({
     dialog: false,
-    loading: false,
+    loading: false
   }),
   methods: {
     async deleteFAQ() {
@@ -82,7 +82,7 @@ export default {
       vm.loading = true;
       await store
         .dispatch("faq/deleteFAQ", {
-          faqId: vm.id,
+          faqId: vm.id
         })
         .then(() => {
           vm.loading = false;
@@ -92,8 +92,8 @@ export default {
           vm.loading = false;
           showNoti("error", "Error deleting FAQ");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

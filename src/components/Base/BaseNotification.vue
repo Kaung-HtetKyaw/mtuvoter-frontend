@@ -12,7 +12,7 @@
         class="mb-0 text-body-2 font-weight-medium darken-4"
         :class="{
           'deep-purple--text': noti.type === 'success',
-          'red--text': noti.type === 'error',
+          'red--text': noti.type === 'error'
         }"
       >
         {{ noti.message }}
@@ -46,13 +46,13 @@ export default {
   props: {
     noti: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       snackbar: true,
-      timeout: 4000,
+      timeout: 4000
     };
   },
   computed: {},
@@ -65,7 +65,7 @@ export default {
   },
   beforeDestroy() {
     clearTimeout(this.timeout);
-  },
+  }
 };
 </script>
 

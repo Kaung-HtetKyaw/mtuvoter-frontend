@@ -71,12 +71,12 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data: () => ({
     dialog: false,
-    loading: false,
+    loading: false
   }),
   methods: {
     async deleteElection() {
@@ -84,7 +84,7 @@ export default {
       vm.loading = true;
       await store
         .dispatch("election/deleteElection", {
-          electionId: vm.id,
+          electionId: vm.id
         })
         .then(() => {
           vm.loading = false;
@@ -95,8 +95,8 @@ export default {
           vm.loading = false;
           showNoti("error", "Error deleting election");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

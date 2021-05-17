@@ -71,12 +71,12 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data: () => ({
     dialog: false,
-    loading: false,
+    loading: false
   }),
   methods: {
     async removeCandidate() {
@@ -84,7 +84,7 @@ export default {
       vm.loading = true;
       await store
         .dispatch("election/removeCandidate", {
-          candidateId: vm.id,
+          candidateId: vm.id
         })
         .then(() => {
           vm.loading = false;
@@ -95,8 +95,8 @@ export default {
 
           showNoti("error", "Error deleting candidate");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

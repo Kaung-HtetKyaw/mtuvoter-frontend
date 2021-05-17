@@ -55,14 +55,14 @@ export default {
       loading: false,
       faq: {
         question: "",
-        answer: "",
-      },
+        answer: ""
+      }
     };
   },
   computed: {
     ...mapGetters({
-      originalFAQ: "faq/getFaqById",
-    }),
+      originalFAQ: "faq/getFaqById"
+    })
   },
   async beforeRouteEnter(to, from, next) {
     const faqs = store.state.faq.faqs;
@@ -76,7 +76,7 @@ export default {
       );
       return;
     }
-    const currenFaq = faqs.find((el) => el._id === faqId);
+    const currenFaq = faqs.find(el => el._id === faqId);
     if (!currenFaq) {
       showNoti(
         "error",
@@ -107,8 +107,8 @@ export default {
           vm.loading = false;
           showNoti("error", "Error updating FAQ");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

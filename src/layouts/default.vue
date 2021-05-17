@@ -18,8 +18,8 @@ export default {
   name: "App",
   components: {
     TheNav,
-    TheFooter,
-  },
+    TheFooter
+  }
 };
 </script>
 

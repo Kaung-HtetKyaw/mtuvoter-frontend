@@ -5,7 +5,7 @@ export const yearMap = {
   fourth: "စတုတ္ထနှစ်",
   fifth: "ပဉ္စမနှစ်",
   sixth: "ဆဌမနှစ်",
-  others: "ဘွဲ့လွန်",
+  others: "ဘွဲ့လွန်"
 };
 
 export const yearArray = (() => {
@@ -13,7 +13,7 @@ export const yearArray = (() => {
 })();
 
 export const majorMap = {
-  CEIT: "ကွန်ပျူတာအင်ဂျင်နီယာနှင့် သတင်းအချက်အလက်နည်းပညာ",
+  CEIT: "ကွန်ပျူတာအင်ဂျင်နီယာနှင့် သတင်းအချက်အလက်နည်းပညာ"
 };
 
 export const majorArray = (() => {

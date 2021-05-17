@@ -4,7 +4,6 @@ import NProgress from "nprogress";
 
 import NotFound from "@/views/Error.vue";
 
-
 // routes
 import electionRoutes from "./election";
 import newsRoutes from "./news";
@@ -25,7 +24,7 @@ const errorLayout = () => import("@/layouts/error.vue");
 const Home = () => import(/* webpackChunkName: "home" */ "../views/Home.vue");
 
 const options = {
-  latencyThreshold: 200, // Number of ms before progressbar starts showing, default: 100,
+  latencyThreshold: 200 // Number of ms before progressbar starts showing, default: 100,
 };
 Vue.use(NProgress, options);
 Vue.use(VueRouter);
@@ -39,8 +38,8 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: Home,
     meta: {
-      layout: defaultLayout,
-    },
+      layout: defaultLayout
+    }
   },
   ...electionRoutes,
   ...newsRoutes,
@@ -55,20 +54,20 @@ const routes = [
     name: "404",
     component: NotFound,
     meta: {
-      layout: errorLayout,
-    },
+      layout: errorLayout
+    }
   },
   {
     path: "*",
-    redirect: { name: "404" },
-  },
+    redirect: { name: "404" }
+  }
 ];
 
 function setDefaultLayout(routes) {
-  let result = routes.map((route) => {
+  let result = routes.map(route => {
     if (!route.meta?.layout) {
       route.meta = {
-        layout: defaultLayout,
+        layout: defaultLayout
       };
     }
     return route;
@@ -78,19 +77,19 @@ function setDefaultLayout(routes) {
 
 const router = new VueRouter({
   mode: "history",
-  base:process.env.BASE_URL,
+  base: process.env.BASE_URL,
   scrollBehavior() {
     return { x: 0, y: 0 };
   },
-  routes: setDefaultLayout(routes),
+  routes: setDefaultLayout(routes)
 });
 
 router.beforeEach(async (to, from, next) => {
-  const requiresAuth = to.matched.some((el) => !!el.meta.requiresAuth);
+  const requiresAuth = to.matched.some(el => !!el.meta.requiresAuth);
   const requiresMod = to.matched.some(
-    (el) => el.meta.role === "mod" || el.meta.role === "admin"
+    el => el.meta.role === "mod" || el.meta.role === "admin"
   );
-  const requiresAdmin = to.matched.some((el) => el.meta.role === "admin");
+  const requiresAdmin = to.matched.some(el => el.meta.role === "admin");
   let currentUser = store.state.user.user;
   const fetchedAlready = store.state.user.fetched;
 

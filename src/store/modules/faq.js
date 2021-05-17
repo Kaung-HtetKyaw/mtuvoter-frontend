@@ -7,7 +7,7 @@ export const state = {
   faqs: [],
   page: 1,
   limit: 5,
-  end: false,
+  end: false
 };
 export const mutations = {
   FETCH_FAQs(state, faqs) {
@@ -25,14 +25,14 @@ export const mutations = {
   },
   INCREMENT_PAGE(state) {
     state.page++;
-  },
+  }
 };
 
 export const actions = {
   async getFAQs({ commit, state }, qurey = "") {
     const faqs = await axios()
       .get(`/faqs?page=${state.page}&limit=${state.limit}&${qurey}`)
-      .then((res) => {
+      .then(res => {
         commit("FETCH_FAQs", res.data.data);
         commit("INCREMENT_PAGE");
         return res.data.data;
@@ -45,11 +45,11 @@ export const actions = {
   async createFAQ({ commit }, { faq }) {
     await axios()
       .post(`/faqs`, faq)
-      .then((res) => {
+      .then(res => {
         commit("CREATE_FAQ", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
         showNoti("error", e.response.message);
       });
@@ -57,11 +57,11 @@ export const actions = {
   async updateFAQ({ commit }, { faq }) {
     await axios()
       .patch(`faqs/${faq._id}`, faq)
-      .then((res) => {
+      .then(res => {
         commit("UPDATE_FAQ", faq);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         showNoti("error", e.response.message);
       });
   },
@@ -71,13 +71,13 @@ export const actions = {
       .then(() => {
         commit("DELETE_FAQ", faqId);
       })
-      .catch((e) => {
+      .catch(e => {
         showNoti("error", e.response.message);
       });
-  },
+  }
 };
 export const getters = {
-  getFaqById: (state) => (id) => {
-    return state.faqs.find((el) => el._id === id);
-  },
+  getFaqById: state => id => {
+    return state.faqs.find(el => el._id === id);
+  }
 };

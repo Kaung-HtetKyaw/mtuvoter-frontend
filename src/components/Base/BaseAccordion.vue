@@ -79,18 +79,18 @@
 </template>
 
 <script>
-const FAQConfirmModal = () => import("@/components/Modal/FAQConfirmModal.vue")
+const FAQConfirmModal = () => import("@/components/Modal/FAQConfirmModal.vue");
 export default {
   name: "BaseAccordion",
   components: {
-    FAQConfirmModal,
+    FAQConfirmModal
   },
   props: {
     faq: {
       type: Object,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 

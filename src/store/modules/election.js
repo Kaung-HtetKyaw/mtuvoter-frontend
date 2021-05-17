@@ -10,7 +10,7 @@ export const state = {
   latest_results: null,
   page: 1,
   limit: 5,
-  end: false,
+  end: false
 };
 export const mutations = {
   FETCH_ELECTIONS(state, elections) {
@@ -54,30 +54,29 @@ export const mutations = {
   DELETE_POSITION(state, positionId) {
     removeBy(state.election.positions, positionId, "_id");
   },
-  CHANGE_PUBLISHED_FLAG(state, election){
-    if(state.elections.length>0) {
-      replaceBy(state.elections,election,"_id")
+  CHANGE_PUBLISHED_FLAG(state, election) {
+    if (state.elections.length > 0) {
+      replaceBy(state.elections, election, "_id");
     }
-    if(state.election._id === election._id) {
-      state.election.published = election.published
+    if (state.election._id === election._id) {
+      state.election.published = election.published;
     }
-
   },
   CLEAR_ELECTIONS(state) {
     state.end = false;
     state.page = 1;
-    state.elections = []
+    state.elections = [];
   },
   INCREMENT_PAGE(state) {
     state.page++;
-  },
+  }
 };
 
 export const actions = {
   async getElections({ commit, state }, qurey = "") {
     const elections = await axios()
       .get(`/elections?page=${state.page}&limit=${state.limit}&${qurey}`)
-      .then((res) => {
+      .then(res => {
         commit("FETCH_ELECTIONS", res.data.data);
         commit("INCREMENT_PAGE");
         return res.data.data;
@@ -94,11 +93,11 @@ export const actions = {
   async getElection({ commit }, id) {
     const election = await axios()
       .get(`/elections/${id}`)
-      .then((res) => {
+      .then(res => {
         commit("FETCH_ELECTION", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         showNoti("error", e.response.data.message);
       });
     return election;
@@ -106,11 +105,11 @@ export const actions = {
   async getLatestRacedElection({ commit }) {
     const latest_election = await axios()
       .get("/elections/latest-raced-election")
-      .then((res) => {
+      .then(res => {
         commit("FETCH_LATEST_RACED_ELECTION", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
         showNoti("error", "Error loading the latest raced election");
       });
@@ -119,22 +118,22 @@ export const actions = {
   async createElection({ commit }, { election }) {
     return axios()
       .post(`/elections`, election)
-      .then((res) => {
+      .then(res => {
         commit("CREATE_ELECTION", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         showNoti("error", e.response.message);
       });
   },
   async updateElection({ commit }, { election }) {
     await axios()
       .patch(`/elections/${election._id}`, election)
-      .then((res) => {
+      .then(res => {
         commit("UPDATE_ELECTION", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e.response);
         showNoti("error", e.response.message);
       });
@@ -145,7 +144,7 @@ export const actions = {
       .then(() => {
         commit("DELETE_ELECTION", electionId);
       })
-      .catch((e) => showNoti(e.response.message));
+      .catch(e => showNoti(e.response.message));
   },
   async updateCandidate(
     { commit },
@@ -156,14 +155,14 @@ export const actions = {
         `/elections/${electionId}/positions/${positionId}/candidates/${candidate._id}`,
         formData,
         {
-          withCredentials: true,
+          withCredentials: true
         }
       )
-      .then((res) => {
+      .then(res => {
         commit("UPDATE_CANDIDATE", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e.response);
         showNoti("error", e.response.data.message);
       });
@@ -172,9 +171,9 @@ export const actions = {
   },
   async addCandidates({ commit }, { electionId, positionId, candidates }) {
     const newCandidates = await Promise.all(
-      candidates.map((el) => createCandidate(electionId, positionId, el))
+      candidates.map(el => createCandidate(electionId, positionId, el))
     )
-      .then((res) => {
+      .then(res => {
         commit("ADD_CANDIDATES", res);
         return res;
       })
@@ -193,17 +192,17 @@ export const actions = {
       .then(() => {
         commit("DELETE_CANDIDATE");
       })
-      .catch((e) => showNoti("error", e.response.message));
+      .catch(e => showNoti("error", e.response.message));
   },
   // position
   async addPosition({ commit }, { position }) {
     const newPosition = await axios()
       .post(`/elections/${position._election}/positions`, position)
-      .then((res) => {
+      .then(res => {
         commit("ADD_POSITION", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         showNoti("error", e.response.message);
       });
     return newPosition;
@@ -214,11 +213,11 @@ export const actions = {
         `/elections/${position._election}/positions/${position._id}`,
         position
       )
-      .then((res) => {
+      .then(res => {
         commit("UPDATE_POSITION", res.data.data);
         return res.data.data;
       })
-      .catch((e) => showNoti("error", e.response.message));
+      .catch(e => showNoti("error", e.response.message));
     return updatedPosition;
   },
   async removePosition({ commit, getters }, { positionId }) {
@@ -229,11 +228,11 @@ export const actions = {
         commit("DELETE_POSITION", positionId);
         //* remove related candidates(still deciding which is better between deleteing all candidates or just delete it from the local store)
         const candidates = getters.getCandidatesByPosition(positionId);
-        candidates.forEach((el) => {
+        candidates.forEach(el => {
           commit("DELETE_CANDIDATE", el._id);
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
         showNoti("error", e.response.message);
       });
@@ -242,7 +241,7 @@ export const actions = {
   async getLatestResults({ commit, state, dispatch }) {
     await dispatch("getLatestRacedElection");
     const latest_result = await Promise.all(
-      state.latest_raced_election.positions.map((el) =>
+      state.latest_raced_election.positions.map(el =>
         getLatestRacedElectionResult(state.latest_raced_election._id, el._id)
       )
     );
@@ -250,24 +249,27 @@ export const actions = {
     return latest_result;
   },
   // change published flag to true if it was false previously and vice versa
-  async changePublishedFlag({state,commit},{electionId}) {
+  async changePublishedFlag({ state, commit }, { electionId }) {
     let wasPublished = state.election.published;
-    let route = `/elections/${electionId}/${wasPublished?'unpublish':'publish'}`;
-    return axios().patch(route)
-    .then((res) => {
-      commit('CHANGE_PUBLISHED_FLAG',res.data.data);
-      return res.data.data;
-    })
-    .catch(e=>{
-      if(e.response.data.message) {
-        showNoti('error',e.response.data.message)
-      } else {
-        showNoti('error','Something went wrong')
-      }
-    })
+    let route = `/elections/${electionId}/${
+      wasPublished ? "unpublish" : "publish"
+    }`;
+    return axios()
+      .patch(route)
+      .then(res => {
+        commit("CHANGE_PUBLISHED_FLAG", res.data.data);
+        return res.data.data;
+      })
+      .catch(e => {
+        if (e.response.data.message) {
+          showNoti("error", e.response.data.message);
+        } else {
+          showNoti("error", "Something went wrong");
+        }
+      });
   },
-  clearElections({commit}) {
-    commit('CLEAR_ELECTIONS')
+  clearElections({ commit }) {
+    commit("CLEAR_ELECTIONS");
   }
 };
 
@@ -278,7 +280,7 @@ async function createCandidate(electionId, positionId, candidate) {
       candidate,
       { withCredentials: true }
     )
-    .then((res) => {
+    .then(res => {
       return res.data.data;
     })
     .catch(() => {
@@ -288,28 +290,26 @@ async function createCandidate(electionId, positionId, candidate) {
 async function getLatestRacedElectionResult(electionId, positionId) {
   return await axios()
     .get(`/ballots/elections/${electionId}/positions/${positionId}`)
-    .then((res) => res.data.data)
-    .catch((e) => {
+    .then(res => res.data.data)
+    .catch(e => {
       console.log(e.response);
       showNoti("error", "Error creating candidate");
     });
 }
 export const getters = {
-  getCandidatesByPosition: (state) => (position) => {
+  getCandidatesByPosition: state => position => {
     let desiredPosition = state.election.positions.find(
-      (el) => el._id === position
+      el => el._id === position
     );
-    return state.election.candidates.filter(
-      (el) => el._post === desiredPosition
-    );
+    return state.election.candidates.filter(el => el._post === desiredPosition);
   },
-  getCandidateById: (state) => (id) => {
-    return state.election.candidates.find((el) => el._id === id);
+  getCandidateById: state => id => {
+    return state.election.candidates.find(el => el._id === id);
   },
-  getPositionById: (state) => (id) => {
-    return state.election.positions.find((el) => el._id === id);
+  getPositionById: state => id => {
+    return state.election.positions.find(el => el._id === id);
   },
-  getElectionById: (state) => (id) => {
-    return state.elections.find(el=>el._id===id)
+  getElectionById: state => id => {
+    return state.elections.find(el => el._id === id);
   }
 };

@@ -7,14 +7,13 @@ import * as election from "./modules/election";
 import * as news from "./modules/news";
 import * as faq from "./modules/faq";
 import * as result from "./modules/result";
-import * as log from './modules/log';
+import * as log from "./modules/log";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
+  state: {},
   mutations: {},
   actions: {},
-  modules: { notification, user, UI, election, news, faq, result, log },
+  modules: { notification, user, UI, election, news, faq, result, log }
 });

@@ -59,7 +59,7 @@
             ></router-link
           >
 
-          <v-menu transition="slide-y-transition"  bottom v-if="authenticated">
+          <v-menu transition="slide-y-transition" bottom v-if="authenticated">
             <template v-slot:activator="{ on, attrs }">
               <a
                 v-bind="attrs"
@@ -146,8 +146,9 @@
 </template>
 <script>
 // import BaseSearch from "@/components/BaseSearch.vue";
-const  BaseNavigationDrawer= () => import("@/components/Base/BaseNavigationDrawer.vue")
-const UserDrawer = () => import("@/components/User/UserDrawer.vue")
+const BaseNavigationDrawer = () =>
+  import("@/components/Base/BaseNavigationDrawer.vue");
+const UserDrawer = () => import("@/components/User/UserDrawer.vue");
 import { mapState } from "vuex";
 import authMixin from "@/mixins/auth.js";
 export default {
@@ -155,24 +156,24 @@ export default {
   components: {
     // BaseSearch,
     BaseNavigationDrawer,
-    UserDrawer,
+    UserDrawer
   },
   mixins: [authMixin],
   computed: {
     ...mapState({
-      user: (state) => state.user.user,
-    }),
+      user: state => state.user.user
+    })
   },
   data: () => ({
     drawer: false,
-    group: null,
+    group: null
   }),
 
   watch: {
     group() {
       this.drawer = false;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -193,7 +194,7 @@ export default {
         position: absolute;
         bottom: 0;
         left: 0;
-        background-color: #363A92;
+        background-color: #363a92;
         transition: all 0.2s ease-in;
       }
       &:hover {

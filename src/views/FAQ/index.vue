@@ -45,11 +45,22 @@
         <BaseAccordion :faq="faq" />
       </v-col>
     </v-row>
-      <v-row>
-        <v-btn color="deep-purple darken-4" :ripple="false" class="white--text" :to='{name:"FAQ-New"}' dark large fixed bottom right fab>
-              <v-icon>mdi-plus</v-icon>
-          </v-btn>
-      </v-row>
+    <v-row>
+      <v-btn
+        color="deep-purple darken-4"
+        :ripple="false"
+        class="white--text"
+        :to="{ name: 'FAQ-New' }"
+        dark
+        large
+        fixed
+        bottom
+        right
+        fab
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </v-row>
     <v-row class="my-6">
       <v-col
         cols="12"
@@ -63,8 +74,8 @@
   </v-container>
 </template>
 <script>
-const BaseAccordion = () => import("@/components/Base/BaseAccordion.vue")
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue")
+const BaseAccordion = () => import("@/components/Base/BaseAccordion.vue");
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 
@@ -72,17 +83,17 @@ export default {
   name: "faq",
   components: {
     BaseAccordion,
-    BaseLoader,
+    BaseLoader
   },
   computed: {
     ...mapState({
-      faqs: (state) => state.faq.faqs,
-      end: (state) => state.faq.end,
-    }),
+      faqs: state => state.faq.faqs,
+      end: state => state.faq.end
+    })
   },
   data() {
     return {
-      loading: false,
+      loading: false
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -107,8 +118,8 @@ export default {
             vm.loading = false;
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

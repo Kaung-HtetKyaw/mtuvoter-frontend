@@ -13,8 +13,8 @@ import TheNav from "@/components/TheNav";
 export default {
   name: "App",
   components: {
-    TheNav,
-  },
+    TheNav
+  }
 };
 </script>
 

@@ -50,12 +50,12 @@
 </template>
 
 <script>
-const SubscribeModal = () => import('@/components/Modal/SubscribeModal.vue')
+const SubscribeModal = () => import("@/components/Modal/SubscribeModal.vue");
 export default {
-  components:{
+  components: {
     SubscribeModal
   },
-  data: () => ({}),
+  data: () => ({})
 };
 </script>
 <style lang="sass" scoped>

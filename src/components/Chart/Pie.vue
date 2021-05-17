@@ -23,15 +23,15 @@ export default {
   props: {
     name: {
       type: String,
-      required: true,
+      required: true
     },
-    pie_labels:{
-      type:Array,
-      required:true
+    pie_labels: {
+      type: Array,
+      required: true
     },
-    series:{
-      type:Array,
-      required:true
+    series: {
+      type: Array,
+      required: true
     }
   },
   created() {
@@ -39,29 +39,27 @@ export default {
   },
   data() {
     return {
-
       chartOptions: {
         chart: {
           width: 380,
           height: 800,
-          type: "pie",
+          type: "pie"
         },
         labels: [],
         responsive: [
           {
             breakpoint: 480,
             options: {
-              chart: {
-              },
+              chart: {},
               legend: {
-                position: "bottom",
-              },
-            },
-          },
-        ],
-      },
+                position: "bottom"
+              }
+            }
+          }
+        ]
+      }
     };
-  },
+  }
 };
 </script>
 

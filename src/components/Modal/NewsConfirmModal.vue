@@ -72,12 +72,12 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data: () => ({
     dialog: false,
-    loading: false,
+    loading: false
   }),
   methods: {
     async deleteNews() {
@@ -85,7 +85,7 @@ export default {
       vm.loading = true;
       await store
         .dispatch("news/deleteNews", {
-          newsId: vm.id,
+          newsId: vm.id
         })
         .then(() => {
           vm.loading = false;
@@ -96,8 +96,8 @@ export default {
           vm.loading = false;
           showNoti("error", "Error deleting news");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

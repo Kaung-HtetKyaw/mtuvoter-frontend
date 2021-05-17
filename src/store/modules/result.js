@@ -5,7 +5,7 @@ export const namespaced = true;
 export const state = {
   result_by_position: null,
   result_by_student: null,
-  candidate_result: null,
+  candidate_result: null
 };
 export const mutations = {
   FETCH_RESULT_BY_POSITIONS(state, results) {
@@ -19,20 +19,19 @@ export const mutations = {
   },
   INCREMENT_PAGE(state) {
     state.page++;
-  },
+  }
 };
 
 export const actions = {
   async getElectionResultsByPositions({ commit }, { election }) {
-    let positionIds = election.positions.map((el) => el._id);
+    let positionIds = election.positions.map(el => el._id);
     const results = await Promise.all(
-      positionIds.map((el) => getElectionResultByPosition(election._id, el))
+      positionIds.map(el => getElectionResultByPosition(election._id, el))
     )
-      .then((res) => {
+      .then(res => {
         commit("FETCH_RESULT_BY_POSITIONS", res);
-        
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e.response);
         showNoti("error", e.response.message);
       });
@@ -41,11 +40,11 @@ export const actions = {
   async getElectionResultByStudentType({ commit }, { electionId }) {
     return await axios()
       .get(`/ballots/election-vote-by-student/elections/${electionId}`)
-      .then((res) => {
+      .then(res => {
         commit("FETCH_RESULT_BY_STUDENT", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e.response);
         showNoti("error", "Error Loading the results");
       });
@@ -58,22 +57,22 @@ export const actions = {
       .get(
         `ballots/candidate-vote-by-student/elections/${electionId}/positions/${positionId}/candidates/${candidateId}`
       )
-      .then((res) => {
+      .then(res => {
         commit("FETCH_CANDIDATE_RESULT_BY_STUDENT", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         showNoti("error", e.response.message);
       });
-  },
+  }
 };
 export const getters = {};
 
 async function getElectionResultByPosition(electionId, positionId) {
   return await axios()
     .get(`/ballots/elections/${electionId}/positions/${positionId}`)
-    .then((res) => res.data.data)
-    .catch((e) => {
+    .then(res => res.data.data)
+    .catch(e => {
       console.log(e.response);
       showNoti("error", "Error loading result");
     });

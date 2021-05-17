@@ -119,9 +119,9 @@
 </template>
 
 <script>
-const BaseLoader= () => import("@/components/Base/BaseLoader.vue");
-const AddMod= () => import("@/components/Form/AddMod.vue");
-const BaseModCard= () => import("@/components/Base/BaseModCard.vue");
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const AddMod = () => import("@/components/Form/AddMod.vue");
+const BaseModCard = () => import("@/components/Base/BaseModCard.vue");
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
 import { removeBy } from "@/utils/utils.js";
@@ -131,7 +131,7 @@ export default {
   components: {
     BaseLoader,
     AddMod,
-    BaseModCard,
+    BaseModCard
   },
   data() {
     return {
@@ -143,7 +143,7 @@ export default {
       singleMod: null,
       finding: false,
       email: "",
-      not_found: false,
+      not_found: false
     };
   },
   async created() {
@@ -158,7 +158,7 @@ export default {
       vm.loading = true;
       await axios()
         .get(`/users?role=mod&page=${vm.page}&limit=${vm.limit}`)
-        .then((res) => {
+        .then(res => {
           if (res.data.data.length == 0) {
             vm.end = true;
           }
@@ -176,7 +176,7 @@ export default {
       const vm = this;
       vm.finding = true;
       // check in the existing mods first
-      const mod = vm.mods.find((el) => el.email === vm.email);
+      const mod = vm.mods.find(el => el.email === vm.email);
       if (mod) {
         vm.singleMod = mod;
         vm.finding = false;
@@ -185,7 +185,7 @@ export default {
       // check from the DB
       await axios()
         .get(`/users?role=mod&email=${vm.email}`)
-        .then((res) => {
+        .then(res => {
           if (!res.data.data[0]) {
             vm.not_found = true;
           }
@@ -208,8 +208,8 @@ export default {
     },
     removeMod(user) {
       removeBy(this.mods, user._id, "_id");
-    },
-  },
+    }
+  }
 };
 </script>
 

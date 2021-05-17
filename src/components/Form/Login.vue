@@ -1,8 +1,8 @@
 <template>
   <form action="#" class="sign-in-form">
     <h2 class="title">Sign in</h2>
-    <p v-if="error" class="red--text font-weight-medium">{{error}}</p>
-    <p v-if="info" class="success--text font-weight-medium">{{info}}</p>
+    <p v-if="error" class="red--text font-weight-medium">{{ error }}</p>
+    <p v-if="info" class="success--text font-weight-medium">{{ info }}</p>
     <div class="input-field">
       <i class="fas fa-user"></i>
       <input v-model="account.email" type="email" placeholder="Email" />
@@ -50,11 +50,11 @@ export default {
     return {
       account: {
         email: "",
-        password: "",
+        password: ""
       },
       loading: false,
-      error:null,
-      info:null
+      error: null,
+      info: null
     };
   },
   methods: {
@@ -65,24 +65,24 @@ export default {
       vm.error = null;
       await store
         .dispatch("user/login", this.account)
-        .then((res) => {
-          console.log(res)
+        .then(res => {
+          console.log(res);
           vm.loading = false;
-          if(res.message) {
+          if (res.message) {
             vm.info = res.message;
             return;
           }
           vm.$router.push({ name: "Elections" });
         })
-        .catch((e) => {
+        .catch(e => {
           vm.loading = false;
-          if(e.response.data.message) {
-            vm.error  = e.response.data.message
+          if (e.response.data.message) {
+            vm.error = e.response.data.message;
           } else {
             showNoti("error", "Something went wrong");
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>

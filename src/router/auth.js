@@ -6,8 +6,8 @@ export default [
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/Auth/Login.vue"),
     meta: {
-      layout: plainLayout,
-    },
+      layout: plainLayout
+    }
   },
   {
     path: "/forgot",
@@ -17,8 +17,8 @@ export default [
         /* webpackChunkName: "forgot-password" */ "../views/Auth/ForgotPassword.vue"
       ),
     meta: {
-      layout: plainLayout,
-    },
+      layout: plainLayout
+    }
   },
 
   {
@@ -29,18 +29,16 @@ export default [
         /* webpackChunkName: "reset-password" */ "../views/Auth/ResetPassword.vue"
       ),
     meta: {
-      layout: plainLayout,
-    },
+      layout: plainLayout
+    }
   },
   {
     path: "/verify/:token",
     name: "Verify",
     component: () =>
-      import(
-        /* webpackChunkName: "verify" */ "../views/Auth/Verify.vue"
-      ),
+      import(/* webpackChunkName: "verify" */ "../views/Auth/Verify.vue"),
     meta: {
-      layout: plainLayout,
-    },  
+      layout: plainLayout
+    }
   }
 ];

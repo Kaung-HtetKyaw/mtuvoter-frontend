@@ -45,7 +45,6 @@
                       v-model="start.time"
                       ampm-in-title
                       class="width-100"
-                      
                     ></v-time-picker
                   ></v-col>
                 </v-row>
@@ -108,13 +107,13 @@ export default {
       name: "",
       start: {
         date: new Date().toISOString().substr(0, 10),
-        time: "00:00",
+        time: "00:00"
       },
       end: {
         date: new Date().toISOString().substr(0, 10),
-        time: "00:00",
+        time: "00:00"
       },
-      loading: false,
+      loading: false
     };
   },
   computed: {
@@ -123,14 +122,14 @@ export default {
         about: this.about,
         startDate: new Date(`${this.start.date}T${this.start.time}`),
         endDate: new Date(`${this.end.date}T${this.end.time}`),
-        name: this.name,
+        name: this.name
       };
     },
     isValidDate() {
       return (
         new Date(this.election.endDate) > new Date(this.election.startDate)
       );
-    },
+    }
   },
   methods: {
     async createElection() {
@@ -144,18 +143,21 @@ export default {
       }
       await store
         .dispatch("election/createElection", { election: vm.election })
-        .then((res) => {
+        .then(res => {
           vm.loading = false;
           showNoti("success", "New election has been created successfully");
-          vm.$router.replace({name:"Election-Single",params:{election:res._id}})
+          vm.$router.replace({
+            name: "Election-Single",
+            params: { election: res._id }
+          });
         })
-        .catch((e) => {
+        .catch(e => {
           vm.loading = false;
-          console.log(e)
+          console.log(e);
           showNoti("error", "Error creating new election");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

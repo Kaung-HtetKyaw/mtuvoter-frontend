@@ -11,7 +11,11 @@
       <v-container>
         <v-row class="my-6 account__section">
           <v-col cols="12" sm="12" md="4" class="text-center text-md-left">
-            <h3 class="deep-purple--text darken-4 text-body-1 my-2 font-weight-bold">Profile</h3>
+            <h3
+              class="deep-purple--text darken-4 text-body-1 my-2 font-weight-bold"
+            >
+              Profile
+            </h3>
             <p class="text-body-2 ">
               Your email adderss is your identity on mtuvoter and is used to log
               in.
@@ -87,7 +91,9 @@
         </v-row>
         <v-row class="my-6 account__section">
           <v-col cols="12" sm="12" md="4" class="text-center text-md-left">
-            <h3 class="deep-purple--text darken-4 text-body-1 my-2 font-weight-bold">
+            <h3
+              class="deep-purple--text darken-4 text-body-1 my-2 font-weight-bold"
+            >
               Password
             </h3>
             <p class="text-body-2 ">
@@ -191,8 +197,8 @@ export default {
   name: "Account",
   computed: {
     ...mapState({
-      user: (state) => state.user.user,
-    }),
+      user: state => state.user.user
+    })
   },
   data() {
     return {
@@ -202,7 +208,7 @@ export default {
       confirmedPassword: "",
       updating_account: false,
       updating_password: false,
-      forgetting_password: false,
+      forgetting_password: false
     };
   },
   created() {
@@ -214,9 +220,9 @@ export default {
       vm.updating_account = true;
       await store
         .dispatch("user/updateMe", {
-          user: convertToObjWithPropProvided(vm.account, ["name"]),
+          user: convertToObjWithPropProvided(vm.account, ["name"])
         })
-        .then((res) => {
+        .then(res => {
           console.log(res);
           vm.updating_account = false;
           showNoti("success", "Account has been updated successfully");
@@ -234,15 +240,18 @@ export default {
           email: vm.account.email,
           oldPassword: vm.oldPassword,
           newPassword: vm.newPassword,
-          confirmedPassword: vm.confirmedPassword,
+          confirmedPassword: vm.confirmedPassword
         })
         .then(() => {
           vm.updating_password = false;
-          showNoti("success", "Password has been updated successfully. Please log in again with your new password.");
-          vm.$router.push({name:'Login'})
+          showNoti(
+            "success",
+            "Password has been updated successfully. Please log in again with your new password."
+          );
+          vm.$router.push({ name: "Login" });
         })
-        .catch((e) => {
-          console.log(e.response)
+        .catch(e => {
+          console.log(e.response);
           vm.updating_password = false;
           showNoti("error", "Error updating password");
         });
@@ -263,8 +272,8 @@ export default {
           vm.forgetting_password = false;
           showNoti("error", "Something went wrong");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -22,13 +22,13 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    searchClosed: true,
+    searchClosed: true
   }),
   watch: {
     group() {
       this.drawer = false;
-    },
-  },
+    }
+  }
 };
 </script>
 

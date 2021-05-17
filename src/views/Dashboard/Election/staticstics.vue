@@ -16,7 +16,7 @@
             <router-link
               :to="{
                 name: 'Election-Single',
-                params: { election: election._id },
+                params: { election: election._id }
               }"
               class="text-decoration-underline px-1"
               >here</router-link
@@ -86,7 +86,7 @@
         md="6"
         lg="4"
         v-for="candidate in election.candidates.filter(
-          (el) => el._post === position._id
+          el => el._post === position._id
         )"
         :key="candidate._id"
       >
@@ -97,11 +97,12 @@
 </template>
 
 <script>
-const BarChart= () => import("@/components/Chart/Bar.vue");
-const CandidateCard= () => import("@/components/Candidate/CandidateCardStats.vue");
+const BarChart = () => import("@/components/Chart/Bar.vue");
+const CandidateCard = () =>
+  import("@/components/Candidate/CandidateCardStats.vue");
 import {
   candidate_votes_by_student,
-  election_result,
+  election_result
 } from "@/dev-data/result.js";
 
 import store from "@/store/index.js";
@@ -111,20 +112,20 @@ export default {
   name: "Staticstics",
   components: {
     BarChart,
-    CandidateCard,
+    CandidateCard
   },
   data() {
     return {
       candidate_votes_by_student,
-      election_result,
+      election_result
     };
   },
   computed: {
     ...mapState({
-      election: (state) => state.election.election,
-      result_by_position: (state) => state.result.result_by_position,
-      result_by_student: (state) => state.result.result_by_student,
-    }),
+      election: state => state.election.election,
+      result_by_position: state => state.result.result_by_position,
+      result_by_student: state => state.result.result_by_student
+    })
   },
   async beforeRouteEnter(to, from, next) {
     // load election detail
@@ -137,13 +138,13 @@ export default {
     }
     await store.dispatch("result/getElectionResultsByPositions", { election });
     await store.dispatch("result/getElectionResultByStudentType", {
-      electionId: election._id,
+      electionId: election._id
     });
     // chage the ui state
     store.dispatch("UI/changeLoadingState", true);
 
     next();
-  },
+  }
 };
 </script>
 

@@ -10,8 +10,8 @@ export default [
     meta: {
       layout: adminLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
   {
     path: "/dashboard/logs",
@@ -23,8 +23,8 @@ export default [
     meta: {
       layout: adminLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
   {
     path: "/dashboard/roles",
@@ -36,8 +36,8 @@ export default [
     meta: {
       layout: adminLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
   {
     path: "/dashboard/elections",
@@ -49,8 +49,8 @@ export default [
     meta: {
       layout: adminLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
 
   {
@@ -63,11 +63,12 @@ export default [
     meta: {
       layout: adminLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
   {
-    path: "/dashboard/elections/:election/positions/:position/candidates/:candidate/stats",
+    path:
+      "/dashboard/elections/:election/positions/:position/candidates/:candidate/stats",
     name: "Dashboard-Staticstics-Candidate",
     component: () =>
       import(
@@ -76,7 +77,7 @@ export default [
     meta: {
       layout: adminLayout,
       requiresAuth: true,
-      role: "admin",
-    },
-  },
+      role: "admin"
+    }
+  }
 ];

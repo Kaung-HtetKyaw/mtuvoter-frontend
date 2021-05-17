@@ -1,7 +1,10 @@
 <template>
   <div>
-    <v-container class="loading-wrapper d-flex justify-center align-center" v-if="elections.length===0">
-      <BaseLoader/>
+    <v-container
+      class="loading-wrapper d-flex justify-center align-center"
+      v-if="elections.length === 0"
+    >
+      <BaseLoader />
     </v-container>
     <v-container class="mt-4 mb-8 py-0" v-else>
       <v-row>
@@ -15,7 +18,7 @@
             icon="mdi-information"
             class="text-body-2 text-md-subtitle-1"
           >
-            You can  
+            You can
             <router-link
               :to="{ name: 'Election-New' }"
               class="text-decoration-underline"
@@ -50,9 +53,20 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-btn color="deep-purple darken-4" :ripple="false" class="white--text" :to='{name:"Election-New"}' dark large fixed bottom right fab>
-              <v-icon>mdi-plus</v-icon>
-          </v-btn>
+        <v-btn
+          color="deep-purple darken-4"
+          :ripple="false"
+          class="white--text"
+          :to="{ name: 'Election-New' }"
+          dark
+          large
+          fixed
+          bottom
+          right
+          fab
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
       </v-row>
       <v-row class="my-6">
         <v-col
@@ -65,14 +79,12 @@
         </v-col>
       </v-row>
     </v-container>
-
   </div>
-
 </template>
 
 <script>
 const ElectionCard = () => import("@/components/Election/ElectionCard.vue");
-const BaseLoader = () => import("@/components/Election/ElectionCard.vue")
+const BaseLoader = () => import("@/components/Election/ElectionCard.vue");
 import { mapState } from "vuex";
 import store from "@/store/index.js";
 
@@ -80,17 +92,17 @@ export default {
   name: "Elections",
   components: {
     ElectionCard,
-    BaseLoader,
+    BaseLoader
   },
   computed: {
     ...mapState({
-      elections: (state) => state.election.elections,
-      end: (state) => state.election.end,
-    }),
+      elections: state => state.election.elections,
+      end: state => state.election.end
+    })
   },
   data() {
     return {
-      loading: false,
+      loading: false
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -116,8 +128,8 @@ export default {
             vm.loading = false;
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -137,7 +149,7 @@ export default {
   }
 }
 .loading-wrapper {
-  width:100%;
-  height:100vh;
+  width: 100%;
+  height: 100vh;
 }
 </style>

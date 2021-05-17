@@ -59,7 +59,7 @@
 
 <script>
 const NewsCard = () => import("@/components/News/NewsCard-2.vue");
-const BaseLoader = () => import("@/components/News/NewsCard-2.vue")
+const BaseLoader = () => import("@/components/News/NewsCard-2.vue");
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 
@@ -67,17 +67,17 @@ export default {
   name: "Elections",
   components: {
     NewsCard,
-    BaseLoader,
+    BaseLoader
   },
   computed: {
     ...mapState({
-      news: (state) => state.news.news,
-      end: (state) => state.news.end,
-    }),
+      news: state => state.news.news,
+      end: state => state.news.end
+    })
   },
   data() {
     return {
-      loading: false,
+      loading: false
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -102,8 +102,8 @@ export default {
             vm.loading = false;
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

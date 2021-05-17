@@ -8,7 +8,7 @@ export const state = {
   page: 1,
   limit: 5,
   end: false,
-  singleNews: null,
+  singleNews: null
 };
 export const mutations = {
   FETCH_NEWS(state, news) {
@@ -30,12 +30,12 @@ export const mutations = {
     removeBy(state.news, newsId, "_id");
     state.singleNews = null;
   },
-  CHANGE_PUBLISHED_FLAG(state, news){
-    if(state.news.length>0) {
-      replaceBy(state.news,news,"_id")
+  CHANGE_PUBLISHED_FLAG(state, news) {
+    if (state.news.length > 0) {
+      replaceBy(state.news, news, "_id");
     }
-    if(state.singleNews._id === news._id) {
-      state.singleNews.published = news.published
+    if (state.singleNews._id === news._id) {
+      state.singleNews.published = news.published;
     }
   },
   CLEAR_NEWS(state) {
@@ -45,14 +45,14 @@ export const mutations = {
   },
   INCREMENT_PAGE(state) {
     state.page++;
-  },
+  }
 };
 
 export const actions = {
   async getNews({ commit, state }, qurey = "") {
     const news = await axios()
       .get(`/news?page=${state.page}&limit=${state.limit}&${qurey}`)
-      .then((res) => {
+      .then(res => {
         commit("FETCH_NEWS", res.data.data);
         commit("INCREMENT_PAGE");
         return res.data.data;
@@ -65,14 +65,14 @@ export const actions = {
   async getSingleNews({ commit }, id) {
     const news = await axios()
       .get(`/news/${id}`)
-      .then((res) => {
+      .then(res => {
         commit("FETCH_SINGLE_NEWS", res.data.data);
       })
-      .catch((e) => {
-        if(e.response.data.message) {
-          showNoti("error", e.response.data.message)
+      .catch(e => {
+        if (e.response.data.message) {
+          showNoti("error", e.response.data.message);
         } else {
-          showNoti("error", "Error loading news. Please try again.")
+          showNoti("error", "Error loading news. Please try again.");
         }
       });
     return news;
@@ -80,11 +80,11 @@ export const actions = {
   async createNews({ commit }, { news }) {
     await axios()
       .post(`/news`, news)
-      .then((res) => {
+      .then(res => {
         commit("CREATE_NEWS", res.data.data);
         return res.data.data;
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e.response);
         showNoti("error", e.response.message);
       });
@@ -92,10 +92,10 @@ export const actions = {
   async updateNews({ commit }, { newsId, news }) {
     await axios()
       .patch(`news/${newsId}`, news)
-      .then((res) => {
+      .then(res => {
         commit("UPDATE_NEWS", res.data.data);
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e.response);
         showNoti("error", e.response.message);
       });
@@ -106,36 +106,37 @@ export const actions = {
       .then(() => {
         commit("DELETE_NEWS", newsId);
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
         showNoti("error", e.response.message);
       });
   },
   // change published flag to true if it was false previously and vice versa
-  async changePublishedFlag({state,commit},{newsId}) {
+  async changePublishedFlag({ state, commit }, { newsId }) {
     let wasPublished = state.singleNews.published;
-    let route = `/news/${newsId}/${wasPublished?'unpublish':'publish'}`;
-    return axios().patch(route)
-    .then((res) => {
-      commit('CHANGE_PUBLISHED_FLAG',res.data.data);
-      return res.data.data;
-    })
-    .catch(e=>{
-      if(e.response.data.message) {
-        showNoti('error',e.response.data.message)
-      } else {
-        showNoti('error','Something went wrong')
-      }
-    })
+    let route = `/news/${newsId}/${wasPublished ? "unpublish" : "publish"}`;
+    return axios()
+      .patch(route)
+      .then(res => {
+        commit("CHANGE_PUBLISHED_FLAG", res.data.data);
+        return res.data.data;
+      })
+      .catch(e => {
+        if (e.response.data.message) {
+          showNoti("error", e.response.data.message);
+        } else {
+          showNoti("error", "Something went wrong");
+        }
+      });
   },
-  clearNews({commit}) {
-    commit('CLEAR_NEWS')
+  clearNews({ commit }) {
+    commit("CLEAR_NEWS");
   }
 };
 export const getters = {
-  getNewsByID: (state) => (id) => {
-    return state.news.find((el) => {
+  getNewsByID: state => id => {
+    return state.news.find(el => {
       return el._id === id;
     });
-  },
+  }
 };

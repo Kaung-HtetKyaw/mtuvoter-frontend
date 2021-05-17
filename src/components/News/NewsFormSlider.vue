@@ -36,20 +36,20 @@
 </template>
 
 <script>
-const NewsForm= () => import("@/components/Form/NewsForm")
-const NewsPreview= () => import("@/components/News/NewsPreview")
+const NewsForm = () => import("@/components/Form/NewsForm");
+const NewsPreview = () => import("@/components/News/NewsPreview");
 
 export default {
   name: "NewsFormSlider",
   components: {
     newsForm: NewsForm,
-    newsPreview: NewsPreview,
+    newsPreview: NewsPreview
   },
   props: {
     news: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
@@ -59,13 +59,13 @@ export default {
       tabItems: [
         {
           title: "Write",
-          component: "newsForm",
+          component: "newsForm"
         },
         {
           title: "Preview",
-          component: "newsPreview",
-        },
-      ],
+          component: "newsPreview"
+        }
+      ]
     };
   },
   methods: {
@@ -74,11 +74,11 @@ export default {
     },
     listenFileChange(filePreview) {
       this.filePreview = filePreview;
-    },
+    }
   },
   created() {
     this.clonedNews = { ...this.news };
-  },
+  }
 };
 </script>
 

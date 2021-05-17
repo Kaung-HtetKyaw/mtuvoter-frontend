@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 
 import { register } from "register-service-worker";
-console.log(process.env.VUE_APP_BASE_URL_PROD)
-if (process.env.NODE_ENV === "production") {
 
+if (process.env.NODE_ENV === "production") {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
       console.log(

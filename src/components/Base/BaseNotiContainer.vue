@@ -5,17 +5,17 @@
 </template>
 
 <script>
-const NotiBar = () => import("@/components/Base/BaseNotification.vue")
+const NotiBar = () => import("@/components/Base/BaseNotification.vue");
 import { mapState } from "vuex";
 export default {
   components: {
-    NotiBar,
+    NotiBar
   },
   computed: {
     ...mapState({
-      notifications: (state) => state.notification.notifications,
-    }),
-  },
+      notifications: state => state.notification.notifications
+    })
+  }
 };
 </script>
 

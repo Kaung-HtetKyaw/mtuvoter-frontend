@@ -1,13 +1,16 @@
 /* eslint-disable */
 <template>
   <div>
-    <v-container v-if="loading || !election" class="loading-wrapper d-flex justify-center align-center">
-      <Loader/>
+    <v-container
+      v-if="loading || !election"
+      class="loading-wrapper d-flex justify-center align-center"
+    >
+      <Loader />
     </v-container>
     <v-container class="election py-0 mb-16" v-else>
       <v-row v-if="election.raced">
         <v-col cols="12" sm="12">
-            <v-alert
+          <v-alert
             dismissible
             color="red darken-4"
             border="left"
@@ -17,7 +20,15 @@
             class="text-body-2 text-md-subtitle-1"
             transition="scale-transition"
           >
-            This election has already been called raced. You can see <router-link :to="{name:'Election-Result',params:{election:election._id}}" class="text-decoration-underline font-weight-medium">the results here.</router-link>
+            This election has already been called raced. You can see
+            <router-link
+              :to="{
+                name: 'Election-Result',
+                params: { election: election._id }
+              }"
+              class="text-decoration-underline font-weight-medium"
+              >the results here.</router-link
+            >
           </v-alert>
         </v-col>
       </v-row>
@@ -25,7 +36,12 @@
         <v-col
           cols="12"
           sm="12"
-          v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod') && election.started && !election.raced"
+          v-if="
+            authenticated &&
+              (userDetail.role === 'admin' || userDetail.role === 'mod') &&
+              election.started &&
+              !election.raced
+          "
         >
           <v-alert
             dismissible
@@ -39,11 +55,13 @@
           >
             As a moderator, you can generate guest token
             <router-link
-              :to="{ name: 'Generate-Guest-Token', params:{election:election._id} }"
+              :to="{
+                name: 'Generate-Guest-Token',
+                params: { election: election._id }
+              }"
               class="text-decoration-underline font-weight-medium"
               >here for the guest users.
             </router-link>
-          
           </v-alert>
         </v-col>
       </v-row>
@@ -73,7 +91,7 @@
               v-if="authenticated && userDetail.role === 'admin'"
               :to="{
                 name: 'Election-New-Position',
-                params: { election: election._id },
+                params: { election: election._id }
               }"
             >
               <v-btn
@@ -107,7 +125,7 @@
               <router-link
                 :to="{
                   name: 'Election-Result',
-                  params: { election: $route.params.election },
+                  params: { election: $route.params.election }
                 }"
               >
                 <h3 class="election__link py-2 deep-purple--text darken-4">
@@ -122,7 +140,7 @@
                 v-if="authenticated && userDetail.role === 'admin'"
                 :to="{
                   name: 'Election-Edit',
-                  params: { election: election._id },
+                  params: { election: election._id }
                 }"
               >
                 <v-btn
@@ -135,20 +153,33 @@
                 ></router-link
               >
             </div>
-            <div class="width-100 my-3" v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')">
-                <v-btn
-                  color="deep-purple darken-4"
-                  class="white--text text-capitalize"
-                  depressed
-                  block
-                  :ripple="false"
-                  @click="changePublishedFlag"
-                  :loading='changing_published_flag'
-                  >{{election.published? "Unpublish this election": "Publish this election"}}</v-btn
-                >
+            <div
+              class="width-100 my-3"
+              v-if="
+                authenticated &&
+                  (userDetail.role === 'admin' || userDetail.role === 'mod')
+              "
+            >
+              <v-btn
+                color="deep-purple darken-4"
+                class="white--text text-capitalize"
+                depressed
+                block
+                :ripple="false"
+                @click="changePublishedFlag"
+                :loading="changing_published_flag"
+                >{{
+                  election.published
+                    ? "Unpublish this election"
+                    : "Publish this election"
+                }}</v-btn
+              >
             </div>
             <div class="width-100 mt-3">
-              <ElectionConfirmModal :id="election._id" v-if="authenticated && userDetail.role === 'admin'">
+              <ElectionConfirmModal
+                :id="election._id"
+                v-if="authenticated && userDetail.role === 'admin'"
+              >
                 <template v-slot:default="{ activator }">
                   <v-btn
                     color="red darken-4"
@@ -166,7 +197,10 @@
           </div>
         </v-col>
       </v-row>
-      <v-row v-for="(position, position_index) in election.positions" :key="position._id">
+      <v-row
+        v-for="(position, position_index) in election.positions"
+        :key="position._id"
+      >
         <v-col
           cols="12"
           sm="12"
@@ -199,7 +233,7 @@
                 v-if="authenticated && userDetail.role === 'admin'"
                 :to="{
                   name: 'Election-Position-Edit',
-                  params: { position: position._id },
+                  params: { position: position._id }
                 }"
                 >Update this position
               </v-btn>
@@ -214,8 +248,8 @@
                   name: 'Election-New-Candidate',
                   params: {
                     position: position._id,
-                    election: $route.params.election,
-                  },
+                    election: $route.params.election
+                  }
                 }"
                 >Add Candidates to this position
               </v-btn>
@@ -252,11 +286,15 @@
                     cols="12"
                     sm="12"
                     v-for="candidate in election.candidates.filter(
-                      (el) => el._post === position._id
+                      el => el._post === position._id
                     )"
                     :key="candidate._id"
                   >
-                    <CandidateCard :candidate="candidate" :vote_status="vote_status[position_index].status" :election="election"/>
+                    <CandidateCard
+                      :candidate="candidate"
+                      :vote_status="vote_status[position_index].status"
+                      :election="election"
+                    />
                     <v-divider></v-divider>
                   </v-col>
                 </v-row>
@@ -267,18 +305,19 @@
       </v-row>
     </v-container>
   </div>
-
 </template>
 
 <script>
-const  CandidateCard= () => import("@/components/Candidate/CandidateCard.vue");
-const  PositionConfirmModal= () => import("@/components/Modal/PositionConfirmModal.vue");
-const  ElectionConfirmModal= () => import("@/components/Modal/ElectionConfirmModal.vue");
-const  Loader= () => import('@/components/Base/BaseLoader.vue');
+const CandidateCard = () => import("@/components/Candidate/CandidateCard.vue");
+const PositionConfirmModal = () =>
+  import("@/components/Modal/PositionConfirmModal.vue");
+const ElectionConfirmModal = () =>
+  import("@/components/Modal/ElectionConfirmModal.vue");
+const Loader = () => import("@/components/Base/BaseLoader.vue");
 import store from "@/store/index.js";
-import axios from '@/services/axios.js'
+import axios from "@/services/axios.js";
 import { mapState } from "vuex";
-import {showNoti} from '@/utils/noti.js'
+import { showNoti } from "@/utils/noti.js";
 export default {
   name: "Election",
   components: {
@@ -289,15 +328,15 @@ export default {
   },
   data() {
     return {
-      vote_status:[],
-      loading:true,
-      changing_published_flag:false
-    }
+      vote_status: [],
+      loading: true,
+      changing_published_flag: false
+    };
   },
   computed: {
     ...mapState({
-      election: (state) => state.election.election,
-    }),
+      election: state => state.election.election
+    })
   },
   async beforeRouteEnter(to, from, next) {
     let election = store.state.election.election;
@@ -314,54 +353,65 @@ export default {
   async created() {
     await this.setVoteStatuses();
   },
-  methods:{
+  methods: {
     async setVoteStatuses() {
       const vm = this;
       vm.setDefaultVoteStatus();
-      await Promise.all(vm.election.positions.map(el=>vm.setVoteStatus(el._id)))
-      .then(()=>{
-        vm.loading = false
-      })
-      .catch(()=>{
-        vm.loading=false
-      })
+      await Promise.all(
+        vm.election.positions.map(el => vm.setVoteStatus(el._id))
+      )
+        .then(() => {
+          vm.loading = false;
+        })
+        .catch(() => {
+          vm.loading = false;
+        });
     },
     async setVoteStatus(position) {
       const vm = this;
-      let vote_status = vm.vote_status.find(el=>el.position===position);
+      let vote_status = vm.vote_status.find(el => el.position === position);
 
       await this.fetchVoteStatus(position)
-      .then((res)=>{
-        vote_status.status = res.data.data;
-      })
-      .catch((e)=>{
-        console.log(e.response)
-        vote_status.status = false;
-      })
+        .then(res => {
+          vote_status.status = res.data.data;
+        })
+        .catch(e => {
+          console.log(e.response);
+          vote_status.status = false;
+        });
     },
     async fetchVoteStatus(positionId) {
-      return axios().get(`/users/vote-status/elections/${this.election._id}/positions/${positionId}`)
+      return axios().get(
+        `/users/vote-status/elections/${this.election._id}/positions/${positionId}`
+      );
     },
     setDefaultVoteStatus() {
       const vm = this;
       const positions = vm.election.positions;
-      positions.forEach((el) => {
-        vm.vote_status.push({position:el._id,status:false})
-      })
+      positions.forEach(el => {
+        vm.vote_status.push({ position: el._id, status: false });
+      });
     },
 
     async changePublishedFlag() {
       const vm = this;
       vm.changing_published_flag = true;
-      await store.dispatch('election/changePublishedFlag',{electionId:vm.election._id})
-      .then((res)=>{
-        vm.changing_published_flag = false;
-        showNoti('success',`This election has been ${res.published ? 'published' : 'unpublished'}`)
-      })
-      .catch(()=>{
-        vm.changing_published_flag = false;
-      })
-      
+      await store
+        .dispatch("election/changePublishedFlag", {
+          electionId: vm.election._id
+        })
+        .then(res => {
+          vm.changing_published_flag = false;
+          showNoti(
+            "success",
+            `This election has been ${
+              res.published ? "published" : "unpublished"
+            }`
+          );
+        })
+        .catch(() => {
+          vm.changing_published_flag = false;
+        });
     }
   }
 };
@@ -403,11 +453,11 @@ export default {
 .candidates {
   width: 100%;
 }
-.raced-banner{
+.raced-banner {
   height: 120px;
 }
 .loading-wrapper {
-  width:100%;
-  height:100vh;
+  width: 100%;
+  height: 100vh;
 }
 </style>

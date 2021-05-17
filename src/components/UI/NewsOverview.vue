@@ -28,25 +28,25 @@
 </template>
 
 <script>
-const NewsCard = () => import("@/components/News/NewsCard.vue")
+const NewsCard = () => import("@/components/News/NewsCard.vue");
 export default {
   name: "NewsOverview",
   components: {
-    NewsCard,
+    NewsCard
   },
   props: {
     news: {
       type: Array,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 $bg: #f3f8fa;
 $white: #fff;
-$deep-purple: #363A92;
+$deep-purple: #363a92;
 
 @mixin transition(
   $property: all,
@@ -63,7 +63,7 @@ $deep-purple: #363A92;
       content: "";
       width: 50%;
       height: 2px;
-      background-color: #363A92;
+      background-color: #363a92;
       position: absolute;
       bottom: 0;
       left: 0;

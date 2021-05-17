@@ -1,13 +1,21 @@
 <template>
   <div>
-    <router-link :to="{ name: 'News-Single',params:{news:news._id} }" tag="div">
+    <router-link
+      :to="{ name: 'News-Single', params: { news: news._id } }"
+      tag="div"
+    >
       <div class="row">
         <div class="example-1 card ">
-          <div class="wrapper " :style="{
-            backgroundImage:`url(${news.photo?news.photo:'/img/mtuvoter.png'})`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-          }">
+          <div
+            class="wrapper "
+            :style="{
+              backgroundImage: `url(${
+                news.photo ? news.photo : '/img/mtuvoter.png'
+              })`,
+              backgroundSize: 'contain',
+              backgroundPosition: 'center'
+            }"
+          >
             <div class="date">
               <span class="day">{{ new Date(news.createdAt).getDay() }}</span>
               <span class="month">{{
@@ -21,13 +29,18 @@
               <div class="content">
                 <v-chip
                   outlined
-                  v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')"
+                  v-if="
+                    authenticated &&
+                      (userDetail.role === 'admin' || userDetail.role === 'mod')
+                  "
                   small
                   class="ma-2"
                   color="deep-purple darken-4 white--text my-3 font-weight-medium"
                 >
-                  {{news.published ? "Published":"Unpublished"}}
-                  <v-icon v-if="news.published" x-small class="ml-1">mdi-check-circle</v-icon>
+                  {{ news.published ? "Published" : "Unpublished" }}
+                  <v-icon v-if="news.published" x-small class="ml-1"
+                    >mdi-check-circle</v-icon
+                  >
                 </v-chip>
                 <h1 class="title pb-2">
                   <a href="#" class="workssan">{{ news.title }} </a>
@@ -51,9 +64,9 @@ export default {
   props: {
     news: {
       type: Object,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 
@@ -61,7 +74,7 @@ export default {
 // Variables
 $regal-blue: #034378;
 $san-juan: #2d4e68;
-$bermuda: #363A92;
+$bermuda: #363a92;
 $white: #fff;
 $black: #000;
 $open-sans: "Open Sans", sans-serif;
@@ -131,7 +144,7 @@ a {
 // First example styles
 .example-1 {
   .wrapper {
-  // background: url("/img/mtu-img.jpg");
+    // background: url("/img/mtu-img.jpg");
     background-size: cover;
   }
   .date {

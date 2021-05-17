@@ -4,7 +4,10 @@
       <template v-slot:activator="{ on, attrs }">
         <slot v-bind:activator="{ on, attrs }"></slot>
       </template>
-      <v-card class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6" v-if="!userDetail">
+      <v-card
+        class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6"
+        v-if="!userDetail"
+      >
         <div class="width-100 d-flex justify-end">
           <v-btn
             :ripple="false"
@@ -42,7 +45,9 @@
                 >
               </li>
               <li>
-                If u forget your MTU student email, you can contact with the admins for the one time voting token and enter that voting token below
+                If u forget your MTU student email, you can contact with the
+                admins for the one time voting token and enter that voting token
+                below
               </li>
             </ul>
           </div>
@@ -60,7 +65,8 @@
             label="Select your current attending year"
             dense
             v-model="year"
-            outlined></v-select>
+            outlined
+          ></v-select>
           <v-btn
             dense
             color="deep-purple darken-4"
@@ -74,7 +80,7 @@
           >
         </v-card-text>
       </v-card>
-       <v-card class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6" v-else>
+      <v-card class="px-0 px-md-3 py-md-3 py-0 px-lg-6 py-lg-6" v-else>
         <div class="width-100 d-flex justify-end">
           <v-btn
             :ripple="false"
@@ -104,7 +110,8 @@
           <div class="pl-0 pl-lg-3 my-2">
             <ul class="text-body-2 auth-info">
               <li>
-                You can vote only once for this postion of the election. So you need to be sure to vote for this candidate.
+                You can vote only once for this postion of the election. So you
+                need to be sure to vote for this candidate.
               </li>
             </ul>
           </div>
@@ -114,7 +121,8 @@
             dense
             v-model="year"
             class="mt-4"
-            outlined></v-select>
+            outlined
+          ></v-select>
           <v-btn
             dense
             color="deep-purple darken-4"
@@ -123,7 +131,7 @@
             block
             :ripple="false"
             :loading="voting"
-            @click='vote'
+            @click="vote"
             >Vote this candidate</v-btn
           >
         </v-card-text>
@@ -133,87 +141,87 @@
 </template>
 <script>
 import { yearArray } from "@/utils/constants.js";
-import axios from '@/services/axios.js';
-import {showNoti} from '@/utils/noti.js'
+import axios from "@/services/axios.js";
+import { showNoti } from "@/utils/noti.js";
 export default {
-  props:{
-    raced:{
-      type:Boolean,
-      required:true
+  props: {
+    raced: {
+      type: Boolean,
+      required: true
     },
-    candidate:{
-      type:Object,
-      required:true
+    candidate: {
+      type: Object,
+      required: true
     },
-    electionId:{
-      type:String,
-      require:true
+    electionId: {
+      type: String,
+      require: true
     }
   },
   data: () => ({
     dialog: false,
     yearArray,
-    year:null,
-    token:null,
-    voting:false,
-    checking_vote_token:false,
-    guest_voting:false
+    year: null,
+    token: null,
+    voting: false,
+    checking_vote_token: false,
+    guest_voting: false
   }),
-  methods:{
+  methods: {
     async vote() {
       const vm = this;
       vm.voting = true;
       let payload = {
-        election:vm.electionId,
-        candidate:vm.candidate._id,
-        position:vm.candidate._post,
-        student_type:vm.year
-      }
-      await axios().post(`/vote`,payload)
-      .then(()=>{
-        showNoti("success","Thank you for your constribution");
-        vm.$emit("voted");
-        vm.voting = false
-      })
-      .catch((e)=>{
-        console.log(e.response)
-        vm.voting = false
-        if(e.response.data.message) {
-          showNoti("error",e.response.data.message)
-        } else {
-          showNoti("error","Something went wrong")
-        }
-
-      })
+        election: vm.electionId,
+        candidate: vm.candidate._id,
+        position: vm.candidate._post,
+        student_type: vm.year
+      };
+      await axios()
+        .post(`/vote`, payload)
+        .then(() => {
+          showNoti("success", "Thank you for your constribution");
+          vm.$emit("voted");
+          vm.voting = false;
+        })
+        .catch(e => {
+          console.log(e.response);
+          vm.voting = false;
+          if (e.response.data.message) {
+            showNoti("error", e.response.data.message);
+          } else {
+            showNoti("error", "Something went wrong");
+          }
+        });
     },
     async guestVote() {
       const vm = this;
       vm.voting = true;
-      return await vm.guestLogin()
-      .then(async ()=>{
-        vm.voting = false;
-        vm.dialog = false;
-        vm.token = null;
-        return await vm.vote()
-      })
-      .catch((e)=>{
-        vm.voting = false
-        vm.dialog = false;
-        vm.token = null;
-        if(e.response.data.message) {
-          showNoti("error",e.response.data.message)
-        } else {
-          showNoti("error","Something went wrong");
-        }
-      })
-
+      return await vm
+        .guestLogin()
+        .then(async () => {
+          vm.voting = false;
+          vm.dialog = false;
+          vm.token = null;
+          return await vm.vote();
+        })
+        .catch(e => {
+          vm.voting = false;
+          vm.dialog = false;
+          vm.token = null;
+          if (e.response.data.message) {
+            showNoti("error", e.response.data.message);
+          } else {
+            showNoti("error", "Something went wrong");
+          }
+        });
     },
     async guestLogin() {
       const vm = this;
-      return axios().post(`/users/guest`,{
-        vote_token:vm.token,
-        _election:vm.electionId
-      })
+      return axios().post(`/users/guest`, {
+        vote_token: vm.token,
+        _election: vm.electionId
+      });
     }
   }
 };

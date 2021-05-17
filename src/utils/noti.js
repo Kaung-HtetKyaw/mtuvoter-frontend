@@ -6,7 +6,7 @@ export function showNoti(type, message, to, next) {
     "notification/addNoti",
     {
       type,
-      message,
+      message
     },
     { root: true }
   );

@@ -3,7 +3,7 @@ export default [
     path: "/faqs",
     name: "FAQ",
     component: () =>
-      import(/* webpackChunkName: "faq" */ "../views/FAQ/index.vue"),
+      import(/* webpackChunkName: "faq" */ "../views/FAQ/index.vue")
   },
   {
     path: "/faq/new",
@@ -11,8 +11,8 @@ export default [
     component: () =>
       import(/* webpackChunkName: "faq-new" */ "../views/FAQ/create.vue"),
     meta: {
-      requiresAuth: true,
-    },
+      requiresAuth: true
+    }
   },
   {
     path: "/faq/:faq/edit",
@@ -20,7 +20,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "faq-edit" */ "../views/FAQ/edit.vue"),
     meta: {
-      requiresAuth: true,
-    },
-  },
+      requiresAuth: true
+    }
+  }
 ];

@@ -27,11 +27,11 @@
 </template>
 
 <script>
-const BaseLogCard= () => import("@/components/Base/BaseLogCard.vue");
-const BaseLoader= () => import("@/components/Base/BaseLoader.vue");
+const BaseLogCard = () => import("@/components/Base/BaseLogCard.vue");
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
 import {
   candidate_votes_by_student,
-  election_result,
+  election_result
 } from "@/dev-data/result.js";
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
@@ -39,7 +39,7 @@ export default {
   name: "Dashboard",
   components: {
     LogCard: BaseLogCard,
-    BaseLoader,
+    BaseLoader
   },
   data() {
     return {
@@ -49,7 +49,7 @@ export default {
       limit: 10,
       end: false,
       loading: false,
-      logs: [],
+      logs: []
     };
   },
   async created() {
@@ -58,15 +58,15 @@ export default {
   methods: {
     async loadLogs(isVisible) {
       const vm = this;
-      console.log(isVisible)
+      console.log(isVisible);
       if (vm.end || vm.loading) {
         return;
       }
       vm.loading = true;
       await axios()
         .get(`/logs?page=${vm.page}&limit=${vm.limit}`)
-        .then((res) => {
-          console.log(res.data.data.length)
+        .then(res => {
+          console.log(res.data.data.length);
           if (vm.logs.length > 0 && res.data.data.length === 0) {
             vm.end = true;
             vm.loading = false;
@@ -76,12 +76,12 @@ export default {
           vm.loading = false;
           vm.page++;
         })
-        .catch((e) => {
+        .catch(e => {
           vm.loading = false;
           showNoti("error", e.response.message);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

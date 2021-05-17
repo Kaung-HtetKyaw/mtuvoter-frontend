@@ -39,19 +39,19 @@
 </template>
 
 <script>
-const ElectionCard = () => import("@/components/Election/ElectionCard.vue")
+const ElectionCard = () => import("@/components/Election/ElectionCard.vue");
 
 export default {
   name: "ElectionOverview",
   components: {
-    ElectionCard,
+    ElectionCard
   },
   props: {
     elections: {
       type: Array,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 

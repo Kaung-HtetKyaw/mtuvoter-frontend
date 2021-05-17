@@ -29,8 +29,8 @@
 </template>
 
 <script>
-const ElectionCard= () => import("@/components/Election/ElectionCard.vue")
-const BaseLoader= () => import("@/components/Base/BaseLoader.vue")
+const ElectionCard = () => import("@/components/Election/ElectionCard.vue");
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 
@@ -38,17 +38,17 @@ export default {
   name: "Elections",
   components: {
     ElectionCard,
-    BaseLoader,
+    BaseLoader
   },
   computed: {
     ...mapState({
-      elections: (state) => state.election.elections,
-      end: (state) => state.election.end,
-    }),
+      elections: state => state.election.elections,
+      end: state => state.election.end
+    })
   },
   data() {
     return {
-      loading: false,
+      loading: false
     };
   },
   async beforeRouteEnter(to, from, next) {
@@ -76,8 +76,8 @@ export default {
             vm.loading = false;
           });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

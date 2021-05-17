@@ -15,7 +15,7 @@
             backgroundImage: `url(${filePreview || news.photo})`,
 
             backgroundSize: 'contain',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center'
           }"
           class="mb-6"
         ></v-sheet>
@@ -27,20 +27,20 @@
 </template>
 
 <script>
-const MarkDown = () => import("@/components/Base/BaseMarkdown")
+const MarkDown = () => import("@/components/Base/BaseMarkdown");
 export default {
   components: {
-    "vue-markdown": MarkDown,
+    "vue-markdown": MarkDown
   },
   props: {
     news: {
       type: Object,
-      required: true,
+      required: true
     },
     filePreview: {
-      required: false,
-    },
-  },
+      required: false
+    }
+  }
 };
 </script>
 

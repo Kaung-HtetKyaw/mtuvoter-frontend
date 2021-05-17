@@ -40,9 +40,13 @@
             <div class="width-100">
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center"
-              
               >
-                <Vote @voted="voted=true" :raced='election.raced' :candidate="candidate" :electionId="election._id">
+                <Vote
+                  @voted="voted = true"
+                  :raced="election.raced"
+                  :candidate="candidate"
+                  :electionId="election._id"
+                >
                   <template v-slot:default="{ activator }">
                     <v-btn
                       depressed
@@ -53,22 +57,26 @@
                       class="white--text text-capitalize"
                       :disabled="voted || election.raced || !election.started"
                       :ripple="false"
-                      >{{voted?"Voted":"Vote"}}
+                      >{{ voted ? "Voted" : "Vote" }}
                     </v-btn>
                   </template>
                 </Vote>
               </div>
               <div v-if="election.raced">
-                <p class="text-center text--secondary text-body-2 mt-1">This election has already been called raced.</p>
-            
+                <p class="text-center text--secondary text-body-2 mt-1">
+                  This election has already been called raced.
+                </p>
               </div>
               <div v-if="election.started && !election.raced && voted">
-                <p class="text-center text--secondary text-body-2 mt-1">You have already voted for this position of the election.</p>
+                <p class="text-center text--secondary text-body-2 mt-1">
+                  You have already voted for this position of the election.
+                </p>
               </div>
               <div v-if="!election.started">
-                 <p class="text-center text--secondary text-body-2 mt-1">This election has not yet started.</p>
+                <p class="text-center text--secondary text-body-2 mt-1">
+                  This election has not yet started.
+                </p>
               </div>
-              
 
               <div
                 class="d-flex flex-column flex-md-row justify-center align-center my-3"
@@ -84,7 +92,7 @@
                   v-if="authenticated && userDetail.role === 'admin'"
                   :to="{
                     name: 'Election-Candidate-Edit',
-                    params: { candidate: candidate._id },
+                    params: { candidate: candidate._id }
                   }"
                   >Update this candidate
                 </v-btn>
@@ -120,42 +128,43 @@
 </template>
 
 <script>
-const Vote = () => import("@/components/Form/Vote.vue")
-const ConfirmModal = () => import("@/components/Modal/CandidateConfirmModal.vue")
+const Vote = () => import("@/components/Form/Vote.vue");
+const ConfirmModal = () =>
+  import("@/components/Modal/CandidateConfirmModal.vue");
 import { yearMap, majorMap } from "@/utils/constants.js";
 
 export default {
   name: "CandidateCard",
   components: {
     Vote,
-    ConfirmModal,
+    ConfirmModal
   },
   props: {
     candidate: {
       type: Object,
-      required: true,
+      required: true
     },
-    election:{
-      type:Object,
-      required:true
+    election: {
+      type: Object,
+      required: true
     },
-    vote_status:{
-      type:Boolean,
-      required:true
+    vote_status: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
     return {
       yearMap,
       majorMap,
-      voted:false
+      voted: false
     };
   },
   created() {
     // can't overwirte the prop
     // so, make data properties for later case of overwriting
-    this.voted = this.vote_status
-    console.log(this.vote_status)
+    this.voted = this.vote_status;
+    console.log(this.vote_status);
   }
 };
 </script>

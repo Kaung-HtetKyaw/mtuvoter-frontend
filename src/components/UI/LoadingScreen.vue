@@ -16,8 +16,8 @@ export default {};
 .loading__wrapper {
   position: absolute;
   width: 100vw;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   z-index: 1000;
   display: flex;
   height: 100vh;

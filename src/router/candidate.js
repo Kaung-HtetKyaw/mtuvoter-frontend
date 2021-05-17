@@ -8,7 +8,7 @@ export default [
       ),
     meta: {
       requiresAuth: true,
-      role: "admin",
-    },
-  },
+      role: "admin"
+    }
+  }
 ];

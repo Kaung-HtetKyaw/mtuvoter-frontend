@@ -4,7 +4,7 @@ import { showNoti } from "@/utils/noti.js";
 export default {
   data() {
     return {
-      logging_out: false,
+      logging_out: false
     };
   },
   methods: {
@@ -18,12 +18,12 @@ export default {
           if (vm.$route.name !== "Elections") {
             vm.$router.push({ name: "Elections" });
           } else {
-            vm.$router.push({name:"Home"})
+            vm.$router.push({ name: "Home" });
           }
         })
         .catch(() => {
           showNoti("error", "Error signing out");
         });
-    },
-  },
+    }
+  }
 };

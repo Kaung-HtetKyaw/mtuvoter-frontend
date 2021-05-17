@@ -37,7 +37,7 @@
             <router-link
               :to="{
                 name: 'Election-Position-Edit',
-                params: { election: electionId, position: positionId },
+                params: { election: electionId, position: positionId }
               }"
               class="text-decoration-underline px-1"
               >here</router-link
@@ -153,7 +153,7 @@ export default {
     return {
       candidates: [],
       yearArray: yearArray,
-      loading: false,
+      loading: false
     };
   },
   computed: {
@@ -162,7 +162,7 @@ export default {
     },
     positionId() {
       return this.$route.params.position;
-    },
+    }
   },
   beforeRouteEnter(to, from, next) {
     const { election } = to.params;
@@ -193,7 +193,7 @@ export default {
         .dispatch("election/addCandidates", {
           electionId: vm.electionId,
           positionId: vm.positionId,
-          candidates: vm.convertToFormArray(vm.candidates),
+          candidates: vm.convertToFormArray(vm.candidates)
         })
         .then(() => {
           vm.loading = false;
@@ -211,7 +211,7 @@ export default {
         email: "",
         promise: "",
         photo: "",
-        year: "",
+        year: ""
       });
       console.log(this.candidates);
     },
@@ -220,9 +220,9 @@ export default {
       console.log(this.candidates);
     },
     convertToFormArray(data) {
-      return data.map((el) => convertToForm(el));
-    },
-  },
+      return data.map(el => convertToForm(el));
+    }
+  }
 };
 </script>
 
@@ -232,7 +232,7 @@ export default {
     display: none !important;
   }
 }
-.v-text-field{
-  width:100%;
+.v-text-field {
+  width: 100%;
 }
 </style>

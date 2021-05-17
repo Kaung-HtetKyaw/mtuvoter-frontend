@@ -10,7 +10,7 @@
             <span class="font-weight-bold pr-2 ">{{ log.by }}:</span>
             <span
               :style="{
-                color: color,
+                color: color
               }"
               class="font-weight-medium text-capitalize"
               >{{ log.type }}</span
@@ -36,25 +36,25 @@ export default {
   props: {
     log: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       type_color: {
         create: {
-          color: "#00C853",
+          color: "#00C853"
         },
         update: {
-          color: "#F57F17",
+          color: "#F57F17"
         },
         delete: {
-          color: "#F50057",
+          color: "#F50057"
         },
         other: {
-          color: "#5545A8",
-        },
-      },
+          color: "#5545A8"
+        }
+      }
     };
   },
   computed: {
@@ -62,8 +62,8 @@ export default {
       return this.type_color[`${this.log.type}`]
         ? this.type_color[`${this.log.type}`].color
         : this.type_color.other.color;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -5,7 +5,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "Account" */ "../views/Account.vue"),
     meta: {
-      requiresAuth: true,
-    },
-  },
+      requiresAuth: true
+    }
+  }
 ];

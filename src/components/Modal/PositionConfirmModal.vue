@@ -71,12 +71,12 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data: () => ({
     dialog: false,
-    loading: false,
+    loading: false
   }),
   methods: {
     async removeCandidate() {
@@ -84,7 +84,7 @@ export default {
       vm.loading = true;
       await store
         .dispatch("election/removePosition", {
-          positionId: vm.id,
+          positionId: vm.id
         })
         .then(() => {
           vm.loading = false;
@@ -93,13 +93,13 @@ export default {
             "Position has been successfully removed from the election"
           );
         })
-        .catch((e) => {
+        .catch(e => {
           vm.loading = false;
           console.log(e);
           showNoti("error", "Error removing position");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

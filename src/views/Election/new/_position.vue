@@ -16,7 +16,7 @@
             <router-link
               :to="{
                 name: 'Election-Edit',
-                params: { election: election._id },
+                params: { election: election._id }
               }"
               class="text-decoration-underline px-1"
               >here</router-link
@@ -77,13 +77,13 @@ export default {
   data() {
     return {
       position: {},
-      loading: false,
+      loading: false
     };
   },
   computed: {
     ...mapState({
-      election: (state) => state.election.election,
-    }),
+      election: state => state.election.election
+    })
   },
   beforeRouteEnter(to, from, next) {
     if (!store.state.election.election) {
@@ -108,7 +108,7 @@ export default {
 
       await store
         .dispatch("election/addPosition", {
-          position: vm.position,
+          position: vm.position
         })
         .then(() => {
           vm.loading = false;
@@ -118,15 +118,15 @@ export default {
           );
           vm.$router.replace({
             name: "Election-Single",
-            params: { election: vm.position._election },
+            params: { election: vm.position._election }
           });
         })
         .catch(() => {
           vm.loading = false;
           showNoti("error", "Error creating new position for the election");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

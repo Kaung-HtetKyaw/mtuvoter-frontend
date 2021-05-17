@@ -54,8 +54,8 @@ export default {
       loading: false,
       faq: {
         question: "",
-        answer: "",
-      },
+        answer: ""
+      }
     };
   },
 
@@ -74,8 +74,8 @@ export default {
           vm.loading = false;
           showNoti("error", "Error creating new FAQ");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

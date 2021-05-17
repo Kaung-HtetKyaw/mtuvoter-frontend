@@ -35,12 +35,12 @@ export default {
   props: {
     mod: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      removing: false,
+      removing: false
     };
   },
   methods: {
@@ -54,13 +54,13 @@ export default {
           vm.removing = false;
           showNoti("success", "Moderator has been successfully removed");
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e.response);
           vm.removing = false;
           showNoti("error", e.response.message);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

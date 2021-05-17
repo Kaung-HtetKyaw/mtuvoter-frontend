@@ -96,14 +96,14 @@
 
 <script>
 const NewsForm = () => import("@/components/Form/NewsForm");
-const NewsPreview = () => import("@/components/News/NewsPreview")
+const NewsPreview = () => import("@/components/News/NewsPreview");
 import { convertToForm } from "@/utils/utils.js";
 import { showNoti } from "@/utils/noti.js";
 import store from "@/store/index.js";
 export default {
   components: {
     newsForm: NewsForm,
-    newsPreview: NewsPreview,
+    newsPreview: NewsPreview
   },
   data() {
     return {
@@ -114,18 +114,18 @@ export default {
         title: "",
         content: "",
         photo: "",
-        description: "",
+        description: ""
       },
       tabItems: [
         {
           title: "Write",
-          component: "newsForm",
+          component: "newsForm"
         },
         {
           title: "Preview",
-          component: "newsPreview",
-        },
-      ],
+          component: "newsPreview"
+        }
+      ]
     };
   },
   methods: {
@@ -148,8 +148,8 @@ export default {
     },
     listenFileChange(filePreview) {
       this.filePreview = filePreview;
-    },
-  },
+    }
+  }
 };
 </script>
 

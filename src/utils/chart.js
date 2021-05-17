@@ -1,14 +1,14 @@
 export function convertInitialElectionDataToResult(positions, candidates) {
-  return positions.map((position) => convertDataToResult(position, candidates));
+  return positions.map(position => convertDataToResult(position, candidates));
 }
 
 export function convertDataToResult(position, candidates) {
   let result = {};
   result.position = position._id;
   // filter out for the candidates who represent the position
-  let matched_candidates = candidates.filter((el) => el._post === position._id);
+  let matched_candidates = candidates.filter(el => el._post === position._id);
   // convert data to initial result
-  result.result = matched_candidates.map((candidate) => {
+  result.result = matched_candidates.map(candidate => {
     let candidate_result = {};
     candidate_result.vote_count = 0;
     candidate_result.candidate = [{ ...candidate }];
@@ -20,8 +20,8 @@ export function convertDataToResult(position, candidates) {
 export function updateResults(initialResults, results) {
   let updated_results = [];
   // merge the position result
-  initialResults.forEach((initialResult) => {
-    let result = results.find((el) => {
+  initialResults.forEach(initialResult => {
+    let result = results.find(el => {
       return el.position === initialResult.position;
     });
     if (result) {
@@ -38,8 +38,8 @@ function updateCandidateResults(position, initialResults, results) {
   candidate_results.position = position;
 
   // merge initial result and updated result (updated result first priority)
-  initialResults.result.forEach((initial_result) => {
-    let new_result = results.result.find((el) => {
+  initialResults.result.forEach(initial_result => {
+    let new_result = results.result.find(el => {
       return el.candidate[0]._id === initial_result.candidate[0]._id;
     });
     if (new_result) {

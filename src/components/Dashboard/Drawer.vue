@@ -65,7 +65,7 @@ export default {
         {
           name: "Dashboard",
           to: { name: "Dashboard" },
-          icon: "mdi-speedometer",
+          icon: "mdi-speedometer"
         },
         {
           name: "Staticstics",
@@ -73,28 +73,28 @@ export default {
             {
               name: "Elections",
               to: { name: "Dashboard-Elections" },
-              icon: "mdi-chart-bubble",
-            },
-          ],
+              icon: "mdi-chart-bubble"
+            }
+          ]
         },
         {
           name: "Manage Roles",
           to: { name: "Dashboard-Roles" },
-          icon: "mdi-account",
+          icon: "mdi-account"
         },
         {
           name: "View Logs",
           to: { name: "Dashboard-Logs" },
-          icon: "mdi-account",
+          icon: "mdi-account"
         },
         {
           name: "Back to Home",
           to: "/",
-          icon: "mdi-home-outline",
-        },
-      ],
+          icon: "mdi-home-outline"
+        }
+      ]
     };
-  },
+  }
 };
 </script>
 

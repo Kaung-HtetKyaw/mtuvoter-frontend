@@ -16,12 +16,12 @@ export default {
   props: {
     content: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      md: "",
+      md: ""
     };
   },
   mounted() {
@@ -30,8 +30,8 @@ export default {
   watch: {
     content(value) {
       this.md = marked(value);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

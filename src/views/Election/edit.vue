@@ -17,7 +17,7 @@
                 v-model="name"
               ></v-text-field>
               <v-textarea
-               class="width-100"
+                class="width-100"
                 outlined
                 label="Provide Election's information briefly"
                 required
@@ -109,13 +109,13 @@ export default {
       name: "",
       start: {
         date: new Date().toISOString().substr(0, 10),
-        time: "00:00",
+        time: "00:00"
       },
       end: {
         date: new Date().toISOString().substr(0, 10),
-        time: "00:00",
+        time: "00:00"
       },
-      loading: false,
+      loading: false
     };
   },
   computed: {
@@ -125,7 +125,7 @@ export default {
         startDate: `${this.start.date}:${this.start.time}:00`,
         endDate: `${this.end.date}:${this.end.time}:00`,
         name: this.name,
-        _id: this.originalElection._id,
+        _id: this.originalElection._id
       };
     },
     isValidDate() {
@@ -134,8 +134,8 @@ export default {
       );
     },
     ...mapState({
-      originalElection: (state) => state.election.election,
-    }),
+      originalElection: state => state.election.election
+    })
   },
   beforeRouteEnter(to, from, next) {
     const { election } = to.params;
@@ -153,9 +153,10 @@ export default {
   created() {
     this.about = this.originalElection.about;
     this.name = this.originalElection.name;
-    this.start= convertStringDateToObjDateAndTime(this.originalElection.startDate);
+    this.start = convertStringDateToObjDateAndTime(
+      this.originalElection.startDate
+    );
     this.end = convertStringDateToObjDateAndTime(this.originalElection.endDate);
-    
   },
   methods: {
     async updateElection() {
@@ -173,24 +174,26 @@ export default {
           vm.loading = false;
           showNoti("success", "Election has been created successfully");
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
           vm.loading = false;
           showNoti("error", "Error updating the election");
         });
-    },
-  },
+    }
+  }
 };
 
-function convertStringDateToObjDateAndTime (stringDate) {
-  let objDate={
-    date:"",
-    time:""
-  }
+function convertStringDateToObjDateAndTime(stringDate) {
+  let objDate = {
+    date: "",
+    time: ""
+  };
 
-  objDate.date = new Date(stringDate).toISOString().substr(0,10);
-  objDate.time = `${new Date(stringDate).getHours()}:${new Date(stringDate).getMinutes()}`;
-  return objDate
+  objDate.date = new Date(stringDate).toISOString().substr(0, 10);
+  objDate.time = `${new Date(stringDate).getHours()}:${new Date(
+    stringDate
+  ).getMinutes()}`;
+  return objDate;
 }
 </script>
 

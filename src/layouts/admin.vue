@@ -13,8 +13,8 @@ import TheNav from "@/components/TheNavAdmin.vue";
 export default {
   name: "App",
   components: {
-    TheNav,
-  },
+    TheNav
+  }
 };
 </script>
 

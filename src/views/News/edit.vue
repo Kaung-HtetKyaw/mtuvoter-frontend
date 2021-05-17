@@ -96,7 +96,7 @@
 
 <script>
 const NewsForm = () => import("@/components/Form/NewsForm");
-const NewsPreview = () => import("@/components/News/NewsPreview")
+const NewsPreview = () => import("@/components/News/NewsPreview");
 import store from "@/store/index.js";
 import { showNoti } from "@/utils/noti.js";
 import { convertToForm } from "@/utils/utils.js";
@@ -104,7 +104,7 @@ import { mapState } from "vuex";
 export default {
   components: {
     newsForm: NewsForm,
-    newsPreview: NewsPreview,
+    newsPreview: NewsPreview
   },
   data() {
     return {
@@ -115,19 +115,19 @@ export default {
       tabItems: [
         {
           title: "Write",
-          component: "newsForm",
+          component: "newsForm"
         },
         {
           title: "Preview",
-          component: "newsPreview",
-        },
-      ],
+          component: "newsPreview"
+        }
+      ]
     };
   },
   computed: {
     ...mapState({
-      originalNews: (state) => state.news.singleNews,
-    }),
+      originalNews: state => state.news.singleNews
+    })
   },
   beforeRouteEnter(to, from, next) {
     const { news } = to.params;
@@ -159,7 +159,7 @@ export default {
           showNoti("success", "News has been updated successfully");
           vm.$router.replace({
             name: "News-Single",
-            params: { news: vm.$route.params.news },
+            params: { news: vm.$route.params.news }
           });
         })
         .catch(() => {
@@ -172,8 +172,8 @@ export default {
     },
     listenFileChange(filePreview) {
       this.filePreview = filePreview;
-    },
-  },
+    }
+  }
 };
 </script>
 

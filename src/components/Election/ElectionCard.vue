@@ -30,14 +30,19 @@
           </v-chip>
           <v-divider></v-divider>
           <v-chip
-            v-if="authenticated && (userDetail.role === 'admin' || userDetail.role === 'mod')"
+            v-if="
+              authenticated &&
+                (userDetail.role === 'admin' || userDetail.role === 'mod')
+            "
             small
             outlined
             class="ma-2"
             color="deep-purple darken-4 white--text my-3 font-weight-bold"
           >
-            {{election.published ? "Published":"Unpublished"}}
-            <v-icon v-if="election.published" x-small class="ml-1">mdi-check-circle</v-icon>
+            {{ election.published ? "Published" : "Unpublished" }}
+            <v-icon v-if="election.published" x-small class="ml-1"
+              >mdi-check-circle</v-icon
+            >
           </v-chip>
           <v-divider></v-divider>
           <v-card-title class="election-title  font-weight-bold text-center">{{
@@ -73,7 +78,7 @@
               elevation="0"
               :to="{
                 name: 'Election-Single',
-                params: { election: election.id },
+                params: { election: election.id }
               }"
               >View Details</v-btn
             >
@@ -84,7 +89,7 @@
               elevation="0"
               :to="{
                 name: 'Dashboard-Staticstics-Election',
-                params: { election: election.id },
+                params: { election: election.id }
               }"
               >View Statictics</v-btn
             >
@@ -102,12 +107,12 @@ export default {
   props: {
     election: {
       type: Object,
-      required: true,
+      required: true
     },
     stats: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
 
   computed: {
@@ -120,14 +125,11 @@ export default {
     dates() {
       return {
         start: this.election.startDate,
-        end: this.election.endDate,
+        end: this.election.endDate
       };
-    },
-  },
-
-
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

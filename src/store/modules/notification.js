@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export const namespaced = true;
 export const state = {
-  notifications: [],
+  notifications: []
 };
 export const mutations = {
   ADD(state, noti) {
@@ -11,7 +11,7 @@ export const mutations = {
   },
   DELETE(state, index) {
     state.notifications.splice(index, 1);
-  },
+  }
 };
 
 export const actions = {
@@ -21,12 +21,12 @@ export const actions = {
   deleteNoti({ commit, getters }, noti) {
     const index = getters.getNotiIndex(noti.id);
     commit("DELETE", index);
-  },
+  }
 };
 export const getters = {
-  getNotiIndex: (state) => (id) => {
-    return state.notifications.findIndex((noti) => {
+  getNotiIndex: state => id => {
+    return state.notifications.findIndex(noti => {
       return noti.id === id;
     });
-  },
+  }
 };

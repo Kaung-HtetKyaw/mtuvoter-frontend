@@ -11,18 +11,19 @@
 
 <script>
 const Layout = () => import("@/layouts/AppLayout.vue");
-const NotificationContainer = () => import("@/components/Base/BaseNotiContainer.vue");
+const NotificationContainer = () =>
+  import("@/components/Base/BaseNotiContainer.vue");
 
 export default {
   name: "App",
   components: {
     Layout,
-    NotificationContainer,
+    NotificationContainer
   },
 
   data: () => ({
     //
-  }),
+  })
 };
 </script>
 

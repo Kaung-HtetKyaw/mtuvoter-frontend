@@ -18,7 +18,7 @@
               <router-link
                 :to="{
                   name: 'Election-Single',
-                  params: { election: $route.params.election },
+                  params: { election: $route.params.election }
                 }"
                 class="text-decoration-underline"
                 >Here
@@ -64,29 +64,29 @@ import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
 import {
   convertInitialElectionDataToResult,
-  updateResults,
+  updateResults
 } from "@/utils/chart.js";
 import { mapState } from "vuex";
 import store from "@/store/index.js";
-const BarChart = () => import('@/components/Chart/Bar.vue');
-const BaseLoader = () => import('@/components/Base/BaseLoader.vue');
+const BarChart = () => import("@/components/Chart/Bar.vue");
+const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
 import Pusher from "pusher-js";
 export default {
   name: "Result",
   components: {
     BarChart,
-    BaseLoader,
+    BaseLoader
   },
   data() {
     return {
       results: [],
-      loading: false,
+      loading: false
     };
   },
   computed: {
     ...mapState({
-      election: (state) => state.election.election,
-    }),
+      election: state => state.election.election
+    })
   },
   async beforeRouteEnter(to, from, next) {
     let election = store.state.election.singleElection;
@@ -108,10 +108,10 @@ export default {
     async loadResults() {
       const vm = this;
 
-      const positions = vm.election.positions.map((el) => el._id);
-      await Promise.all(positions.map((el) => vm.loadForOnePosition(el)))
-        .then((res) => {
-          console.log(res)
+      const positions = vm.election.positions.map(el => el._id);
+      await Promise.all(positions.map(el => vm.loadForOnePosition(el)))
+        .then(res => {
+          console.log(res);
           let initial_result = convertInitialElectionDataToResult(
             this.election.positions,
             this.election.candidates
@@ -127,19 +127,19 @@ export default {
       // get the position which new votes got added
       let changedPosition = Object.assign(
         {},
-        this.results.find((result) => result.position === newVote.position)
+        this.results.find(result => result.position === newVote.position)
       );
       let changedPositionIndex = this.results.findIndex(
-        (result) => result.position === newVote.position
+        result => result.position === newVote.position
       );
 
       // get the candidate who got voted
       let changedCandidate = changedPosition.result.find(
-        (el) => el.candidate[0]._id === newVote.candidate
+        el => el.candidate[0]._id === newVote.candidate
       );
       changedCandidate.vote_count++;
       let changedCandidateIndex = changedPosition.result.findIndex(
-        (el) => el.candidate[0]._id === newVote.candidate
+        el => el.candidate[0]._id === newVote.candidate
       );
 
       // replace the candidate result with the new result
@@ -147,16 +147,16 @@ export default {
       // replace with the position result which contain new votes
       this.$set(this.results, changedPositionIndex, {
         position: newVote.position,
-        result: changedPosition.result,
+        result: changedPosition.result
       });
     },
     async subscribe() {
       const vm = this;
       let pusher = new Pusher(process.env.VUE_APP_PUSHER_KEY, {
-        cluster: process.env.VUE_APP_PUSHER_CLUSTER,
+        cluster: process.env.VUE_APP_PUSHER_CLUSTER
       });
       pusher.subscribe("vote-result");
-      pusher.bind("new-vote", (data) => {
+      pusher.bind("new-vote", data => {
         vm.addNewVote(data);
       });
     },
@@ -164,14 +164,14 @@ export default {
       const vm = this;
       return await axios()
         .get(`/ballots/elections/${vm.election._id}/positions/${positionId}`)
-        .then((res) => {
+        .then(res => {
           return { position: positionId, result: res.data.data };
         })
         .catch(() => {
           showNoti("error", "Error Loading Results");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

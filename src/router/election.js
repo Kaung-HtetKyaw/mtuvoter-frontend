@@ -6,8 +6,8 @@ export default [
     component: () =>
       import(/* webpackChunkName: "elections" */ "../views/Election/index.vue"),
     meta: {
-      layout: defaultLayout,
-    },
+      layout: defaultLayout
+    }
   },
   {
     path: "/elections/new",
@@ -19,8 +19,8 @@ export default [
     meta: {
       layout: defaultLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
 
   {
@@ -33,8 +33,8 @@ export default [
     meta: {
       layout: defaultLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
   {
     path: "/elections/new/:election/positions/:position/candidates",
@@ -46,8 +46,8 @@ export default [
     meta: {
       layout: defaultLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
   {
     path: "/elections/:election/edit",
@@ -59,8 +59,8 @@ export default [
     meta: {
       layout: defaultLayout,
       requiresAuth: true,
-      role: "admin",
-    },
+      role: "admin"
+    }
   },
   {
     path: "/elections/:election",
@@ -70,8 +70,8 @@ export default [
         /* webpackChunkName: "election" */ "../views/Election/electionSingle.vue"
       ),
     meta: {
-      layout: defaultLayout,
-    },
+      layout: defaultLayout
+    }
   },
 
   {
@@ -80,16 +80,15 @@ export default [
     component: () =>
       import(/* webpackChunkName: "election-result" */ "../views/Result.vue"),
     meta: {
-      layout: defaultLayout,
-    },
+      layout: defaultLayout
+    }
   },
   {
-    path:"/elections/:election/guest",
-    name:"Generate-Guest-Token",
+    path: "/elections/:election/guest",
+    name: "Generate-Guest-Token",
     component: () =>
-    import(
-      /* webpackChunkName: "reset-password" */ "../views/Auth/GuestToken.vue"
-    ),
-    
+      import(
+        /* webpackChunkName: "reset-password" */ "../views/Auth/GuestToken.vue"
+      )
   }
 ];

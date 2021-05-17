@@ -28,15 +28,15 @@ export default {
   props: {
     items: {
       type: Array,
-      required: true,
+      required: true
     },
     headings: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {};
-  },
+  }
 };
 </script>

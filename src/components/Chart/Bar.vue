@@ -23,20 +23,20 @@ export default {
   props: {
     result: {
       type: Array,
-      required: true,
+      required: true
     },
     grouped_by: {
       type: Array,
-      required: true,
+      required: true
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     seried_by: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   created() {
     this.changedResult();
@@ -45,43 +45,43 @@ export default {
     return {
       options: {
         chart: {
-          id: "vuechart-example",
+          id: "vuechart-example"
         },
         colors: ["#363A92"],
         xaxis: {
-          categories: [],
-        },
+          categories: []
+        }
       },
       series: [
         {
           name: "",
-          data: [],
-        },
-      ],
+          data: []
+        }
+      ]
     };
   },
   methods: {
     changedResult() {
-      this.options.xaxis.categories = this.result.map((el) => {
+      this.options.xaxis.categories = this.result.map(el => {
         return getNestedPropertyFromDotString(el, this.grouped_by);
       });
       //* have to use this.$set instance method because vue cannot provide reactivity for changing array items and nested obj
       this.$set(this.series, 0, {
         name: this.name,
-        data: this.result.map((el) =>
+        data: this.result.map(el =>
           getNestedPropertyFromDotString(el, this.seried_by)
-        ),
+        )
       });
-    },
+    }
   },
   watch: {
     result: {
       deep: true,
       handler() {
         this.changedResult();
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

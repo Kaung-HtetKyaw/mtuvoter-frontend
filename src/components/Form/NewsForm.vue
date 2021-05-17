@@ -30,7 +30,7 @@
             backgroundImage: `url(${filePreview || news.photo})`,
 
             backgroundSize: 'contain',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center'
           }"
           class="mb-6"
         ></v-sheet>
@@ -80,14 +80,14 @@ export default {
   props: {
     news: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       tags: [],
       clonedNews: {},
-      filePreview: null,
+      filePreview: null
     };
   },
 
@@ -102,18 +102,18 @@ export default {
     emitFile(file) {
       if (file) {
         let vm = this;
-        previewImg(file, (preview) => {
+        previewImg(file, preview => {
           vm.filePreview = preview;
           vm.$emit("fileChaged", preview);
         });
       }
-    },
+    }
   },
   computed: {
     ...mapState({
-      user: (state) => state.user.user,
-    }),
-  },
+      user: state => state.user.user
+    })
+  }
 };
 </script>
 
