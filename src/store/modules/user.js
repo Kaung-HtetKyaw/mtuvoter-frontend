@@ -72,6 +72,7 @@ export const actions = {
       });
   },
   async getMe({ commit }) {
+    console.log(axios())
     await axios()
       .get(`/users/me`, {
         withCredentials: true

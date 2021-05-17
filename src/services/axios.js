@@ -11,6 +11,6 @@ export default isForm => {
     };
   }
   const instance = axios.create(options);
-
+  console.log(options)
   return instance;
 };
