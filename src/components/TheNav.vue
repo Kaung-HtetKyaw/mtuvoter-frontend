@@ -3,7 +3,6 @@
     <v-app-bar
       elevation="1"
       app
-      elevate-on-scroll
       color="white"
       flat
       fixed
@@ -179,8 +178,6 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  box-shadow: 0 0 0 1px rgba(8, 9, 10, 0.2);
-
   &-item {
     &--text {
       font-size: 17px;
