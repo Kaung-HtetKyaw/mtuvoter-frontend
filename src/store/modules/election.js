@@ -109,7 +109,8 @@ export const actions = {
         commit("FETCH_LATEST_RACED_ELECTION", res.data.data);
         return res.data.data;
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e.response)
         showNoti("error", "Error loading the latest raced election");
       });
     return latest_election;
