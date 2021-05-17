@@ -1,5 +1,4 @@
 import axios from "axios";
-console.log(process.env.VUE_APP_BASE_API_URL);
 export default isForm => {
   const options = {
     withCredentials: true,
@@ -11,6 +10,5 @@ export default isForm => {
     };
   }
   const instance = axios.create(options);
-  console.log(options)
   return instance;
 };
