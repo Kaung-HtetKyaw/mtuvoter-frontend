@@ -3,7 +3,7 @@ console.log(process.env.VUE_APP_BASE_API_URL);
 export default isForm => {
   const options = {
     withCredentials: true,
-    baseURL: process.env.VUE_APP_BASE_API_URL
+    baseURL: 'https://kgnatours.herokuapp.com/api/v1'
   };
   if (isForm) {
     options.headers = {
