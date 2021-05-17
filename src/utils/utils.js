@@ -34,7 +34,6 @@ export function setDefaultAuthMetaForRoutes(routes) {
     }
     return route;
   });
-  console.log(result);
   return result;
 }
 
@@ -63,7 +62,6 @@ export function isPlainObject(obj) {
 }
 
 export function convertToForm(data) {
-  console.log(data);
   let form = new FormData();
   for (const key in data) {
     form.append(key, data[key]);

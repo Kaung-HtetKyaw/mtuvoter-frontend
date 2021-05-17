@@ -17,7 +17,6 @@ export default {
   mounted() {
     const vm = this;
     document.addEventListener("load", function() {
-      console.log("loaded");
       vm.isloaded = true;
     });
   }

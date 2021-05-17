@@ -109,8 +109,7 @@ export const actions = {
         commit("FETCH_LATEST_RACED_ELECTION", res.data.data);
         return res.data.data;
       })
-      .catch(e => {
-        console.log(e);
+      .catch(() => {
         showNoti("error", "Error loading the latest raced election");
       });
     return latest_election;
@@ -134,7 +133,6 @@ export const actions = {
         return res.data.data;
       })
       .catch(e => {
-        console.log(e.response);
         showNoti("error", e.response.message);
       });
   },
@@ -163,7 +161,6 @@ export const actions = {
         return res.data.data;
       })
       .catch(e => {
-        console.log(e.response);
         showNoti("error", e.response.data.message);
       });
     return updatedCandidate;
@@ -233,7 +230,6 @@ export const actions = {
         });
       })
       .catch(e => {
-        console.log(e);
         showNoti("error", e.response.message);
       });
   },
@@ -291,8 +287,7 @@ async function getLatestRacedElectionResult(electionId, positionId) {
   return await axios()
     .get(`/ballots/elections/${electionId}/positions/${positionId}`)
     .then(res => res.data.data)
-    .catch(e => {
-      console.log(e.response);
+    .catch(() => {
       showNoti("error", "Error creating candidate");
     });
 }

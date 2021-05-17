@@ -44,8 +44,7 @@ export const actions = {
         commit("FETCH_RESULT_BY_STUDENT", res.data.data);
         return res.data.data;
       })
-      .catch(e => {
-        console.log(e.response);
+      .catch(() => {
         showNoti("error", "Error Loading the results");
       });
   },
@@ -72,8 +71,7 @@ async function getElectionResultByPosition(electionId, positionId) {
   return await axios()
     .get(`/ballots/elections/${electionId}/positions/${positionId}`)
     .then(res => res.data.data)
-    .catch(e => {
-      console.log(e.response);
+    .catch(() => {
       showNoti("error", "Error loading result");
     });
 }

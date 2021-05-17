@@ -144,7 +144,6 @@ export default {
   },
   created() {
     this.news = { ...this.originalNews };
-    console.log(this.news);
   },
 
   methods: {

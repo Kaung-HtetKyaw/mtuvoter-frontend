@@ -55,7 +55,6 @@ export default {
           showNoti("success", "Moderator has been successfully removed");
         })
         .catch(e => {
-          console.log(e.response);
           vm.removing = false;
           showNoti("error", e.response.message);
         });

@@ -188,7 +188,6 @@ export default {
     async createCandidates() {
       const vm = this;
       vm.loading = true;
-      console.log(vm.convertToFormArray(vm.candidates));
       await store
         .dispatch("election/addCandidates", {
           electionId: vm.electionId,
@@ -213,11 +212,9 @@ export default {
         photo: "",
         year: ""
       });
-      console.log(this.candidates);
     },
     removeCandidate(index) {
       this.candidates.splice(index, 1);
-      console.log(this.candidates);
     },
     convertToFormArray(data) {
       return data.map(el => convertToForm(el));

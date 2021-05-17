@@ -185,7 +185,6 @@ export default {
           vm.voting = false;
         })
         .catch(e => {
-          console.log(e.response);
           vm.voting = false;
           if (e.response.data.message) {
             showNoti("error", e.response.data.message);

@@ -164,7 +164,6 @@ export default {
     // can't overwirte the prop
     // so, make data properties for later case of overwriting
     this.voted = this.vote_status;
-    console.log(this.vote_status);
   }
 };
 </script>

@@ -82,7 +82,6 @@ export default {
       })
       .catch(e => {
         vm.loading = false;
-        console.log(e.response);
         if (e.response.data.message) {
           vm.error = e.response.data.message;
         } else {

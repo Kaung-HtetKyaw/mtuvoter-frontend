@@ -174,8 +174,7 @@ export default {
           vm.loading = false;
           showNoti("success", "Election has been created successfully");
         })
-        .catch(e => {
-          console.log(e);
+        .catch(() => {
           vm.loading = false;
           showNoti("error", "Error updating the election");
         });

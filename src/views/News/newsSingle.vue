@@ -142,11 +142,6 @@ export default {
         });
     }
   },
-  watch: {
-    news(value) {
-      console.log(value);
-    }
-  }
 };
 </script>
 

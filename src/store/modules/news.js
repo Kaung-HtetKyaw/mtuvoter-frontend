@@ -85,7 +85,6 @@ export const actions = {
         return res.data.data;
       })
       .catch(e => {
-        console.log(e.response);
         showNoti("error", e.response.message);
       });
   },
@@ -96,7 +95,6 @@ export const actions = {
         commit("UPDATE_NEWS", res.data.data);
       })
       .catch(e => {
-        console.log(e.response);
         showNoti("error", e.response.message);
       });
   },
@@ -107,7 +105,6 @@ export const actions = {
         commit("DELETE_NEWS", newsId);
       })
       .catch(e => {
-        console.log(e);
         showNoti("error", e.response.message);
       });
   },

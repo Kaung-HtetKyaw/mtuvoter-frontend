@@ -93,9 +93,8 @@ export default {
             "Position has been successfully removed from the election"
           );
         })
-        .catch(e => {
+        .catch(() => {
           vm.loading = false;
-          console.log(e);
           showNoti("error", "Error removing position");
         });
     }

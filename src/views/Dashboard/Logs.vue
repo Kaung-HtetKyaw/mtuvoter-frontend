@@ -56,9 +56,8 @@ export default {
     await this.loadLogs();
   },
   methods: {
-    async loadLogs(isVisible) {
+    async loadLogs() {
       const vm = this;
-      console.log(isVisible);
       if (vm.end || vm.loading) {
         return;
       }
@@ -66,7 +65,6 @@ export default {
       await axios()
         .get(`/logs?page=${vm.page}&limit=${vm.limit}`)
         .then(res => {
-          console.log(res.data.data.length);
           if (vm.logs.length > 0 && res.data.data.length === 0) {
             vm.end = true;
             vm.loading = false;

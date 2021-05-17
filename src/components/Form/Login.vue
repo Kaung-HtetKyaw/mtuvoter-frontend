@@ -66,7 +66,6 @@ export default {
       await store
         .dispatch("user/login", this.account)
         .then(res => {
-          console.log(res);
           vm.loading = false;
           if (res.message) {
             vm.info = res.message;

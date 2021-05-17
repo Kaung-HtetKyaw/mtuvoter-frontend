@@ -375,8 +375,7 @@ export default {
         .then(res => {
           vote_status.status = res.data.data;
         })
-        .catch(e => {
-          console.log(e.response);
+        .catch(() => {
           vote_status.status = false;
         });
     },

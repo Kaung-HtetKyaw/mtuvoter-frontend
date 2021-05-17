@@ -151,9 +151,8 @@ export default {
             params: { election: res._id }
           });
         })
-        .catch(e => {
+        .catch(() => {
           vm.loading = false;
-          console.log(e);
           showNoti("error", "Error creating new election");
         });
     }

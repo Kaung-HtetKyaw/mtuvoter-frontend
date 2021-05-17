@@ -72,7 +72,6 @@ export const actions = {
       });
   },
   async getMe({ commit }) {
-    console.log(axios())
     await axios()
       .get(`/users/me`, {
         withCredentials: true
@@ -81,9 +80,8 @@ export const actions = {
         commit("SET_ME", res.data.data);
         commit("CHANGE_FETCH_STATE");
       })
-      .catch(e => {
+      .catch(() => {
         commit("CHANGE_FETCH_STATE");
-        console.log(e.response);
       });
   },
   async updateMe({ commit }, { user }) {

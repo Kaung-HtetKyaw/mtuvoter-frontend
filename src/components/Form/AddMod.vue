@@ -134,10 +134,8 @@ export default {
           vm.user = res.data.data[0];
           vm.loading = false;
           if (!res.data.data[0]) vm.not_found = true;
-          console.log(res.data.data[0]);
         })
-        .catch(e => {
-          console.log(e.response);
+        .catch(() => {
           showNoti("error", "Error finding the user");
         });
     },

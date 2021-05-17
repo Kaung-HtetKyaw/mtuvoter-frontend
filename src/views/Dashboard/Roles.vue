@@ -162,7 +162,6 @@ export default {
           if (res.data.data.length == 0) {
             vm.end = true;
           }
-          console.log(res.data.data);
           vm.mods = vm.mods.concat(res.data.data);
           vm.loading = false;
           vm.page++;

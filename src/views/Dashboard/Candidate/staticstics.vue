@@ -91,12 +91,10 @@ export default {
         .then(res => {
           vm.loading = false;
           vm.pie_chart_data = vm.convertRawdataToPiechartData(res.data.data);
-          console.log(vm.pie_chart_data);
         })
-        .catch(e => {
+        .catch(() => {
           vm.loading = false;
           showNoti("error", "Something went wrong");
-          console.log(e);
         });
     },
     convertRawdataToPiechartData(raw) {

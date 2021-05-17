@@ -50,7 +50,6 @@ export const actions = {
         return res.data.data;
       })
       .catch(e => {
-        console.log(e);
         showNoti("error", e.response.message);
       });
   },

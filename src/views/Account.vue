@@ -222,8 +222,7 @@ export default {
         .dispatch("user/updateMe", {
           user: convertToObjWithPropProvided(vm.account, ["name"])
         })
-        .then(res => {
-          console.log(res);
+        .then(() => {
           vm.updating_account = false;
           showNoti("success", "Account has been updated successfully");
         })
@@ -250,8 +249,7 @@ export default {
           );
           vm.$router.push({ name: "Login" });
         })
-        .catch(e => {
-          console.log(e.response);
+        .catch(() => {
           vm.updating_password = false;
           showNoti("error", "Error updating password");
         });
