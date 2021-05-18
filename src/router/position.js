@@ -3,7 +3,7 @@ export default [
     path: "/positions/:position/edit",
     name: "Election-Position-Edit",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "election-edit" */ "../views/Position/edit.vue"
       )
   }

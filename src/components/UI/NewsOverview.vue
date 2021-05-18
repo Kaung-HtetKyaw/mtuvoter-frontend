@@ -28,7 +28,7 @@
 </template>
 
 <script>
-const NewsCard = () => import("@/components/News/NewsCard.vue");
+const NewsCard = () => import(/* webpackPrefetch: true */"@/components/News/NewsCard.vue");
 export default {
   name: "NewsOverview",
   components: {

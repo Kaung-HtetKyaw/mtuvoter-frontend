@@ -97,9 +97,9 @@
 </template>
 
 <script>
-const BarChart = () => import("@/components/Chart/Bar.vue");
+const BarChart = () => import(/* webpackPrefetch: true */"@/components/Chart/Bar.vue");
 const CandidateCard = () =>
-  import("@/components/Candidate/CandidateCardStats.vue");
+  import(/* webpackPrefetch: true */"@/components/Candidate/CandidateCardStats.vue");
 import {
   candidate_votes_by_student,
   election_result

@@ -91,7 +91,7 @@ import { mapState } from "vuex";
 import Markdown from "@/components/Base/BaseMarkdown.vue";
 import NewsConfirmModal from "@/components/Modal/NewsConfirmModal.vue";
 import { showNoti } from "@/utils/noti.js";
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 export default {
   name: "News-Single",
   components: {

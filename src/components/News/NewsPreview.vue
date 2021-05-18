@@ -27,7 +27,7 @@
 </template>
 
 <script>
-const MarkDown = () => import("@/components/Base/BaseMarkdown");
+const MarkDown = () => import(/* webpackPrefetch: true */"@/components/Base/BaseMarkdown");
 export default {
   components: {
     "vue-markdown": MarkDown

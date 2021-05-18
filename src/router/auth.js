@@ -1,10 +1,10 @@
-const plainLayout = () => import("@/layouts/about.vue");
+const plainLayout = () => import(/* webpackPrefetch: true */"@/layouts/about.vue");
 export default [
   {
     path: "/login",
     name: "Login",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Auth/Login.vue"),
+      import(/* webpackPrefetch: true *//* webpackChunkName: "login" */ "../views/Auth/Login.vue"),
     meta: {
       layout: plainLayout
     }
@@ -13,7 +13,7 @@ export default [
     path: "/forgot",
     name: "Forgot-Password",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "forgot-password" */ "../views/Auth/ForgotPassword.vue"
       ),
     meta: {
@@ -25,7 +25,7 @@ export default [
     path: "/reset",
     name: "Reset-Password",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "reset-password" */ "../views/Auth/ResetPassword.vue"
       ),
     meta: {
@@ -36,7 +36,7 @@ export default [
     path: "/verify/:token",
     name: "Verify",
     component: () =>
-      import(/* webpackChunkName: "verify" */ "../views/Auth/Verify.vue"),
+      import(/* webpackPrefetch: true *//* webpackChunkName: "verify" */ "../views/Auth/Verify.vue"),
     meta: {
       layout: plainLayout
     }

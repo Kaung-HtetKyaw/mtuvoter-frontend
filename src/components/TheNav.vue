@@ -146,8 +146,8 @@
 <script>
 // import BaseSearch from "@/components/BaseSearch.vue";
 const BaseNavigationDrawer = () =>
-  import("@/components/Base/BaseNavigationDrawer.vue");
-const UserDrawer = () => import("@/components/User/UserDrawer.vue");
+  import(/* webpackPrefetch: true */"@/components/Base/BaseNavigationDrawer.vue");
+const UserDrawer = () => import(/* webpackPrefetch: true */"@/components/User/UserDrawer.vue");
 import { mapState } from "vuex";
 import authMixin from "@/mixins/auth.js";
 export default {

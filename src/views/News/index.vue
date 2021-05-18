@@ -58,8 +58,8 @@
 </template>
 
 <script>
-const NewsCard = () => import("@/components/News/NewsCard-2.vue");
-const BaseLoader = () => import("@/components/News/NewsCard-2.vue");
+const NewsCard = () => import(/* webpackPrefetch: true */"@/components/News/NewsCard-2.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/News/NewsCard-2.vue");
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 

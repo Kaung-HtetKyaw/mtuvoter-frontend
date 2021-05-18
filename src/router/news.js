@@ -1,11 +1,11 @@
-const defaultLayout = () => import("@/layouts/default.vue");
+const defaultLayout = () => import(/* webpackPrefetch: true */"@/layouts/default.vue");
 
 export default [
   {
     path: "/news",
     name: "Newsletter",
     component: () =>
-      import(/* webpackChunkName: "news" */ "../views/News/index.vue"),
+      import(/* webpackPrefetch: true *//* webpackChunkName: "news" */ "../views/News/index.vue"),
     meta: {
       layout: defaultLayout
     }
@@ -14,7 +14,7 @@ export default [
     path: "/news/publish",
     name: "News-Publish",
     component: () =>
-      import(/* webpackChunkName: "news-publish" */ "../views/News/create.vue"),
+      import(/* webpackPrefetch: true *//* webpackChunkName: "news-publish" */ "../views/News/create.vue"),
     meta: {
       layout: defaultLayout
     }
@@ -23,7 +23,7 @@ export default [
     path: "/news/:news",
     name: "News-Single",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "news-single" */ "../views/News/newsSingle.vue"
       ),
     meta: {
@@ -34,7 +34,7 @@ export default [
     path: "/news/:news/edit",
     name: "News-Edit",
     component: () =>
-      import(/* webpackChunkName: "news-eidt" */ "../views/News/edit.vue"),
+      import(/* webpackPrefetch: true *//* webpackChunkName: "news-eidt" */ "../views/News/edit.vue"),
     meta: {
       layout: defaultLayout
     }

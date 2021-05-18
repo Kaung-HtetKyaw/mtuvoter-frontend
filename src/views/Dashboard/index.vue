@@ -110,9 +110,9 @@
 </template>
 
 <script>
-const BarChart = () => import("@/components/Chart/Bar.vue");
-const BaseTable = () => import("@/components/Base/BaseTable.vue");
-const BaseLogCard = () => import("@/components/Base/BaseLogCard.vue");
+const BarChart = () => import(/* webpackPrefetch: true */"@/components/Chart/Bar.vue");
+const BaseTable = () => import(/* webpackPrefetch: true */"@/components/Base/BaseTable.vue");
+const BaseLogCard = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLogCard.vue");
 import store from "@/store/index.js";
 import axios from "@/services/axios.js";
 import {

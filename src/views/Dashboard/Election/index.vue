@@ -29,8 +29,8 @@
 </template>
 
 <script>
-const ElectionCard = () => import("@/components/Election/ElectionCard.vue");
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const ElectionCard = () => import(/* webpackPrefetch: true */"@/components/Election/ElectionCard.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 

@@ -36,9 +36,9 @@
 </template>
 
 <script>
-const BarChart = () => import("@/components/Chart/Bar.vue");
-const PieChart = () => import("@/components/Chart/Pie.vue");
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const BarChart = () => import(/* webpackPrefetch: true */"@/components/Chart/Bar.vue");
+const PieChart = () => import(/* webpackPrefetch: true */"@/components/Chart/Pie.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import {
   candidate_votes_by_student,
   election_result

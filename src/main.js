@@ -1,5 +1,5 @@
 import Vue from "vue";
-const App = () => import("./App.vue");
+const App = () => import(/* webpackPrefetch: true */"./App.vue");
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";

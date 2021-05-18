@@ -58,7 +58,7 @@
 </template>
 
 <script>
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import axios from "@/services/axios.js";
 export default {
   components: {

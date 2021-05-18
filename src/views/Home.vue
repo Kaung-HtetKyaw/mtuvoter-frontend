@@ -12,9 +12,9 @@
   </div>
 </template>
 <script>
-const Hero = () => import("@/components/UI/Hero.vue");
-const ElectionOverview = () => import("@/components/UI/ElectionOverview.vue");
-const NewsOverview = () => import("@/components/UI/NewsOverview.vue");
+const Hero = () => import(/* webpackPrefetch: true */"@/components/UI/Hero.vue");
+const ElectionOverview = () => import(/* webpackPrefetch: true */"@/components/UI/ElectionOverview.vue");
+const NewsOverview = () => import(/* webpackPrefetch: true */"@/components/UI/NewsOverview.vue");
 import store from "@/store/index.js";
 export default {
   name: "About",

@@ -10,9 +10,9 @@
 </template>
 
 <script>
-const Layout = () => import("@/layouts/AppLayout.vue");
+const Layout = () => import(/* webpackPrefetch: true */"@/layouts/AppLayout.vue");
 const NotificationContainer = () =>
-  import("@/components/Base/BaseNotiContainer.vue");
+  import(/* webpackPrefetch: true */"@/components/Base/BaseNotiContainer.vue");
 
 export default {
   name: "App",

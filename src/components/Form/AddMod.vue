@@ -109,7 +109,7 @@
 <script>
 import axios from "@/services/axios.js";
 import { showNoti } from "@/utils/noti.js";
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 export default {
   name: "AddMod",
   components: {

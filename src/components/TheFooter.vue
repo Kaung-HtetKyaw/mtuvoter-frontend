@@ -50,7 +50,7 @@
 </template>
 
 <script>
-const SubscribeModal = () => import("@/components/Modal/SubscribeModal.vue");
+const SubscribeModal = () => import(/* webpackPrefetch: true */"@/components/Modal/SubscribeModal.vue");
 export default {
   components: {
     SubscribeModal

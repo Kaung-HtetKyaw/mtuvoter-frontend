@@ -39,7 +39,7 @@
 </template>
 
 <script>
-const ElectionCard = () => import("@/components/Election/ElectionCard.vue");
+const ElectionCard = () => import(/* webpackPrefetch: true */"@/components/Election/ElectionCard.vue");
 
 export default {
   name: "ElectionOverview",

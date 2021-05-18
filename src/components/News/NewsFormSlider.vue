@@ -36,8 +36,8 @@
 </template>
 
 <script>
-const NewsForm = () => import("@/components/Form/NewsForm");
-const NewsPreview = () => import("@/components/News/NewsPreview");
+const NewsForm = () => import(/* webpackPrefetch: true */"@/components/Form/NewsForm");
+const NewsPreview = () => import(/* webpackPrefetch: true */"@/components/News/NewsPreview");
 
 export default {
   name: "NewsFormSlider",

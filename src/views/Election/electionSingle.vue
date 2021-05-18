@@ -308,12 +308,12 @@
 </template>
 
 <script>
-const CandidateCard = () => import("@/components/Candidate/CandidateCard.vue");
+const CandidateCard = () => import(/* webpackPrefetch: true */"@/components/Candidate/CandidateCard.vue");
 const PositionConfirmModal = () =>
-  import("@/components/Modal/PositionConfirmModal.vue");
+  import(/* webpackPrefetch: true */"@/components/Modal/PositionConfirmModal.vue");
 const ElectionConfirmModal = () =>
-  import("@/components/Modal/ElectionConfirmModal.vue");
-const Loader = () => import("@/components/Base/BaseLoader.vue");
+  import(/* webpackPrefetch: true */"@/components/Modal/ElectionConfirmModal.vue");
+const Loader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import store from "@/store/index.js";
 import axios from "@/services/axios.js";
 import { mapState } from "vuex";

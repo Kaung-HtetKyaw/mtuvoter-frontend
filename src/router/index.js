@@ -19,9 +19,9 @@ import { showNoti } from "@/utils/noti.js";
 // import { setDefaultAuthMetaForRoutes } from "@/utils/utils.js";
 
 // layouts
-const defaultLayout = () => import("@/layouts/default.vue");
-const errorLayout = () => import("@/layouts/error.vue");
-const Home = () => import(/* webpackChunkName: "home" */ "../views/Home.vue");
+const defaultLayout = () => import(/* webpackPrefetch: true */"@/layouts/default.vue");
+const errorLayout = () => import(/* webpackPrefetch: true */"@/layouts/error.vue");
+const Home = () => import(/* webpackPrefetch: true *//* webpackChunkName: "home" */ "../views/Home.vue");
 
 const options = {
   latencyThreshold: 200 // Number of ms before progressbar starts showing, default: 100,

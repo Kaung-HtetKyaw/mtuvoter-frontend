@@ -74,8 +74,8 @@
   </v-container>
 </template>
 <script>
-const BaseAccordion = () => import("@/components/Base/BaseAccordion.vue");
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const BaseAccordion = () => import(/* webpackPrefetch: true */"@/components/Base/BaseAccordion.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import store from "@/store/index.js";
 import { mapState } from "vuex";
 

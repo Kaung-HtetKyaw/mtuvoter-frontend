@@ -27,8 +27,8 @@
 </template>
 
 <script>
-const BaseLogCard = () => import("@/components/Base/BaseLogCard.vue");
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const BaseLogCard = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLogCard.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import {
   candidate_votes_by_student,
   election_result

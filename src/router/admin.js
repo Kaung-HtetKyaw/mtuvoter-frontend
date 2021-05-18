@@ -1,10 +1,10 @@
-const adminLayout = () => import("@/layouts/admin.vue");
+const adminLayout = () => import(/* webpackPrefetch: true */"@/layouts/admin.vue");
 export default [
   {
     path: "/dashboard",
     name: "Dashboard",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "Dashboard" */ "../views/Dashboard/index.vue"
       ),
     meta: {
@@ -17,7 +17,7 @@ export default [
     path: "/dashboard/logs",
     name: "Dashboard-Logs",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "dashboard-logs" */ "../views/Dashboard/Logs.vue"
       ),
     meta: {
@@ -30,7 +30,7 @@ export default [
     path: "/dashboard/roles",
     name: "Dashboard-Roles",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "dashboard-roles" */ "../views/Dashboard/Roles.vue"
       ),
     meta: {
@@ -43,7 +43,7 @@ export default [
     path: "/dashboard/elections",
     name: "Dashboard-Elections",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "dashboard-elections" */ "../views/Dashboard/Election/index.vue"
       ),
     meta: {
@@ -57,7 +57,7 @@ export default [
     path: "/dashboard/elections/:election/stats",
     name: "Dashboard-Staticstics-Election",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "dashboard-staticstics" */ "../views/Dashboard/Election/staticstics.vue"
       ),
     meta: {
@@ -71,7 +71,7 @@ export default [
       "/dashboard/elections/:election/positions/:position/candidates/:candidate/stats",
     name: "Dashboard-Staticstics-Candidate",
     component: () =>
-      import(
+      import(/* webpackPrefetch: true */
         /* webpackChunkName: "dashboard-staticstics" */ "../views/Dashboard/Candidate/staticstics.vue"
       ),
     meta: {

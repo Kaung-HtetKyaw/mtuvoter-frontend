@@ -39,8 +39,8 @@
 </template>
 
 <script>
-const LoginForm = () => import("@/components/Form/Login.vue");
-const SignUpForm = () => import("@/components/Form/Signup.vue");
+const LoginForm = () => import(/* webpackPrefetch: true */"@/components/Form/Login.vue");
+const SignUpForm = () => import(/* webpackPrefetch: true */"@/components/Form/Signup.vue");
 export default {
   name: "Auth",
   components: {

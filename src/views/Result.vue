@@ -68,8 +68,8 @@ import {
 } from "@/utils/chart.js";
 import { mapState } from "vuex";
 import store from "@/store/index.js";
-const BarChart = () => import("@/components/Chart/Bar.vue");
-const BaseLoader = () => import("@/components/Base/BaseLoader.vue");
+const BarChart = () => import(/* webpackPrefetch: true */"@/components/Chart/Bar.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import Pusher from "pusher-js";
 export default {
   name: "Result",

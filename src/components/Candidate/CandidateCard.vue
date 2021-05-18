@@ -128,9 +128,9 @@
 </template>
 
 <script>
-const Vote = () => import("@/components/Form/Vote.vue");
+const Vote = () => import(/* webpackPrefetch: true */"@/components/Form/Vote.vue");
 const ConfirmModal = () =>
-  import("@/components/Modal/CandidateConfirmModal.vue");
+  import(/* webpackPrefetch: true */"@/components/Modal/CandidateConfirmModal.vue");
 import { yearMap, majorMap } from "@/utils/constants.js";
 
 export default {
