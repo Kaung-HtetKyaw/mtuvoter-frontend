@@ -16,10 +16,10 @@
         cols="12"
         sm="12"
         class="d-flex justify-end py-0"
-        v-if="
-          (userDetail && userDetail.role === 'mod') ||
-            userDetail.role === 'admin'
-        "
+               v-if="
+              authenticated &&
+                (userDetail.role === 'admin' || userDetail.role === 'mod')
+            "
       >
         <v-btn
           color="deep-purple darken-4"

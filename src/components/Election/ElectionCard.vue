@@ -114,7 +114,6 @@ export default {
       default: false
     }
   },
-
   computed: {
     holding() {
       return (

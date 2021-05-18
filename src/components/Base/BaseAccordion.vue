@@ -47,7 +47,7 @@
     <div
       class="d-block my-3 d-flex justify-end"
       v-if="
-        (userDetail && userDetail.role === 'mod') || userDetail.role === 'admin'
+        authenticated && (userDetail.role === 'mod' || userDetail.role === 'admin')
       "
     >
       <v-btn

@@ -15,7 +15,9 @@ export const state = {
 export const mutations = {
   FETCH_ELECTIONS(state, elections) {
     state.elections = state.elections.concat(elections);
-    if (state.elections.length > 0 && elections.length == 0) state.end = true;
+  },
+  SET_END_STATE(state) {
+    state.end = true;
   },
   FETCH_ELECTION(state, election) {
     state.election = election;
@@ -74,11 +76,14 @@ export const mutations = {
 
 export const actions = {
   async getElections({ commit, state }, qurey = "") {
-    const elections = await axios()
+    return axios()
       .get(`/elections?page=${state.page}&limit=${state.limit}&${qurey}`)
       .then(res => {
         commit("FETCH_ELECTIONS", res.data.data);
         commit("INCREMENT_PAGE");
+        if(res.data.data.length < state.limit) {
+          commit('SET_END_STATE')
+        }
         return res.data.data;
       })
       .catch(() => {
@@ -87,8 +92,6 @@ export const actions = {
           "Error loading election. Please reload and try again."
         );
       });
-
-    return elections;
   },
   async getElection({ commit }, id) {
     const election = await axios()
@@ -235,15 +238,18 @@ export const actions = {
       });
   },
   // results
-  async getLatestResults({ commit, state, dispatch }) {
-    await dispatch("getLatestRacedElection");
-    const latest_result = await Promise.all(
-      state.latest_raced_election.positions.map(el =>
-        getLatestRacedElectionResult(state.latest_raced_election._id, el._id)
-      )
-    );
-    commit("FETCH_LATEST_RESULT", latest_result);
-    return latest_result;
+  async getLatestResults({ commit, dispatch }) {
+    await dispatch("getLatestRacedElection")
+    .then(async (res) => {
+      const latest_result = await Promise.all(
+        res.positions.map(el =>
+          getLatestRacedElectionResult(res._id, el._id)
+        )
+      );
+      commit("FETCH_LATEST_RESULT", latest_result);
+      return latest_result;
+    })
+
   },
   // change published flag to true if it was false previously and vice versa
   async changePublishedFlag({ state, commit }, { electionId }) {

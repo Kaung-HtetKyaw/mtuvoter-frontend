@@ -115,6 +115,7 @@ const BaseTable = () => import(/* webpackPrefetch: true */"@/components/Base/Bas
 const BaseLogCard = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLogCard.vue");
 import store from "@/store/index.js";
 import axios from "@/services/axios.js";
+import {mapState} from 'vuex'
 import {
   candidate_votes_by_student,
   election_result
@@ -139,9 +140,13 @@ export default {
         headings: ["name", "email", "role"]
       },
       logs: [],
-      results: null,
-      latest_election: null
     };
+  },
+  computed: {
+    ...mapState({
+      results: state => state.election.latest_results,
+      latest_election: state=> state.election.latest_raced_election,
+    })
   },
   async beforeRouteEnter(to, from, next) {
     let elections = store.state.election.elections;
@@ -160,9 +165,7 @@ export default {
     next(vm => {
       vm.elections.items = elections;
       vm.authorities.items = authorities.data.data;
-      vm.logs = logs.data.data;
-      vm.results = latest_results;
-      vm.latest_election = store.state.election.latest_raced_election;
+      vm.logs = logs.data.data;;
     });
   }
 };

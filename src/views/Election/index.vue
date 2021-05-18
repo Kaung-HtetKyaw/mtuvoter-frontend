@@ -44,7 +44,7 @@
           md="6"
           lg="4"
           v-for="(election, index) in elections"
-          :key="election.id"
+          :key="election._id"
           v-observe-visibility="
             index === elections.length - 1 ? loadElections : false
           "
@@ -57,6 +57,7 @@
           color="deep-purple darken-4"
           :ripple="false"
           class="white--text"
+          v-if="isAdmin"
           :to="{ name: 'Election-New' }"
           dark
           large
@@ -84,7 +85,7 @@
 
 <script>
 const ElectionCard = () => import(/* webpackPrefetch: true */"@/components/Election/ElectionCard.vue");
-const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Election/ElectionCard.vue");
+const BaseLoader = () => import(/* webpackPrefetch: true */"@/components/Base/BaseLoader.vue");
 import { mapState } from "vuex";
 import store from "@/store/index.js";
 
@@ -113,10 +114,9 @@ export default {
     store.dispatch("UI/changeLoadingState", true);
     next();
   },
-
   methods: {
     async loadElections() {
-      if (!this.end) {
+      if (!this.loading && !this.end) {
         const vm = this;
         this.loading = true;
         await store
