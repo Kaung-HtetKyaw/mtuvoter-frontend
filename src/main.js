@@ -8,6 +8,7 @@ import "nprogress/nprogress.css";
 import VueApexCharts from "vue-apexcharts";
 import VueObserveVisibility from "vue-observe-visibility";
 import Clipboard from "v-clipboard";
+require('intersection-observer');
 
 import baseMixin from "@/mixins/base.js";
 import "./registerServiceWorker";

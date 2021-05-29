@@ -17,6 +17,10 @@
             <v-form ref="form" class="px-2">
               <div>
                 <div>
+                  <p v-if="errorMsg" class="red--text font-weight-medium text-center">{{ errorMsg }}</p>
+                  <p v-if="successMsg" class="success--text font-weight-medium text-center">{{ successMsg }}</p>
+                </div>
+                <div>
                   <h6
                     class="text-body-2 font-weight-medium deep-purple--text darken-4 mb-2"
                   >
@@ -25,6 +29,7 @@
                   <v-text-field
                     outlined
                     type="email"
+                    v-model="resetInfo.email"
                     required
                     dense
                   ></v-text-field>
@@ -38,6 +43,7 @@
                   <v-text-field
                     outlined
                     type="password"
+                    v-model="resetInfo.password"
                     required
                     dense
                   ></v-text-field>
@@ -51,6 +57,7 @@
                   <v-text-field
                     outlined
                     type="password"
+                    v-model="resetInfo.confirmedPassword"
                     required
                     dense
                   ></v-text-field>
@@ -64,6 +71,8 @@
                   color="deep-purple darken-4"
                   class="white--text text-capitalize"
                   depressed
+                  :loading='resettingPassword'
+                  @click="resetPassword"
                   :ripple="false"
                   >Reset Password</v-btn
                 >
@@ -76,7 +85,42 @@
   </v-container>
 </template>
 <script>
-export default {};
+import store from '@/store/index.js';
+import {showNoti} from '@/utils/noti.js';
+export default {
+  data() {
+    return {
+      resettingPassword:false,
+      successMsg:'',
+      errorMsg:'',
+      resetInfo:{
+        email:'',
+        password:'',
+        confirmedPassword:''
+      }
+    }
+  },
+  methods:{
+    async resetPassword() {
+      const vm = this;
+      vm.resettingPassword = true;
+      return store.dispatch('user/resetPassword',{resetInfo:vm.resetInfo,token:vm.$route.params.token})
+      .then(() => {
+        vm.successMsg = 'Password reset link has been sent to your email address. Please check your email.'
+        vm.resettingPassword = false;
+        showNoti('success','Password has been changed successfully. Now logging you in.........')
+        this.$router.push({ name: "Elections" });
+      })
+      .catch((e)=> {
+        vm.resettingPassword = false;
+        if(e.response.data.message) {
+          vm.errorMsg = e.response.data.message
+        }
+        vm.errorMsg = "Something went wrong.Please try again."
+      })
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

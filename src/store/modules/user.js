@@ -17,6 +17,10 @@ export const mutations = {
     state.user = user;
   },
   UPDATE_PASSWORD() {},
+  FORGOT_PASSWORD() {},
+  RESET_PASSWORD(user) {
+    state.user = user
+  },
   UPDATE_ME(state, user) {
     state.user = user;
   },
@@ -124,7 +128,21 @@ export const actions = {
         showNoti("error", "Error logging out");
       });
   },
-
+  async forgotPassword({commit},{email}) {
+    return axios().post('/users/forgot',{email})
+    .then(() => {
+      commit('FORGOT_PASSWORD')
+    })
+  },
+  async resetPassword({commit,dispatch},{resetInfo,token}) {
+    return axios().patch(`/users/reset/${token}`,resetInfo)
+    .then((res) => {
+      commit('RESET_PASSWORD',res.data.data)
+      dispatch("election/clearElections", null, { root: true });
+      dispatch("news/clearNews", null, { root: true });
+      return res.data.data;
+    })
+  },
   async changeSubscribedFlag({ commit }, wasSubscribed) {
     let route = `/users/me/${wasSubscribed ? "unsubscribe" : "subscribe"}`;
     return axios()

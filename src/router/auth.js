@@ -22,7 +22,7 @@ export default [
   },
 
   {
-    path: "/reset",
+    path: "/reset/:token",
     name: "Reset-Password",
     component: () =>
       import(/* webpackPrefetch: true */

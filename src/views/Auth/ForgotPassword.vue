@@ -18,6 +18,8 @@
                   <v-form ref="form" class="px-2">
                     <div class="px-3">
                       <div class="width-100">
+                        <p v-if="errorMsg" class="red--text font-weight-medium text-center">{{ errorMsg }}</p>
+                        <p v-if="successMsg" class="success--text font-weight-medium text-center">{{ successMsg }}</p>
                         <p class="text-center text-body-2">
                           Enter your email address below. Reset link will be
                           sent to that address
@@ -26,7 +28,7 @@
                       <v-text-field
                         outlined
                         type="email"
-                        v-model="email"
+                        v-model="emailToSentResetLink"
                         label="Your email address"
                         required
                         dense
@@ -36,14 +38,15 @@
                     <div
                       class="width-100 d-flex flex-column justify-center align-center"
                     >
-                      <v-btn
-                        color="deep-purple darken-4"
-                        class="white--text text-capitalize"
-                        depressed
-                        :ripple="false"
-                        @click="sendResetLink"
-                        >Send Reset link</v-btn
-                      >
+                        <v-btn
+                          color="deep-purple darken-4"
+                          class="white--text text-capitalize"
+                          depressed
+                          :loading='sendingResetLink'
+                          :ripple="false"
+                          @click="sendResetLink()"
+                          >Send Reset link</v-btn
+                        >
                     </div>
                     <div class="mt-2">
                       <router-link :to="{ name: 'Home' }">
@@ -62,15 +65,33 @@
 </template>
 
 <script>
+import store from '@/store/index.js'
 export default {
   data() {
     return {
-      email: ""
+      emailToSentResetLink: "",
+      successMsg:'',
+      errorMsg:'',
+      sendingResetLink:false
     };
   },
   methods: {
-    sendResetLink() {
-      this.$router.push({ name: "Reset-Password" });
+    async sendResetLink() {
+      const vm = this;
+      vm.sendingResetLink =true;
+      await store.dispatch('user/forgotPassword',{email:vm.emailToSentResetLink})
+      .then(() => {
+        vm.successMsg = 'Password reset link has been sent to your email address. Please check your email.'
+        vm.sendingResetLink = false;
+      })
+      .catch((e)=> {
+        console.log(e)
+        vm.sendingResetLink = false;
+        if(e.response?.data.message) {
+          vm.errorMsg = e.response.data.message
+        }
+        vm.errorMsg = "Something went wrong. Please try again."
+      })
     }
   }
 };
